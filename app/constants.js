@@ -12,6 +12,7 @@ import projectImg1 from "../public/project-img1.png";
 import projectImg2 from "../public/project-img2.png";
 import projectImg4 from "../public/project-img4.png";
 import projectImg5 from "../public/project-img5.png";
+import projectImg6 from "../public/project-img6.png";
 import ExpressjsIcon from "../public/express.svg";
 import NodejsIcon from "../public/nodejs.svg";
 import MongoDBIcon from "../public/mongodb.svg";
@@ -35,6 +36,7 @@ export const PROJECTS = [
     projectCode: "https://github.com/srivastava-ayush/portfolio-AYUSH/tree/master/src/components/slices",
     projectLive: "https://srivastava-ayush.vercel.app/slices",
     projectId: 1,
+    category: ["frontend"],
   }
   ,
   {
@@ -45,6 +47,7 @@ export const PROJECTS = [
     projectCode: "https://github.com/srivastava-ayush/Boxit",
     projectLive: "https://boxlit.vercel.app/",
     projectId: 2,
+    category: ["full-stack", "backend", "frontend", "landing-page"],
   },
     {
     projectName: "Kodak",
@@ -54,15 +57,17 @@ export const PROJECTS = [
     projectCode: "https://github.com/srivastava-ayush/Kodak",
     // projectLive: "https://kodak.vercel.app/",
     projectId: 3,
+    category: ["ai", "backend"],
   },
   {
   projectName: "Can You Remember?",
   projectDescriptionShort: "Can You Remember? — a fast-paced visual memory game that challenges users to recall blinking patterns.",
   projectDescriptionLong: "Can You Remember? is an interactive memory game where players must observe and recall the sequence of blinking blocks in the correct order. Designed to test and improve short-term memory and focus, the game progressively increases difficulty by adding longer and faster sequences. It features smooth UI interactions, real-time feedback, and a dynamic scoring system to keep users engaged while sharpening their cognitive skills.",
   projectImg: projectImg4,
-  projectCode: "https://github.com/your-username/can-you-remember",
+  projectCode: "https://github.com/srivastava-ayush/can-you-remember",
   projectLive: "https://can-you-remember.vercel.app",
   projectId: 4,
+  category: ["frontend"],
 },
 {
   projectName: "Bunk-Tendance",
@@ -72,6 +77,17 @@ export const PROJECTS = [
   projectCode: "https://github.com/srivastava-ayush/Bunk-Tendence",
   projectLive: "https://bunk-tendance.vercel.app/",
   projectId: 5,
+  category: ["frontend"],
+},
+{
+  projectName: "Mihika Arts",
+  projectDescriptionShort: "Mihika Arts — a platform for showcasing and selling art",
+  projectDescriptionLong:"Mihika Arts is an online platform designed to showcase and sell artwork. It provides artists with a space to display their creations, connect with art enthusiasts, and manage sales. The platform features a user-friendly interface, secure payment processing, and tools for artists to promote their work effectively.",
+  projectImg: projectImg6,
+  projectCode: "https://github.com/srivastava-ayush/mihika-arts",
+  projectLive: "https://mihika-arts.vercel.app/",
+  projectId: 6,
+  category: ["frontend", "landing-page"],
 }
 ];
 

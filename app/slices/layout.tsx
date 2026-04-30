@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 import { HomeIcon, List, NewspaperIcon, PlayIcon } from "lucide-react";
-import { Play } from "next/font/google";
+import { SidebarIcon } from "@phosphor-icons/react";
 
 const demoItems = [
   { id: 1, title: "Getting Started", icon: HomeIcon, slug: "getting-started" },
@@ -77,24 +77,10 @@ export default function SlicesLayout({
         <div className="flex items-center gap-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 text-xl  hover:bg-white/10 rounded-lg transition-colors"
             aria-label="Toggle sidebar"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
+            <SidebarIcon  size={24} />
           </button>
           <motion.span
             initial={{ opacity: 0, letterSpacing: "0.6em" }}
@@ -114,7 +100,7 @@ export default function SlicesLayout({
             /> 
           </motion.span>
         </div>
-        <span className=" px-4 py-2 text-[.75rem] rounded-full border z-999">under development</span>
+        <span className=" px-2 py-1    md:px-4 md:py-2 text-[.45rem]  md:text-[.75rem] rounded-full border z-999">under development</span>
         <span className="gap-1 flex justify-center items-center">
           <Link
             href="/"
@@ -139,7 +125,7 @@ export default function SlicesLayout({
 
         {/* Sidebar */}
         <aside
-          className={`fixed md:sticky top-[60px] left-0 h-[calc(100vh-60px)] bg-transparent border-r border-[var(--border-2-color)] z-40 transition-all duration-300 ease-in-out ${
+          className={`fixed md:sticky top-[60px] left-0 h-[calc(100vh-60px)] bg-[var(--bg-color)] border-r border-[var(--border-2-color)] z-40 transition-all ease-in-out duration-300  ${
             sidebarOpen ? "w-fit" : "-translate-x-full md:translate-x-0"
           } ${sidebarOpen ? "w-64 px-6 " : "w-fit border-0 px-2"}`}
         >
@@ -159,7 +145,7 @@ export default function SlicesLayout({
                     }}
                     className={`w-full text-left px-4 py-3 rounded-lg cursor-pointer transition-colors flex flex-col items-center gap-3 group ${
                       currentSection === item.slug
-                        ? "bg-gradient-to-r from-[var(--text-color)]/20 to-[var(--text-color)]/10 shadow-[inset_0_2px_3px_rgba(255,255,255,0.6),0_4px_10px_rgba(0,0,0,0.05)] "
+                        ? "bg-gradient-to-r from-[var(--text-color)]/20 to-[var(--text-color)]/10 shadow-[inset_0_2px_3px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.05)] "
                         : "hover:bg-white/10"
                     }`}
                   >
