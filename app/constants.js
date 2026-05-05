@@ -43,7 +43,7 @@ export const PROJECTS = [
   {
     projectName: "Boxlit",
     projectDescriptionShort: "Boxlit — boxing app that helps to learn, practice, & improve, offering valuable resources for all skill levels.",
-    projectDescriptionLong: "Boxlit is a comprehensive boxing app designed for everyone—from beginners to experienced fighters. It features interactive tutorials, guided training sessions, and personalized workout plans to help users sharpen their skills and track their progress.",
+    projectDescriptionLong: "Boxlit is a comprehensive boxing app designed for everyone from beginners to experienced fighters. It features interactive tutorials, guided training sessions, and personalized workout plans to help users sharpen their skills and track their progress.",
     projectImg: projectImg2,
     projectCode: "https://github.com/srivastava-ayush/Boxit",
     projectLive: "https://boxlit.vercel.app/",
@@ -76,7 +76,7 @@ export const PROJECTS = [
 {
   projectName: "Bunk-Tendance",
   projectDescriptionShort: "Bunk-Tendance — a web app that tracks student bunks",
-  projectDescriptionLong:" A simple yet powerful tool to help students track and plan their attendance strategically. This app lets you input your current academic stats and calculates exactly how many classes you can safely miss—or how many you must attend—to reach your desired attendance percentage.",
+  projectDescriptionLong:" A simple yet powerful tool to help students track and plan their attendance strategically. This app lets you input your current academic stats and calculates exactly how many classes you can safely miss or how many you must attend to reach your desired attendance percentage.",
   projectImg: projectImg5,
   projectCode: "https://github.com/srivastava-ayush/Bunk-Tendence",
   projectLive: "https://bunk-tendance.vercel.app/",

@@ -107,11 +107,60 @@ function AboutMe() {
 
         <footer className="flex justify-between items-center text-sm text-(--text-color)/25 pt-8 border-t border-[var(--border-color)]/20">
           <span>© 2025 Ayush Srivastava</span>
-          <Link href="/terminal" className="hover:text-(--text-color)/40 transition-colors">
+          <Link href="/terminal" className="glitch-link relative text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors" data-text="/terminal">
             /terminal
           </Link>
         </footer>
       </div>
+
+      <style jsx global>{`
+        .glitch-link {
+          position: relative;
+          display: inline-block;
+        }
+        .glitch-link::before,
+        .glitch-link::after {
+          content: attr(data-text);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          background: inherit;
+          opacity: 0;
+        }
+        .glitch-link::before {
+          color: #0ff;
+          clip-path: inset(0 0 50% 0);
+          animation: glitch-anim-1 3s infinite linear alternate-reverse;
+        }
+        .glitch-link::after {
+          color: #f0f;
+          clip-path: inset(50% 0 0 0);
+          animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+          0%, 100% { clip-path: inset(0 100% 0 0); opacity: 0; }
+          10% { clip-path: inset(15% 0 30% 0); transform: translateX(-2px); opacity: 0.8; }
+          12% { clip-path: inset(45% 0 10% 0); transform: translateX(2px); opacity: 0.8; }
+          14% { clip-path: inset(0 100% 0 0); opacity: 0; }
+          40% { clip-path: inset(60% 0 5% 0); transform: translateX(-1px); opacity: 0.6; }
+          42% { clip-path: inset(0 100% 0 0); opacity: 0; }
+          80% { clip-path: inset(20% 0 50% 0); transform: translateX(3px); opacity: 0.7; }
+          82% { clip-path: inset(0 100% 0 0); opacity: 0; }
+        }
+        @keyframes glitch-anim-2 {
+          0%, 100% { clip-path: inset(0 100% 0 0); opacity: 0; }
+          15% { clip-path: inset(35% 0 20% 0); transform: translateX(2px); opacity: 0.8; }
+          17% { clip-path: inset(5% 0 60% 0); transform: translateX(-2px); opacity: 0.8; }
+          19% { clip-path: inset(0 100% 0 0); opacity: 0; }
+          50% { clip-path: inset(70% 0 10% 0); transform: translateX(-3px); opacity: 0.6; }
+          52% { clip-path: inset(0 100% 0 0); opacity: 0; }
+          85% { clip-path: inset(10% 0 40% 0); transform: translateX(1px); opacity: 0.7; }
+          87% { clip-path: inset(0 100% 0 0); opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }

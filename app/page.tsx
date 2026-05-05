@@ -74,14 +74,7 @@ function PageClient() {
 
        </motion.div>
 
-      <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-0 h-[500px]">
-        <motion.div
-          animate={{ opacity: [0.4, 0.6, 0.4] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[1200px] h-[400px] rounded-full bg-gradient-to-t from-[#FE8808]/15 via-[#FE8808]/5 to-transparent blur-[140px]"
-        />
-       
-      </div>
+  
     </div>
   );
 }

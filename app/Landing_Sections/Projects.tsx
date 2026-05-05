@@ -13,18 +13,28 @@ function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audioReady, setAudioReady] = useState(false);
 
   useEffect(() => {
     audioRef.current = new Audio('/click_sound.wav');
     audioRef.current.volume = 0.02;
+    audioRef.current.load();
+    
+    audioRef.current.addEventListener('canplaythrough', () => {
+      setAudioReady(true);
+    });
   }, []);
 
-  useEffect(() => {
-    if (audioRef.current) {
+  const playSound = useCallback(() => {
+    if (audioRef.current && audioReady) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {});
     }
-  }, [activeIndex]);
+  }, [audioReady]);
+
+  useEffect(() => {
+    playSound();
+  }, [activeIndex, playSound]);
 
   const handleWheel = useCallback(
     (e: WheelEvent) => {
@@ -43,6 +53,15 @@ function Projects() {
     list.addEventListener('wheel', handleWheel, { passive: false });
     return () => list.removeEventListener('wheel', handleWheel);
   }, [handleWheel]);
+
+  const unlockAudio = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.play().then(() => {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }).catch(() => {});
+    }
+  }, []);
 
   const project = DISPLAY_PROJECTS[activeIndex];
 
@@ -63,10 +82,12 @@ function Projects() {
           </Link>
         </div>
 
-        <div className="flex-1 flex">
+        <div className="flex-1 flex" onMouseDown={unlockAudio}>
           <div
             ref={listRef}
             className="w-1/2 flex flex-col justify-center px-8 cursor-pointer select-none"
+            onPointerEnter={unlockAudio}
+            onMouseDown={unlockAudio}
           >
         
 
