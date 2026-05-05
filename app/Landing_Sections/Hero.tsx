@@ -89,7 +89,7 @@ function Hero() {
           {/* Socials & Resume */}
           <div className="social-container flex mt-6 md:mt-6">
             <div className="networks flex flex-col lg:flex-row-reverse justify-center items-center gap-4">
-               <div className="netbox relative overflow-hidden bg-[var(--netbox-bg-color)] border border-[var(--border-color)]/50 rounded-lg flex gap-4 p-3 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)]">
+               <div className="netbox relative overflow-hidden bg-[var(--netbox-bg-color)] border border-[var(--border-color)]/50 rounded-lg flex gap-4 p-7 md:p-2 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)]">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                 {renderSocialIcons}
               </div>
