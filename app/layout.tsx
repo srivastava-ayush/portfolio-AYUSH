@@ -79,6 +79,9 @@ export default function RootLayout({
         <SoundProvider/>
         <ScrollToTop />
         {children}
+        <span className="fixed z-99 bottom-[-40] bg-[var(--bg-color)]  blur-[20px] w-full  h-20"/>
+          
+      
       </body>
     </html>
   );
