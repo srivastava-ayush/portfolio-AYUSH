@@ -89,32 +89,32 @@ function Hero() {
           {/* Socials & Resume */}
           <div className="social-container flex mt-6 md:mt-6">
             <div className="networks flex flex-col lg:flex-row-reverse justify-center items-center gap-4">
-              <div className="netbox relative bg-[var(--netbox-bg-color)] border-[var(--border-color)] rounded-lg flex gap-4 p-3">
+               <div className="netbox relative overflow-hidden bg-[var(--netbox-bg-color)] border border-[var(--border-color)]/50 rounded-lg flex gap-4 p-3 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)]">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                 {renderSocialIcons}
               </div>
 
         
                       
               <a
-                
-
                   onClick={() => window.open('/ayush_resume_intern.pdf', '_blank')}
-  target="_blank"
-  rel="noopener noreferrer"
-                className="p-4 h-full flex items-center border-[var(--border-color)] bg-[var(--resume-btn-color)] w-full lg:w-auto text-center justify-center hover:bg-[#fdb3682f] text-(--text-color) hover:text-[var(--button-hover-text)] cursor-pointer  rounded transition duration-300 border"
-              >
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  viewBox="0 0 384 512"
-                  className="mr-2"
-                  height="18"
-                  width="18"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative overflow-hidden p-4 h-full flex items-center border border-[var(--border-color)]/50 bg-[var(--resume-btn-color)] w-full lg:w-auto text-center justify-center hover:bg-[#fdb3682f] text-(--text-color) hover:text-[var(--button-hover-text)] cursor-pointer rounded-lg transition duration-300 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)]"
                 >
-                  <path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36z" />
-                </svg>
-                Resume
-              </a>
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    viewBox="0 0 384 512"
+                    className="mr-2"
+                    height="18"
+                    width="18"
+                  >
+                    <path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36z" />
+                  </svg>
+                  Resume
+                </a>
 
             </div>
           </div>

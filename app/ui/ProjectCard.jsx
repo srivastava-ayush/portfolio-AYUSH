@@ -1,39 +1,37 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import Image from "next/image";
+
 function ProjectCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <motion.div
       layout
       key={props.projectName}
-      className="card project-card min-h-full  relative shadow-2xl overflow-hidden group max-w-120 min-w-full transition-all bg-(--glass-bg-color) border-2 border-[#ffffff10] rounded-lg p-4"
+      className="relative overflow-hidden rounded-lg border border-[var(--border-color)]/30 shadow-[inset_0_1px_4px_rgba(255,255,255,0.08),inset_0_-1px_3px_rgba(0,0,0,0.2),0_8px_32px_rgba(0,0,0,0.3)]"
     >
-      <div className="shine"></div>
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-      <motion.div layout className="flex flex-col gap-4">
+      <motion.div layout className="flex flex-col p-5">
+        <div className="w-full aspect-video overflow-hidden rounded-md bg-(--border-color)/10 mb-4">
+          <Image
+            src={props.projectImg.src || null}
+            alt={props.projectName}
+            width={1280}
+            height={720}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
         <motion.h1
           layout
-          className="projects-h1 transition-all opacity-90 duration-300 font-bold text-(--text-color)"
+          className="text-xl font-semibold text-(--text-color) tracking-tight"
         >
           {props.projectName}
         </motion.h1>
 
-       
-
-
-        <div className="w-full aspect-video">
-  <Image
-    src={props.projectImg.src ? props.projectImg.src : null}
-    alt="project-img"
-    width={1280}
-    height={720}
-    className="w-full h-full object-contain border-t-2 border-[#ffffff54] rounded-lg"
-  />
-</div>
-
-
-        <motion.p layout className="text-(--text-color) opacity-85 text-center md:text-left">
+        <motion.p layout className="text-sm text-(--text-color)/50 leading-relaxed mt-2">
           {props.projectDescriptionShort}
         </motion.p>
 
@@ -41,11 +39,11 @@ function ProjectCard(props) {
           {isExpanded && (
             <motion.p
               key="expand"
-              initial={{ opacity: 0, height: 0, filter: "blur(5px)", color: "black" }}
-              animate={{ opacity: 1, height: "auto", filter: "blur(0px)", color: "" }}
-              exit={{ opacity: 0, height: 0, filter: "blur(5px)", color: "black" }}
-              transition={{ duration: 0.4 }}
-              className="text-(--text-color) opacity-85 text-center md:text-left"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-sm text-(--text-color)/50 leading-relaxed mt-2 overflow-hidden"
             >
               {props.projectDescriptionLong}
             </motion.p>
@@ -54,17 +52,42 @@ function ProjectCard(props) {
 
         <motion.button
           layout
-          onClick={() => setIsExpanded(prev => !prev)}
-          className="text-(--text-color) opacity-85 hover:text-[#ff8400]  w-fit self-center md:self-start"
+          onClick={() => setIsExpanded((prev) => !prev)}
+          className="text-xs text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors mt-3 w-fit self-start"
         >
           {isExpanded ? "Show Less" : "Read More"}
         </motion.button>
 
-        <hr className="w-full border-b border-(--border-color) opacity-50" />
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/30 to-transparent mt-4 mb-4" />
 
-        <div className="flex justify-between space-x-4 ">
-          <a href={props.projectCode} target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-300 hover:text-white transition-colors duration-300"><svg stroke="currentColor" fill="var(--text-color)" strokeWidth="0" viewBox="0 0 496 512" className="mr-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><span className
-          =" hover:text-[#ff8c00] font-semibold text-(--text-color)">View Code</span></a><a href={props.projectLive} target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-300 hover:text-white transition-colors duration-300"><svg stroke="currentColor" fill="var(--text-color)" strokeWidth="0" viewBox="0 0 512 512" className="mr-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path></svg><span className="text-[#FC8B10] hover:text-(--text-color)  font-semibold">Live Demo</span></a></div>
+        <div className="flex items-center gap-5">
+          <a
+            href={props.projectCode}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 2.046 1.073.6-.165 1.065-.313 2.042-.375.977-.062 1.973.155 2.744.155.771 0 1.767-.217 2.744-.155.977.062 1.442.21 2.042.375 1.038-1.395 2.046-1.073 2.046-1.073.652 1.652.165 2.873.04 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+            Source
+          </a>
+          {props.projectLive && (
+            <a
+              href={props.projectLive}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors flex items-center gap-1.5"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              Live demo
+            </a>
+          )}
+        </div>
       </motion.div>
     </motion.div>
   );
