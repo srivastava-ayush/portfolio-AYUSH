@@ -136,6 +136,8 @@ function Hero() {
               <path d="M8 18L12 22L16 18" />
             </svg>
           </button>
+
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
         </main>
   )
 }

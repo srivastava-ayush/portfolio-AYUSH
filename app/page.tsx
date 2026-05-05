@@ -58,9 +58,11 @@ function PageClient() {
         {/* Main Hero Section */}
         <Hero/>
 
-        <div className="max-w-4xl w-full flex flex-col justify-center items-center gap-24 md:gap-32 ">
+        <div className="max-w-3xl w-full flex flex-col justify-center items-center gap-24 md:gap-32 ">
           {/* Projects */}
-        <Projects/>
+        <div className="w-full h-[200vh]">
+          <Projects/>
+        </div>
 
           {/* Activity */}
         <Activity />
@@ -70,7 +72,16 @@ function PageClient() {
 
         </div>
 
-      </motion.div>
+       </motion.div>
+
+      <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-0 h-[500px]">
+        <motion.div
+          animate={{ opacity: [0.4, 0.6, 0.4] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[1200px] h-[400px] rounded-full bg-gradient-to-t from-[#FE8808]/15 via-[#FE8808]/5 to-transparent blur-[140px]"
+        />
+       
+      </div>
     </div>
   );
 }

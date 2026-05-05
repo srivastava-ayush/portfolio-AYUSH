@@ -38,7 +38,7 @@ function Page() {
 
     <div className='min-h-[130vh] pt-30 pb-16 px-2 flex flex-col  items-center'>
 <Navbar />
-<motion.main initial={{ opacity: 0}} animate={{ opacity: 1 }} transition={{duration:1}} className='  w-full max-w-4xl flex flex-col gap-8'>
+<motion.main initial={{ opacity: 0}} animate={{ opacity: 1 }} transition={{duration:1}} className='  w-full max-w-3xl flex flex-col gap-8'>
       
       <motion.span
         initial={{ opacity: 0, top: "-100px" }}

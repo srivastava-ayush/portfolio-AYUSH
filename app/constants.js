@@ -37,6 +37,7 @@ export const PROJECTS = [
     projectLive: "https://srivastava-ayush.vercel.app/slices",
     projectId: 1,
     category: ["frontend"],
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Motion"],
   }
   ,
   {
@@ -48,6 +49,7 @@ export const PROJECTS = [
     projectLive: "https://boxlit.vercel.app/",
     projectId: 2,
     category: ["full-stack", "backend", "frontend", "landing-page"],
+    techStack: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"],
   },
     {
     projectName: "Kodak",
@@ -58,6 +60,7 @@ export const PROJECTS = [
     // projectLive: "https://kodak.vercel.app/",
     projectId: 3,
     category: ["ai", "backend"],
+    techStack: ["Python", "OpenAI", "SpeechRecognition", "Tkinter"],
   },
   {
   projectName: "Can You Remember?",
@@ -68,6 +71,7 @@ export const PROJECTS = [
   projectLive: "https://can-you-remember.vercel.app",
   projectId: 4,
   category: ["frontend"],
+  techStack: ["React", "JavaScript", "CSS", "Motion"],
 },
 {
   projectName: "Bunk-Tendance",
@@ -78,6 +82,7 @@ export const PROJECTS = [
   projectLive: "https://bunk-tendance.vercel.app/",
   projectId: 5,
   category: ["frontend"],
+  techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
 },
 {
   projectName: "Mihika Arts",
@@ -88,6 +93,7 @@ export const PROJECTS = [
   projectLive: "https://mihika-arts.vercel.app/",
   projectId: 6,
   category: ["frontend", "landing-page"],
+  techStack: ["Next.js", "MongoDB", "Stripe", "Tailwind CSS"],
 }
 ];
 
@@ -102,4 +108,3 @@ export const TECH_STACK = [
   { icon: BunjsIcon, name: "Bun.js" },
   { icon: PostgresqlIcon, name: "PostgreSQL" },
 ];
-
