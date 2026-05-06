@@ -60,9 +60,7 @@ function PageClient() {
 
         <div className="max-w-3xl w-full flex flex-col justify-center items-center gap-24 md:gap-32 ">
           {/* Projects */}
-        <div className="w-full md:h-[200vh]">
-          <Projects/>
-        </div>
+        <Projects/>
 
           {/* Activity */}
         <Activity />

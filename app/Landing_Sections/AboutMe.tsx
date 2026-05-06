@@ -4,8 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { TECH_STACK, SOCIAL_LINKS } from "../constants";
 import { motion } from "motion/react";
+import { useRef } from "react";
+import orange from "../../public/orange.svg";
+
 
 function AboutMe() {
+    const org = useRef<HTMLImageElement>(null);
   return (
     <section id="about" className="relative w-full">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
@@ -82,6 +86,7 @@ function AboutMe() {
             <h2 className="text-sm font-medium text-(--text-color)/50 uppercase tracking-widest mb-4">
               Contact
             </h2>
+            <div className="flex  justify-between items-center  flex-wrap gap-4">
             <div className="flex flex-wrap gap-4 text-sm text-(--text-color)/40">
               {SOCIAL_LINKS.map((link) => (
                 <a
@@ -101,6 +106,48 @@ function AboutMe() {
               >
                 Resume
               </a>
+            </div>
+            <Link href="/orange_rolling">
+              <motion.img
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  transformOrigin: "center center",
+                  backfaceVisibility: "hidden",
+                }}
+                initial={{
+                  opacity: 0,
+                  scale: 0,
+                  y: 100,
+                  x: 100,
+                  filter: "blur(10px)",
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1.3,
+                  y: 0,
+                  x: 0,
+                  filter: "blur(0px)",
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  opacity: { duration: 0.8 },
+                  scale: { duration: 0.8 },
+                  y: { duration: 0.8 },
+                  x: { duration: 0.8 },
+                  filter: { duration: 0.8 },
+                  rotate: {
+                    repeat: Infinity,
+                    duration: 30,
+                    ease: "linear",
+                    repeatType: "loop",
+                  },
+                }}
+                ref={org}
+                className="ml-4 inline w-12 md:w-17 orgLogo"
+                src={orange.src || orange}
+                alt="o"
+              />
+            </Link>
             </div>
           </div>
         </div>
