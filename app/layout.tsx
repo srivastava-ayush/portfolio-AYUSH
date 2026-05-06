@@ -3,6 +3,7 @@ import "./globals.css";
 import { Montserrat, Orbitron, Source_Code_Pro, Zen_Dots , Source_Serif_4,} from "next/font/google";
 import ScrollToTop from "./ui/utils/ScrollToTop";
 import { SoundProvider } from "./ui/SoundProvider";
+import { ThemeInitializer } from "./ui/ThemeInitializer";
 
 
 const montserrat = Montserrat({
@@ -69,8 +70,9 @@ export default function RootLayout({
 
 
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <ThemeInitializer />
         <link rel="shortcut icon" href="/orange.svg" type="image/x-icon" />
       </head>
       <body

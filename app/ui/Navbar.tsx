@@ -20,10 +20,35 @@ function Navbar() {
 
   const [theme, setTheme] = useState("dark");
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  // Sync theme state with localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) {
+      setTheme(saved);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    
+    // Trigger visual transition
+    setIsTransitioning(true);
+    
+    // Swap theme immediately in DOM for instant feedback
+    document.documentElement.dataset.theme = newTheme;
+    localStorage.setItem("theme", newTheme);
+    setTheme(newTheme);
+    
+    // Clear transition overlay
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 300);
   };
   // Load theme on mount
   useEffect(() => {
@@ -37,19 +62,6 @@ function Navbar() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    
-    
-    // Swap theme at 0.15s
-    setTimeout(() => {
-      setTheme(newTheme);
-      document.documentElement.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
-    }, 150);
-    
-   
-  };
 
   // Scroll logic for naVbar
   useEffect(() => {
