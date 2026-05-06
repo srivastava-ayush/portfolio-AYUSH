@@ -223,7 +223,7 @@ function Navbar() {
                   </li>
 
                   <li>
-                    <ThemeToggle
+                    <ThemeToggleBtn
                       theme={theme}
                       toggleTheme={toggleTheme}
                       mobile
