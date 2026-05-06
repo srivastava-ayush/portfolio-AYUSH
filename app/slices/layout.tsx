@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 import { HomeIcon, List, NewspaperIcon, PlayIcon } from "lucide-react";
 import { SidebarIcon } from "@phosphor-icons/react";
-
+import ThemeToggleBtn from "../ui/ThemeBtn";
 const demoItems = [
   { id: 1, title: "Getting Started", icon: HomeIcon, slug: "getting-started" },
   {
@@ -36,24 +36,35 @@ export default function SlicesLayout({
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [theme, setTheme] = useState("dark");
+
 
   const currentSection = pathname.split("/").pop();
 
+
+
+   const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+
+      if (saved === "light" || saved === "dark") {
+        return saved;
+      }
+
+      // fallback to system preference
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+
+    return "dark";
+  });
+    useEffect(() => {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("theme", theme);
+    }, [theme]);
   const toggleTheme = () => {
-    setTheme((t) => (t === "dark" ? "light" : "dark"));
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved) setTheme(saved);
-  }, []);
-
   const handleNavigation = (slug: string) => {
     router.push(`/slices/${slug}`);
     if (window.innerWidth < 768) {
@@ -101,23 +112,15 @@ export default function SlicesLayout({
           </motion.span>
         </div>
         <span className=" px-2 py-1    md:px-4 md:py-2 text-[.45rem]  md:text-[.75rem] rounded-full border z-999">under development</span>
-        <span className="gap-1 flex justify-center items-center">
+        <span className="gap-2 flex justify-center items-center">
           <Link
             href="/"
-            className="hover:text-[var(--text-color)] transition-colors"
+            className="hover:text-[var(--accent-color)] font-medium hover:tracking-widest  transition-all mt-2 "
           >
-            portfolio
+            Portfolio
           </Link>
-          <motion.button
-            aria-label="theme-button"
-            onClick={toggleTheme}
-            whileHover={{ scale: 1.2, rotate: 90 }}
-            whileTap={{ scale: 1.5, rotate: 90 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-            className="theme-toggle grayscale-10 hover:grayscale-0 text-[1rem] md:text-[1.15rem]"
-          >
-            {theme === "dark" ? "☀️" : "🌙"}
-          </motion.button>
+          <ThemeToggleBtn toggleTheme={toggleTheme} theme=
+          {theme} />
         </span>
       </nav>
 
@@ -125,7 +128,7 @@ export default function SlicesLayout({
 
         {/* Sidebar */}
         <aside
-          className={`fixed md:sticky top-[60px] left-0 h-[calc(100vh-60px)] bg-[var(--bg-color)] border-r border-[var(--border-2-color)] z-40 transition-all ease-in-out duration-300  ${
+          className={`fixed md:sticky top-[60px] left-0 h-[calc(100vh-60px)] bg-[var(--bg-color)] border-r border-[var(--border-2-color)] z-40  ${
             sidebarOpen ? "w-fit" : "-translate-x-full md:translate-x-0"
           } ${sidebarOpen ? "w-64 px-6 " : "w-fit border-0 px-2"}`}
         >

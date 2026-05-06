@@ -9,7 +9,7 @@ function ProjectCard(props) {
     <motion.div
       layout
       key={props.projectName}
-      className="relative overflow-hidden rounded-lg border border-[var(--border-color)]/30 shadow-[inset_0_1px_4px_rgba(255,255,255,0.08),inset_0_-1px_3px_rgba(0,0,0,0.2),0_8px_32px_rgba(0,0,0,0.3)]"
+      className="relative overflow-hidden rounded-lg border border-[var(--border-color)]/30 `` shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_-1px_1px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.25)]"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 

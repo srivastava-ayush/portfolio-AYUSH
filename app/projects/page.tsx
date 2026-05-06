@@ -36,9 +36,9 @@ function Page() {
 
   return (
 
-    <div className='min-h-[130vh] pt-30 pb-16 px-2 flex flex-col  items-center'>
+    <motion.div initial={{ opacity: 0}} animate={{ opacity: 1}} transition={{duration:1}} className='min-h-[130vh] pt-30 pb-16 px-2 flex flex-col  items-center'>
 <Navbar />
-<motion.main initial={{ opacity: 0}} animate={{ opacity: 1 }} transition={{duration:1}} className='  w-full max-w-3xl flex flex-col gap-8'>
+<main  className='  w-full max-w-3xl flex flex-col gap-8'>
       
       <motion.span
         initial={{ opacity: 0, top: "-100px" }}
@@ -94,15 +94,15 @@ function Page() {
 )}
 </div>
 
-<motion.div key={activeFilters.join(',')} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{duration:.2}} className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+<motion.div key={activeFilters.join(',')} initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{duration:.6}} className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 {filteredProjects.map((project)=> {
   return (
     <ProjectCard key={project.projectName} {...project} />
   )
 })}
 </motion.div>
-</motion.main>
-    </div>
+</main>
+    </motion.div>
   )
 }
 
