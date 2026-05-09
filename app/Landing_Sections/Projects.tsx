@@ -59,11 +59,13 @@ function Projects() {
   const handleNext = useCallback(() =>
     setActiveIndex((prev) => Math.min(DISPLAY_PROJECTS.length - 1, prev + 1)), []);
 
-  return (<>
+  return (<> 
+  
+  {/* Desktop Layout */}
     <div ref={containerRef} className="hidden none md:block  relative w-full" style={{ height: `${SCROLL_SECTIONS * 60}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className= "absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
-        {/* Desktop Layout */}
+       
         <div className="hidden md:flex flex-col h-full py-16">
           <div className="flex justify-between items-center px-8 mb-12">
             <h1 className="text-3xl md:text-[2.7rem] font-semibold text-(--text-color)">
@@ -220,15 +222,18 @@ function Projects() {
         </div>
       </div>
     </div>
-    
-        <div className="relative w-full min-h-screen   md:hidden " >
-      <div className="sticky top-0 min-h-screen overflow-hidden">
+
+
+
+ {/* Mobile Layout */}   
+<div className="relative w-full  md:hidden" >
+      <div className=" overflow-auto">
         <div className= "absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
-   
-   
-      {/* Mobile Layout */}
-        <div className="flex md:hidden flex-col  py-16 px-6">
-          <div className="flex justify-between items-center mb-8">
+    
+    
+      
+        <div className="flex md:hidden  flex-col py-12 px-6 ">
+          <div className="flex justify-between items-center mb-6 shrink-0">
             <h1 className="text-2xl font-semibold text-(--text-color)">
               Projects
               <span className="font-semibold text-[var(--accent-color)]">.</span>
@@ -238,11 +243,11 @@ function Projects() {
             </Link>
           </div>
 
-          <div className="relative flex-1 flex items-center">
+          <div className="relative   flex-1 flex items-center ">
             <button
               onClick={handlePrev}
               disabled={activeIndex === 0}
-              className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm"
+              className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm shrink-0"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
@@ -250,12 +255,12 @@ function Projects() {
             <button
               onClick={handleNext}
               disabled={activeIndex === DISPLAY_PROJECTS.length - 1}
-              className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm"
+              className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm shrink-0"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
-            <div className="w-full overflow-hidden">
+            <div className="w-full overflow-hidden ">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={activeIndex}
@@ -265,7 +270,7 @@ function Projects() {
                   transition={{ duration: 0.25 }}
                   className="flex flex-col items-center"
                 >
-                  <div className="aspect-video w-full overflow-hidden rounded-md bg-(--border-color)/10">
+                  <div className="aspect-video  w-full overflow-hidden rounded-md bg-(--border-color)/10">
                     <img
                       src={project.projectImg.src}
                       alt={project.projectName}
@@ -287,7 +292,7 @@ function Projects() {
                     <h3 className="text-lg font-medium text-(--text-color) mb-1">
                       {project.projectName}
                     </h3>
-                    <p className="text-sm text-(--text-color)/50 leading-relaxed mb-4">
+                    <p className="text-sm text-(--text-color)/50 leading-relaxed mb-4 line-clamp-2">
                       {project.projectDescriptionShort}
                     </p>
                     <div className="flex items-center gap-5">
@@ -318,7 +323,7 @@ function Projects() {
             </div>
           </div>
 
-          <div className="flex justify-center gap-2 py-6">
+          <div className="flex justify-center gap-2 py-4 shrink-0">
             {DISPLAY_PROJECTS.map((_, i) => (
               <button
                 key={i}
