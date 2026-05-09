@@ -30,19 +30,25 @@ nav {
   outline: dashed  1px;
 }
 .nav-active {
-box-shadow:   inset 0 1px 2px rgba(255,255,255,0.15),
-              inset 0 -1px 2px rgba(0,0,0,0.2),
-              0 6px 16px rgba(0,0,0,0.1);
-
   text-decoration: none;
   backdrop-filter: blur(15px);
-  padding: 1.25rem !important;
-  margin: 1.25rem !important;
-   width:  fit-content !important;
-  height: fit-content !important;
-  background-color: var(--nav-bg-color) !important;
+  background-color: var(--nav-bg-color);
   border-radius: 8px;
+}
+
+.nav-active .nav-desktop-wrapper {
+  padding: 1.25rem;
+  margin: 1.25rem;
+  width: fit-content;
   transform: scale(.9);
+}
+
+@media (min-width: 768px) {
+  .nav-active {
+    padding: .65rem 1rem;
+    margin: 1.25rem auto;
+    width: fit-content;
+  }
 }
 
 @media (max-width: 300px) {
