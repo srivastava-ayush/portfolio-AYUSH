@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { PROJECTS } from '../constants';
@@ -45,9 +45,11 @@ function Projects() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (window.innerWidth >= 770) {
+      window.addEventListener('wheel', handleScroll, { passive: true });
+      handleScroll();
+      return () => window.removeEventListener('wheel', handleScroll);
+    }
   }, [activeIndex]);
 
   const project = DISPLAY_PROJECTS[activeIndex];
@@ -57,11 +59,10 @@ function Projects() {
   const handleNext = useCallback(() =>
     setActiveIndex((prev) => Math.min(DISPLAY_PROJECTS.length - 1, prev + 1)), []);
 
-  return (
-    <div ref={containerRef} className="relative w-full" style={{ height: `${SCROLL_SECTIONS * 60}vh` }}>
+  return (<>
+    <div ref={containerRef} className="hidden none md:block  relative w-full" style={{ height: `${SCROLL_SECTIONS * 60}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
-
+        <div className= "absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
         {/* Desktop Layout */}
         <div className="hidden md:flex flex-col h-full py-16">
           <div className="flex justify-between items-center px-8 mb-12">
@@ -217,8 +218,15 @@ function Projects() {
             </div>
           </div>
         </div>
-
-        {/* Mobile Layout */}
+      </div>
+    </div>
+    
+        <div className="relative w-full min-h-screen   md:hidden " >
+      <div className="sticky top-0 min-h-screen overflow-hidden">
+        <div className= "absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
+   
+   
+      {/* Mobile Layout */}
         <div className="flex md:hidden flex-col  py-16 px-6">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-semibold text-(--text-color)">
@@ -320,8 +328,12 @@ function Projects() {
             ))}
           </div>
         </div>
-      </div>
-    </div>
+   
+     </div>  
+     </div>
+
+    
+    </>
   );
 }
 

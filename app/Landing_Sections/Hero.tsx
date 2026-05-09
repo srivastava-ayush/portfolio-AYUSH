@@ -100,7 +100,7 @@ function Hero() {
                   onClick={() => window.open('/ayush_resume_intern.pdf', '_blank')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative overflow-hidden p-4 h-full flex items-center border border-[var(--border-color)]/50 bg-[var(--resume-btn-color)] w-full lg:w-auto text-center justify-center hover:bg-[#fdb3682f] text-(--text-color) hover:text-[var(--button-hover-text)] cursor-pointer rounded-lg transition duration-300 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)]"
+                  className="relative overflow-hidden p-0.5  md:p-4 h-full flex items-center border border-[var(--border-color)]/50 bg-[var(--resume-btn-color)] w-full lg:w-auto text-center justify-center hover:bg-[#fdb3682f] text-(--text-color) hover:text-[var(--button-hover-text)] cursor-pointer rounded-lg transition duration-300 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)]"
                 >
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                   <svg
