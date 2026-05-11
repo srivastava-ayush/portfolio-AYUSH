@@ -8,71 +8,40 @@ import { usePathname, useRouter } from "next/navigation";
 import { HomeIcon, List, NewspaperIcon, PlayIcon } from "lucide-react";
 import { SidebarIcon } from "@phosphor-icons/react";
 import ThemeToggleBtn from "../ui/ThemeBtn";
+
 const demoItems = [
   { id: 1, title: "Getting Started", icon: HomeIcon, slug: "getting-started" },
-  {
-    id: 2,
-    title: "Components",
-    icon: List,
-    sub_list: ["cards", "buttons", "inputs"],
-    slug: "components",
-  },
-  // { id: 3, title: "Utilities", icon: "-", slug: "utilities" },
-  {
-    id: 4,
-    title: "Animations",
-    icon:  PlayIcon,
-    sub_list: ["scroll", "hover", "click", "landing"],
-    slug: "animations",
-  },
+  { id: 2, title: "Components", icon: List, slug: "components" },
+  { id: 4, title: "Animations", icon: PlayIcon, slug: "animations" },
   { id: 5, title: "Resources", icon: NewspaperIcon, slug: "resources" },
 ];
 
-export default function SlicesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SlicesLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const currentSection = pathname.split("/")[2];
 
-
-  const currentSection = pathname.split("/").pop();
-
-
-
-   const [theme, setTheme] = useState<"dark" | "light">(() => {
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
-
-      if (saved === "light" || saved === "dark") {
-        return saved;
-      }
-
-      // fallback to system preference
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      if (saved === "light" || saved === "dark") return saved;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
-
     return "dark";
   });
-    useEffect(() => {
-      document.documentElement.dataset.theme = theme;
-      localStorage.setItem("theme", theme);
-    }, [theme]);
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+
   const handleNavigation = (slug: string) => {
     router.push(`/slices/${slug}`);
-    if (window.innerWidth < 768) {
-      setSidebarOpen(false);
-    }
+    if (window.innerWidth < 768) setSidebarOpen(false);
   };
-
-
 
   return (
     <motion.div
@@ -82,112 +51,98 @@ export default function SlicesLayout({
       transition={{ duration: 0.75 }}
       className="min-h-screen flex flex-col bg-[var(--bg-color)] text-[var(--text-color)] relative"
     >
-     
       {/* Navigation Bar */}
-      <nav className="fixed flex w-full top-0 left-0 border-b border-[var(--border-2-color)] justify-between items-center px-4 py-2 bg-[var(--bg-color)] z-50">
+      <nav className="fixed flex w-full top-0 left-0 border-b border-[var(--border-color)]/20 justify-between items-center px-5 py-3 bg-[var(--bg-color)]/60 backdrop-blur-2xl z-50">
         <div className="flex items-center gap-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 text-xl  hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 text-xl hover:bg-[var(--hover-color)] rounded-xl transition-all duration-200"
             aria-label="Toggle sidebar"
           >
-            <SidebarIcon  size={24} />
+            <SidebarIcon size={22} />
           </button>
           <motion.span
             initial={{ opacity: 0, letterSpacing: "0.6em" }}
             animate={{ opacity: 1, letterSpacing: "0em" }}
             transition={{ duration: 0.5 }}
-            className="flex justify-center items-center text-center"
+            className="flex justify-center items-center text-center gap-2"
           >
-            <h1 className="text-[1.8rem] md:text-[1.8rem] text-[var(--text-color)] font-bold">
+            <h1 className="text-[1.4rem] md:text-[1.6rem] text-[var(--text-color)] font-bold tracking-tight">
               Slices
             </h1>
             <Image
               src="/slices.svg"
-              width={32}
-              height={32}
+              width={28}
+              height={28}
               alt="Logo"
-              className="w-8 h-fit rounded-full object-cover"
-            /> 
+              className="w-6 h-fit rounded-full object-cover"
+            />
           </motion.span>
         </div>
-        <span className=" px-2 py-1    md:px-4 md:py-2 text-[.45rem]  md:text-[.75rem] rounded-full border z-999">under development</span>
-        <span className="gap-2 flex justify-center items-center">
+        <div className="flex items-center gap-3">
+          <span className="px-3 py-1 text-[.5rem] md:text-[.65rem] rounded-full border border-[var(--border-color)]/40 text-[var(--secondary-text)] tracking-wide font-mono uppercase">
+            beta
+          </span>
           <Link
             href="/"
-            className="hover:text-[var(--accent-color)] font-medium hover:tracking-widest  transition-all mt-2 "
+            className="text-[.85rem] text-[var(--secondary-text)] hover:text-[var(--accent-color)] font-medium transition-all duration-300"
           >
             Portfolio
           </Link>
-          <ThemeToggleBtn toggleTheme={toggleTheme} theme=
-          {theme} />
-        </span>
+          <ThemeToggleBtn toggleTheme={toggleTheme} theme={theme} />
+        </div>
       </nav>
 
-      <div className="flex pt-[60px]">
-
+      <div className="flex pt-[62px]">
         {/* Sidebar */}
-        <aside
-          className={`fixed md:sticky top-[60px] left-0 h-[calc(100vh-60px)] bg-[var(--bg-color)] border-r border-[var(--border-2-color)] z-40  ${
-            sidebarOpen ? "w-fit" : "-translate-x-full md:translate-x-0"
-          } ${sidebarOpen ? "w-64 px-6 " : "w-fit border-0 px-2"}`}
+        <motion.aside
+          animate={{ width: sidebarOpen ? 220 : 0 }}
+          transition={{ type: "spring", stiffness: 350, damping: 30 }}
+          className="fixed md:sticky top-[62px] left-0 h-[calc(100vh-62px)] z-40 overflow-hidden border-r border-[var(--border-color)]/10 bg-[var(--bg-color)]/30 backdrop-blur-xl"
         >
-          <div className="py-8 overflow-y-auto h-full">
-          
-            <ul className="space-y-2">
-              {demoItems.map((item) =>{
-              
-              const Icon = item.icon;
-             
+          <div className="py-5 px-2 overflow-y-auto h-full">
+            <ul className="space-y-1">
+              {demoItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = currentSection === item.slug;
 
-              return (
-                <li key={item.id}>
-                  <button
-                    onClick={() => {
-                      handleNavigation(item.slug);                     
-                    }}
-                    className={`w-full text-left px-4 py-3 rounded-lg cursor-pointer transition-colors flex flex-col items-center gap-3 group ${
-                      currentSection === item.slug
-                        ? "bg-gradient-to-r from-[var(--text-color)]/20 to-[var(--text-color)]/10 shadow-[inset_0_2px_3px_rgba(255,255,255,0.1),0_4px_10px_rgba(0,0,0,0.05)] "
-                        : "hover:bg-white/10"
-                    }`}
-                  >
-                    <div className="flex items-center justify-start w-full gap-3">
-                    <span className="text-xl group-hover:scale-110 transition-transform">
-                     <Icon />
-                    </span>
-                   
-                   
-                   {sidebarOpen ? <span className="text-[var(--text-color)]">
-                      {item.title}
-                    </span> : null} 
-                    
-                    </div>
-
-                 
-                  </button>
-                </li>
-              )
-            
-            }
-              )
-              
-
-              }
+                return (
+                  <li key={item.id}>
+                    <button
+                      onClick={() => handleNavigation(item.slug)}
+                      className={`w-full px-3 py-2 rounded-lg cursor-pointer transition-all duration-150 flex items-center gap-3 group ${
+                        isActive
+                          ? "bg-[var(--hover-color)]"
+                          : "hover:bg-[var(--hover-color)]"
+                      }`}
+                    >
+                      <span className={`text-base transition-all duration-150 ${isActive ? "text-[var(--accent-color)]" : "text-[var(--secondary-text)] group-hover:text-[var(--text-color)]"}`}>
+                        <Icon size={20} />
+                      </span>
+                      <span className={`text-sm font-medium tracking-tight ${isActive ? "text-[var(--text-color)]" : "text-[var(--secondary-text)]"}`}>
+                        {item.title}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
-        </aside>
-      
+        </motion.aside>
+
         {/* Overlay for mobile */}
         {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-30 md:hidden top-[60px]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden top-[62px]"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
-      
-        {children}
+        {/* Main Content */}
+        <main className="flex-1 min-h-[calc(100vh-62px)] relative">
+          <div className="absolute inset-0 bg-grid pointer-events-none" />
+          <div className="relative z-10 p-4 md:p-8 lg:p-10">{children}</div>
+        </main>
       </div>
     </motion.div>
   );
