@@ -57,7 +57,7 @@ export default function ParallaxReveal() {
         const blur = useTransform(
           scrollYProgress,
           [start, end],
-          ["blur(40px)", "blur(0px)"],
+          ["blur(0px)", "blur(40px)"],
         );
 
         const opacity = useTransform(
