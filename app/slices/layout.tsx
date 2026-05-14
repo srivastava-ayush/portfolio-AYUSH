@@ -5,18 +5,24 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
-import { HomeIcon, List, NewspaperIcon, PlayIcon } from "lucide-react";
+import { HomeIcon, NewspaperIcon, VideoIcon } from "lucide-react";
 import { SidebarIcon } from "@phosphor-icons/react";
 import ThemeToggleBtn from "../ui/ThemeBtn";
+import Lenis from "lenis";
 
 const demoItems = [
   { id: 1, title: "Getting Started", icon: HomeIcon, slug: "getting-started" },
-  { id: 2, title: "Components", icon: List, slug: "components" },
-  { id: 4, title: "Animations", icon: PlayIcon, slug: "animations" },
-  { id: 5, title: "Resources", icon: NewspaperIcon, slug: "resources" },
+
+  { id: 2, title: "Experiences", icon: VideoIcon, slug: "experiences" },
+
+  { id: 3, title: "Resources", icon: NewspaperIcon, slug: "resources" },
 ];
 
-export default function SlicesLayout({ children }: { children: React.ReactNode }) {
+export default function SlicesLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -26,7 +32,9 @@ export default function SlicesLayout({ children }: { children: React.ReactNode }
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
       if (saved === "light" || saved === "dark") return saved;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
     }
     return "dark";
   });
@@ -36,13 +44,29 @@ export default function SlicesLayout({ children }: { children: React.ReactNode }
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
 
   const handleNavigation = (slug: string) => {
     router.push(`/slices/${slug}`);
     if (window.innerWidth < 768) setSidebarOpen(false);
   };
+  useEffect(() => {
+    const lenis = new Lenis();
+    let rafId: number;
 
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -116,10 +140,14 @@ export default function SlicesLayout({ children }: { children: React.ReactNode }
                           : "hover:bg-[var(--hover-color)]"
                       }`}
                     >
-                      <span className={`text-base transition-all duration-150 ${isActive ? "text-[var(--accent-color)]" : "text-[var(--secondary-text)] group-hover:text-[var(--text-color)]"}`}>
+                      <span
+                        className={`text-base transition-all duration-150 ${isActive ? "text-[var(--accent-color)]" : "text-[var(--secondary-text)] group-hover:text-[var(--text-color)]"}`}
+                      >
                         <Icon size={20} />
                       </span>
-                      <span className={`text-sm font-medium tracking-tight ${isActive ? "text-[var(--text-color)]" : "text-[var(--secondary-text)]"}`}>
+                      <span
+                        className={`text-sm font-medium tracking-tight ${isActive ? "text-[var(--text-color)]" : "text-[var(--secondary-text)]"}`}
+                      >
                         {item.title}
                       </span>
                     </button>

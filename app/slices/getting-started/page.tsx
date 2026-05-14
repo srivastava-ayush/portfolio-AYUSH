@@ -5,9 +5,6 @@ function page() {
   return (
     <main className="flex-1 relative min-h-screen w-full max-w-4xl mx-auto px-4 md:px-8 py-12">
 
-     
-      <div className="bg-grid absolute inset-0 pointer-events-none" />
-
       <motion.span
         initial={{ opacity: 0, top: "-100px" }}
         animate={{ opacity: 1, top: 0 }}
