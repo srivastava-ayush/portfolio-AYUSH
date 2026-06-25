@@ -34,6 +34,7 @@ nav {
   backdrop-filter: blur(15px);
   background-color: var(--nav-bg-color);
   border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),inset 0 -1px 0 rgba(0,0,0,0.1),0 2px 4px rgba(0,0,0,0.2);
 }
 
 .nav-active .nav-desktop-wrapper {
@@ -41,6 +42,7 @@ nav {
   margin: 1.25rem;
   width: fit-content;
   transform: scale(.9);
+  
 }
 
 @media (min-width: 768px) {
