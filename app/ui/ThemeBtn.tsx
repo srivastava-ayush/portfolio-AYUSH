@@ -1,5 +1,3 @@
-
-
 import { AnimatePresence, motion } from "motion/react";
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
 
@@ -20,7 +18,11 @@ function ThemeToggleBtn({
       aria-pressed={theme === "light"}
       onClick={toggleTheme}
       className={`relative ${
-        mobile && dock ? "w-12 h-12 rounded-xl" : mobile ? "w-14 h-7" : "w-11 h-6 mt-2"
+        mobile && dock
+          ? "w-12 h-12 rounded-xl"
+          : mobile
+            ? "w-14 h-7"
+            : "w-11 h-6 mt-2"
       } ${mobile && dock ? "flex items-center justify-center hover:bg-[var(--hover-color)] transition-colors" : "rounded-full border border-[var(--border-color)]/30 bg-[var(--bg-color)]/50 backdrop-blur-sm overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.2)] focus:outline-none focus:ring-2 focus:ring-[var(--text-color)]/10 transition-colors"}`}
     >
       {mobile && dock ? (
@@ -44,7 +46,7 @@ function ThemeToggleBtn({
           <motion.div
             className={`absolute ${
               mobile ? "top-1 left-1" : "top-0.5 left-0.5"
-            } w-5 h-5 rounded-full flex items-center justify-center shadow-lg`}
+            } w-5 h-5 rounded-full flex items-center justify-center shadow-[0_2px_4px_rgba(0,0,0,0.2)]`}
             animate={{
               x: theme === "dark" ? 0 : mobile ? 24 : 20,
               backgroundColor: theme === "dark" ? "#1a1a1a" : "#fff",

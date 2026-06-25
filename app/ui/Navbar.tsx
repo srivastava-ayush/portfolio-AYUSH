@@ -3,13 +3,14 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   motion,
   useScroll,
   useTransform,
   AnimatePresence,
 } from "motion/react";
-
+import slices_logo from "../../public/slices.svg";
 import ThemeToggleBtn from "./ThemeBtn";
 
 function Navbar() {
@@ -93,11 +94,7 @@ function Navbar() {
         <rect x="3" y="14" width="7" height="7" rx="1"/>
       </svg>
     )},
-    { label: "Slices", href: "/slices", icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-      </svg>
-    )},
+    { label: "Slices", href: "/slices", icon: <Image src={slices_logo} alt="Slices" width={24} height={24} />},
     { label: "Terminal", href: "/terminal", icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="4 17 10 11 4 5"/>
@@ -163,9 +160,9 @@ function Navbar() {
           className="relative"
         >
           {/* Glow effect */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent-color)]/20 via-transparent to-[var(--accent-color)]/20 rounded-3xl blur-xl" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent-color)]/5 via-transparent to-[var(--accent-color)]/5 rounded-3xl blur-xl" />
           
-          <div className="relative flex items-center justify-between px-4 py-3 backdrop-blur-2xl bg-[var(--bg-color)]/90 border border-[var(--border-color)]/40 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)]">
+          <div className="relative flex items-center justify-between px-4 py-3 backdrop-blur-2xl bg-[var(--bg-color)]/90 border border-[var(--border-color)]/40 rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)]">
             {/* Logo - Always visible */}
             <Link
               href="/terminal"
