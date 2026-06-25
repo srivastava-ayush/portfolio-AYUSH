@@ -162,14 +162,14 @@ function Navbar() {
           {/* Glow effect */}
           <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent-color)]/5 via-transparent to-[var(--accent-color)]/5 rounded-3xl blur-xl" />
           
-          <div className="relative flex items-center justify-between px-4 py-3 backdrop-blur-2xl bg-[var(--bg-color)]/90 border border-[var(--border-color)]/40 rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)]">
+          <div className="relative flex items-center justify-between px-3 py-2 backdrop-blur-2xl bg-[var(--bg-color)]/90 border border-[var(--border-color)]/40 rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)]">
             {/* Logo - Always visible */}
             <Link
-              href="/terminal"
+              href="/"
               className="flex items-center gap-1 text-[var(--text-color)] text-xl font-semibold hover:scale-105 transition-transform"
             >
               <span className="text-lg">आ</span>
-              <span className="text-[var(--accent-color)]">1.</span>
+              <span className="text-[var(--text-color)]">1.</span>
             </Link>
 
             {/* Nav Items */}
@@ -189,7 +189,7 @@ function Navbar() {
                     whileTap={{ scale: 0.9 }}
                     className={`relative w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 ${
                       isActive
-                        ? "text-[var(--accent-color)] bg-[var(--accent-color)]/10"
+                        ? "text-[var(--text-color)] bg-[var(--hover-color)]"
                         : "text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)]"
                     }`}
                   >
@@ -197,7 +197,7 @@ function Navbar() {
                     {isActive && (
                       <motion.div
                         layoutId="activeIndicator"
-                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--accent-color)]"
+                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--text-color)]"
                       />
                     )}
                   </motion.button>
@@ -269,7 +269,7 @@ function Navbar() {
                 className="mb-4"
               >
                 <Link
-                  href="/terminal"
+              href="/"
                   onClick={handleMenuToggle}
                   className="text-[var(--text-color)] text-4xl font-bold"
                 >
