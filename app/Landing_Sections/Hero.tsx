@@ -73,6 +73,15 @@ function Hero() {
                 className="ml-4 inline w-12 md:w-17 orgLogo"
                 src={orange.src || orange}
                 alt="o"
+                whileHover={{
+                  y: [0, -20, 0],
+                  scale: [1, 1.25, 1],
+                  transition: { duration: 0.5, ease: "easeOut" },
+                }}
+                whileTap={{
+                  scale: [1, 0.85, 1.1, 1],
+                  transition: { duration: 0.4 },
+                }}
               />
             </Link>
           </h1>
