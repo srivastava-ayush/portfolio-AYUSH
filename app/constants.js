@@ -13,6 +13,8 @@ import projectImg2 from "../public/project-img2.png";
 import projectImg4 from "../public/project-img4.png";
 import projectImg5 from "../public/project-img5.png";
 import projectImg6 from "../public/project-img6.png";
+import projectImg7 from "../public/project-img7.png";
+import projectImg8 from "../public/project-img8.png";
 import ExpressjsIcon from "../public/express.svg";
 import NodejsIcon from "../public/nodejs.svg";
 import MongoDBIcon from "../public/mongodb.svg";
@@ -70,7 +72,7 @@ export const PROJECTS = [
   projectCode: "https://github.com/srivastava-ayush/can-you-remember",
   projectLive: "https://can-you-remember.vercel.app",
   projectId: 4,
-  category: ["frontend"],
+  category: ["other"],
   techStack: ["React", "JavaScript", "CSS", "Motion"],
 },
 {
@@ -81,7 +83,7 @@ export const PROJECTS = [
   projectCode: "https://github.com/srivastava-ayush/Bunk-Tendence",
   projectLive: "https://bunk-tendance.vercel.app/",
   projectId: 5,
-  category: ["frontend"],
+  category: ["other"],
   techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
 },
 {
@@ -94,6 +96,26 @@ export const PROJECTS = [
   projectId: 6,
   category: ["frontend", "landing-page"],
   techStack: ["Next.js", "MongoDB", "Stripe", "Tailwind CSS"],
+},{
+  projectName: "Intervue",
+  projectDescriptionShort: "Intervue — a platform for conducting virtual interviews",
+  projectDescriptionLong: "Intervue is a comprehensive platform for conducting virtual interviews, designed to streamline the hiring process. It offers features like scheduled interviews, real-time collaboration, and detailed reporting to help employers make informed decisions.",
+  projectImg: projectImg7,
+  projectCode: "https://github.com/srivastava-ayush/intervue",
+  projectLive: "https://intervue-navy.vercel.app/",
+  projectId: 7,
+  category: ["landing-page"],
+  techStack: ["React", "Node.js", "Socket.io", "Tailwind CSS"],
+},{
+  projectName: "Call'arity",
+  projectDescriptionShort: "Callarity — a platform for conducting virtual interviews",
+  projectDescriptionLong: "Callarity is a comprehensive platform for conducting virtual interviews, designed to streamline the hiring process. It offers features like scheduled interviews, real-time collaboration, and detailed reporting to help employers make informed decisions.",
+  projectImg: projectImg8,
+  projectCode: "https://github.com/srivastava-ayush/callarity-frontend",
+  projectLive: "https://callarity-frontend.vercel.app/",
+  projectId: 8,
+  category: ["landing-page"],
+  techStack: ["React", "Node.js", "Socket.io", "Tailwind CSS"],
 }
 ];
 

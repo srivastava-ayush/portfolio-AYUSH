@@ -10,10 +10,7 @@ function Page() {
 
   const filterOptions = [
     { label: 'Full-Stack', value: 'full-stack', icon: Code },
-    { label: 'Landing Pages', value: 'landing-page', icon: Layout },
-    { label: 'Frontend', value: 'frontend', icon: Layout },
-    { label: 'Backend', value: 'backend', icon: Database },
-    { label: 'AI/ML', value: 'ai', icon: Brain },
+    { label: 'Landing Pages & Design', value: 'landing-page', icon: Layout },{ label: 'AI/ML', value: 'ai', icon: Brain },
     { label: 'Other', value: 'other', icon: Box },
   ];
 
