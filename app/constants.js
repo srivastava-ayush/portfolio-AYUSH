@@ -20,6 +20,24 @@ import NodejsIcon from "../public/nodejs.svg";
 import MongoDBIcon from "../public/mongodb.svg";
 import BunjsIcon from "../public/bun.svg";
 import PostgresqlIcon from "../public/postgresql.svg";
+import TailwindIcon from "../public/tailwind.svg";
+import PythonIcon from "../public/python.svg";
+import HonoIcon from "../public/hono.svg";
+import FastapiIcon from "../public/fastapi.svg";
+import SocketioIcon from "../public/socketio.svg";
+import ReduxIcon from "../public/redux.svg";
+import ZustandIcon from "../public/zustand.svg";
+import ShadcnuiIcon from "../public/shadcnui.svg";
+import FramermotionIcon from "../public/framermotion.svg";
+import RedisIcon from "../public/redis.svg";
+import PrismaIcon from "../public/prisma.svg";
+import DrizzleIcon from "../public/drizzle.svg";
+import CloudflareIcon from "../public/cloudflare.svg";
+import DockerIcon from "../public/docker.svg";
+import GitIcon from "../public/git.svg";
+import PostmanIcon from "../public/postman.svg";
+import CloudinaryIcon from "../public/cloudinary.svg";
+import VercelIcon from "../public/vercel.svg";
 
 export const SOCIAL_LINKS = [
   { href: "https://github.com/srivastava-ayush", icon: github, alt: "GitHub" },
@@ -122,11 +140,29 @@ export const PROJECTS = [
 export const TECH_STACK = [
   { icon: JavascriptIcon, name: "JavaScript" },
   { icon: TypescriptIcon, name: "TypeScript" },
+  { icon: PythonIcon, name: "Python" },
+  { icon: NodejsIcon, name: "Node.js" },
+  { icon: BunjsIcon, name: "Bun" },
+  { icon: ExpressjsIcon, name: "Express" },
+  { icon: HonoIcon, name: "Hono" },
+  { icon: FastapiIcon, name: "FastAPI" },
+  { icon: SocketioIcon, name: "Socket.io" },
   { icon: ReactIcon, name: "React" },
   { icon: NextjsIcon, name: "Next.js" },
-  { icon: NodejsIcon, name: "Node.js" },
-  { icon: ExpressjsIcon, name: "Express.js" },
+  { icon: ReduxIcon, name: "Redux" },
+  { icon: ZustandIcon, name: "Zustand" },
+  { icon: ShadcnuiIcon, name: "ShadcnUI" },
+  { icon: TailwindIcon, name: "TailwindCSS" },
+  { icon: FramermotionIcon, name: "FramerMotion" },
   { icon: MongoDBIcon, name: "MongoDB" },
-  { icon: BunjsIcon, name: "Bun.js" },
   { icon: PostgresqlIcon, name: "PostgreSQL" },
+  { icon: RedisIcon, name: "Redis" },
+  { icon: PrismaIcon, name: "Prisma" },
+  { icon: DrizzleIcon, name: "Drizzle" },
+  { icon: CloudflareIcon, name: "Cloudflare" },
+  { icon: DockerIcon, name: "Docker" },
+  { icon: GitIcon, name: "Git" },
+  { icon: PostmanIcon, name: "Postman" },
+  { icon: CloudinaryIcon, name: "Cloudinary" },
+  { icon: VercelIcon, name: "Vercel" },
 ];

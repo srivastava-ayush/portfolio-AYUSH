@@ -14,9 +14,7 @@ export const TextGenerateEffect = ({
   useEffect(() => {
     animate("span", {
       opacity: 1,
-      color: "var(--text-color)",
       filter: filter ? "blur(0px)" : "none",
-      
     }, {
       duration: duration ? duration : 1,
       delay: stagger(0.12),
@@ -31,7 +29,7 @@ export const TextGenerateEffect = ({
             if(word === "from"){
               return (<span key={idx+word+idx}><br className="hidden md:block"/><motion.span
               key={word + idx}
-              className=" opacity-0 inline text-orange-500 "
+              className="opacity-0 inline"
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}>
@@ -43,7 +41,7 @@ export const TextGenerateEffect = ({
           return (
             (<motion.span
               key={word + idx}
-              className=" opacity-0 inline text-orange-500 "
+              className="opacity-0 inline"
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}>

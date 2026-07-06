@@ -1,213 +1,284 @@
 'use client';
 
+import { 
+  useEffect,
+  useState,
+} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { TECH_STACK, SOCIAL_LINKS } from "../constants";
-import { motion } from "motion/react";
-import { useRef } from "react";
-import orange from "../../public/orange.svg";
+import { GitHubCalendar } from "react-github-calendar";
+import GitHubStreak from "../ui/GitHubStreak";
+import { TECH_STACK } from "../constants";
+import { 
+  GithubLogo,
+  LinkedinLogo,
+  InstagramLogo,
+  XLogo,
+  Envelope,
+  Play,
+  Folder,
+  Terminal,
+  Copy,
+} from "@phosphor-icons/react";
 
+const socialLinks = [
+  { href: "https://github.com/srivastava-ayush", icon: GithubLogo, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/constayush/", icon: LinkedinLogo, label: "LinkedIn" },
+  { href: "https://www.instagram.com/maihoonayush/", icon: InstagramLogo, label: "Instagram" },
+  { href: "https://www.x.com/srivastava-ayush/", icon: XLogo, label: "X" },
+  { href: "mailto:srivastava-ayush@outlook.com", icon: Envelope, label: "Mail" },
+];
 
 function AboutMe() {
-    const org = useRef<HTMLImageElement>(null);
-  return (
-    <section id="about" className="relative w-full">
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
+  const [dateStr, setDateStr] = useState("");
 
-      <div className="py-16">
-        <div className="flex justify-between items-center mb-16">
-          <h1 className="text-3xl md:text-[2.7rem] font-semibold text-(--text-color)">
-            About me
-            <span className="font-semibold text-[var(--accent-color)]">.</span>
-          </h1>
-        
+  useEffect(() => {
+    const update = () => setDateStr(new Date().toLocaleString("en-US"));
+    update();
+    const timer = setInterval(update, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const debugInfo = [
+    { label: "", value: "127.0.0.1" },
+    { label: "", value: "3al6ms" },
+    { label: "", value: "Unknown" },
+    { label: "", value: "UP" },
+    { label: "", value: "IN" },
+    { label: "", value: "Arch Linux" },
+    { label: "", value: dateStr, wide: true },
+    { label: "", value: "1.082k visitors" },
+  ];
+
+  return (
+    <section id="about" className="relative w-full scroll-mt-7">
+      <div className="border border-[var(--border-color)]  relative">
+       
+       
+
+        {/* Metadata bar - top right */}
+        <div className="absolute z-99 top-0 right-0 text-xs bg-[var(--bg-color)]  text-[var(--secondary-text)] flex justify-end flex-wrap items-center z-10">
+          {debugInfo.map((item, i) => (
+            <span
+              key={i}
+              className={`px-2 border-l border-b border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] ${item.wide ? "w-40" : "w-fit"}`}
+            >
+              {item.value}
+            </span>
+          ))}
+          <Link
+            href="/orange_rolling"
+            className="px-2 border-l hover:cursor-crosshair  border-b border-[var(--border-color)] h-6 flex items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+          >
+            <span className="size-3 text-[var(--accent-color)] flex items-center justify-center">
+              <Play weight="fill" />
+            </span>
+            <span className="text-[10px] font-mono text-[var(--accent-color)]">Play</span>
+          </Link>
         </div>
 
-        <div className="flex flex-col gap-12 md:gap-16 mb-16">
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
-            <Link href="/terminal" className="flex-shrink-0">
-              <Image
-                src="/avatar.png"
-                alt="me"
-                width={160}
-                height={160}
-                className="rounded-md border border-[var(--border-color)]/30 object-cover hover:opacity-80 transition-opacity"
+        {/* Main content */}
+        <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative pt-14 md:pt-16 overflow-hidden">
+       
+
+          {/* Name + Role + Bio + GitHub with dot matrix bg */}
+          <div className="relative">
+       
+            {/* GitHub Activity Calendar */}
+            <div className="mb-5 border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 relative z-[1]">
+              <GitHubStreak username="srivastava-ayush" />
+              <GitHubCalendar
+                username="srivastava-ayush"
+                theme={{
+                  light: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+                  dark: ["#161b22", "#555555", "#888888", "#BBBBBB", "#F4F4F4"],
+                }}
+                fontSize={10}
+                showTotalCount={false}
               />
-            </Link>
+              <GitHubStreak username="srivastava-ayush" />
+            </div>
+             {/* Status */}
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-color)] animate-pulse" />
+            <span className="text-xs font-mono text-[var(--text-color)]">
+              Open to work
+            </span>
+          </div>  <div className="flex items-center gap-2 sm:gap-3 md:gap-4 relative z-[1]">
+              <Link href="/terminal" className="shrink-0">
+                <Image
+                  unoptimized
+                  src="/avatar.png"
+                  alt="avatar"
+                  width={48}
+                  height={48}
+                  className="rounded-sm opacity-60 hover:opacity-100 transition-opacity"
+                />
+              </Link>
+              <h1 className="text-3xl md:text-6xl flex gap-2 sm:gap-3 md:gap-4 items-baseline font-mono font-bold">
+                <span className="text-[var(--text-color)]">Ayush</span>
+                <span className="text-[var(--secondary-text)]">Srivastava</span>
+              </h1>
+            </div>
 
-            <div>
-              <div className="space-y-4 text-lg   font-medium tracking-tight text-(--text-color)/60 leading-relaxed">
-                <p>
-                  I'm Ayush Srivastava / आयुष श्रीवास्तव, an engineer from India. I build clean, scalable apps using TypeScript, React/Next.js, Node (and Bun), and PostgreSQL, with tools like Tailwind, Zustand, and Framer Motion.
-                </p>
-                <p>
-                  I like breaking systems to understand them and rebuilding them better. Outside of dev, I tinker with Linux (arch btw), Raspberry Pi, and Arduino.
-                </p>
+            {/* Role */}
+            <h3 className="text-xl md:text-xl font-mono font-semibold mt-1 relative z-[1]">
+              <span className="text-[var(--text-color)]">Full-Stack</span>
+              <span className="text-[var(--secondary-text)] ml-2">Engineer</span>
+            </h3>
+
+            {/* Bio */}
+            <p className="text-sm text-[var(--secondary-text)] mt-3 mb-2 leading-relaxed max-w-[600px] font-mono relative z-[1]">
+              <span className="text-[var(--secondary-text)]">
+                Engineer from India specializing in the{" "}
+              </span>
+              <span className="font-semibold text-[var(--text-color)]">
+                TypeScript/Node.js ecosystem
+              </span>
+              <span className="text-[var(--secondary-text)]">
+                , building scalable applications with a focus on clean code and
+                developer experience. I work across the{" "}
+              </span>
+              <span className="font-semibold text-[var(--text-color)]">full stack</span>
+              <span className="text-[var(--secondary-text)]"> — from </span>
+              <span className="font-semibold text-[var(--text-color)]">
+                backend APIs
+              </span>
+              <span className="text-[var(--secondary-text)]"> and </span>
+              <span className="font-semibold text-[var(--text-color)]">database design</span>
+              <span className="text-[var(--secondary-text)]">
+                {" "}to responsive{" "}
+              </span>
+              <span className="font-semibold text-[var(--text-color)]">
+                frontend interfaces
+              </span>
+              <span className="text-[var(--secondary-text)]">
+                , using React, Next.js, Bun, and PostgreSQL.
+              </span>
+              <br />
+              
+
+          
+                Most of what I build is shaped by one question:<span className="text-[var(--text-color)] italic"> does this stay fast and cost less as it scales?
+              </span>  </p>
+          </div>
+
+       
+        </div>
+    {/* Education */}
+          <div className="mt-10 mb-8">
+            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-3">
+              <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
+              <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">education --verbose</span>
+            </div>
+            <div className="border border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] divide-y divide-[var(--border-color)]">
+              <div className="flex justify-between items-center px-4 py-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[10px] font-mono text-[var(--secondary-text)]">◆</span>
+                  <span className="text-xs font-mono text-[var(--text-color)]">B.Tech in Computer Science</span>
+                </div>
+                <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
+                  2025 – 2028 | expected
+                </span>
+              </div>
+              <div className="flex justify-between items-center px-4 py-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[10px] font-mono text-[var(--secondary-text)]">◆</span>
+                  <span className="text-xs font-mono text-[var(--text-color)]">Diploma in CSE</span>
+                </div>
+                <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
+                  2022 – 2025 | 8.5 CGPA
+                </span>
               </div>
             </div>
           </div>
 
-          <div>
-            <h2 className="text-sm font-medium text-(--text-color)/50 uppercase tracking-widest mb-4">
-              Education
-            </h2>
-            <div className="space-y-3 text-base text-(--text-color)/60">
-              <div className="flex justify-between">
-                <span>B.Tech in Computer Science</span>
-                <span className="text-(--text-color)/30 font-mono text-sm whitespace-nowrap ml-4">2025 – 2028 | expected</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Diploma in CSE</span>
-                <span className="text-(--text-color)/30 font-mono text-sm whitespace-nowrap ml-4">2022 – 2025 | 8.5 CGPA</span>
-              </div>
+          {/* Tech Stack */}
+          <div className="mt-10 mb-10">
+            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-3">
+              <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
+              <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">tech-stack --list</span>
             </div>
-          </div>
-
-          <div>
-            <h2 className="text-sm font-medium text-(--text-color)/50 uppercase tracking-widest mb-4">
-              Tech Stack
-            </h2>
             <div className="flex flex-wrap gap-2">
               {TECH_STACK.map(({ icon, name }) => (
-                <motion.div
+                <div
                   key={name}
-                  className="flex items-center gap-2 px-3 py-2 border border-[var(--border-color)]/30 text-sm text-(--text-color)/60"
-                  whileHover={{ borderColor: 'var(--accent-color)', color: 'var(--accent-color)' }}
-                  transition={{ duration: 0.2 }}
+                  className="border border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] px-3 py-1.5 flex items-center gap-2"
                 >
-                  <Image unoptimized src={icon} alt={name} width={16} height={16} />
-                  {name}
-                </motion.div>
+                  {icon ? (
+                    <Image unoptimized src={icon} alt={name} width={14} height={14} className="opacity-50 dark:brightness-0 dark:invert" />
+                  ) : (
+                    <span className="text-[10px] text-[var(--secondary-text)] opacity-50 font-mono">&gt;</span>
+                  )}
+                  <span className="text-[11px] font-mono text-[var(--secondary-text)]">{name}</span>
+                </div>
               ))}
             </div>
           </div>
-
-          <div>
-            <h2 className="text-sm font-medium text-(--text-color)/50 uppercase tracking-widest mb-4">
-              Contact
-            </h2>
-            <div className="flex  justify-between items-center  flex-wrap gap-4">
-            <div className="flex flex-wrap gap-4 text-sm text-(--text-color)/40">
-              {SOCIAL_LINKS.map((link) => (
-                <a
-                  key={link.alt}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[var(--accent-color)] transition-colors flex items-center gap-1.5"
-                >
-                  <Image unoptimized src={link.icon} alt={link.alt} width={14} height={14} className="dark:brightness-0 dark:invert opacity-60" />
-                  {link.alt}
-                </a>
-              ))}
-              <a
-                href="mailto:srivastava-ayush@outlook.com"
-                className="hover:text-[var(--accent-color)] transition-colors"
-              >
-                Resume
-              </a>
+        {/* Social + Buttons section */}
+        <div className="border-y border-[var(--border-color)] relative">
+         
+          <div className="flex items-center w-full">
+            <div className="w-4 md:w-6 shrink-0" />
+            <div className="flex items-center border-x border-[var(--border-color)]">
+              {socialLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 text-[var(--text-color)] hover:text-[var(--text-color)] transition-all duration-200 border-r border-[var(--border-color)] last:border-r-0"
+                  >
+                    <Icon size={18} weight="fill" className="opacity-80  hover:opacity-100 transition-opacity" />
+                  </a>
+                );
+              })}
             </div>
-            <Link href="/orange_rolling">
-              <motion.img
-                style={{
-                  shapeRendering: "geometricPrecision",
-                  transformOrigin: "center center",
-                  backfaceVisibility: "hidden",
-                }}
-                initial={{
-                  opacity: 0,
-                  scale: 0,
-                  y: 100,
-                  x: 100,
-                  filter: "blur(10px)",
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1.3,
-                  y: 0,
-                  x: 0,
-                  filter: "blur(0px)",
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  opacity: { duration: 0.8 },
-                  scale: { duration: 0.8 },
-                  y: { duration: 0.8 },
-                  x: { duration: 0.8 },
-                  filter: { duration: 0.8 },
-                  rotate: {
-                    repeat: Infinity,
-                    duration: 30,
-                    ease: "linear",
-                    repeatType: "loop",
-                  },
-                }}
-                ref={org}
-                className="ml-4 inline w-12 md:w-17 orgLogo"
-                src={orange.src || orange}
-                alt="o"
-              />
-            </Link>
+            <div className="absolute top-0 bottom-0 right-4 md:right-6 flex items-center">
+              <Link
+                href="/projects"
+                className="flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-[11px] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
+              >
+                <Folder size={14} />
+                <span>Projects</span>
+              </Link>
+              <Link
+                href="/terminal"
+                className="hidden md:flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-[11px] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
+              >
+                <Terminal size={14} />
+                <span>Terminal</span>
+              </Link>
             </div>
           </div>
         </div>
 
-        <footer className="flex justify-between items-center text-sm text-(--text-color)/25 pt-8 border-t border-[var(--border-color)]/20">
-          <span>© 2025 Ayush Srivastava</span>
-          <Link href="/terminal" className="glitch-link relative text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors" data-text="/terminal">
-            /terminal
-          </Link>
-        </footer>
+        {/* Bottom curl command */}
+        <div className="border-y border-[var(--border-color)] relative">
+          <div className="flex items-center w-full">
+            <div className="w-4 md:w-6 shrink-0" />
+            <div className="w-full flex justify-between items-center gap-4 py-2">
+              <p className="px-3 py-1.5 h-9 flex items-center border-x border-[var(--border-color)] text-[var(--secondary-text)] font-mono text-xs">
+                curl https://srivastava-ayush.vercel.app/contact | bash
+              </p>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    "curl https://srivastava-ayush.vercel.app/contact | bash"
+                  );
+                }}
+                className="flex items-center justify-center gap-2 px-3 h-9 border-x border-[var(--border-color)] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200 font-mono text-xs"
+              >
+                <Copy size={14} />
+                <span className="hidden sm:inline">Copy</span>
+              </button>
+            </div>
+            <div className="w-4 md:w-6 shrink-0" />
+          </div>
+        </div>
       </div>
-
-      <style jsx global>{`
-        .glitch-link {
-          position: relative;
-          display: inline-block;
-        }
-        .glitch-link::before,
-        .glitch-link::after {
-          content: attr(data-text);
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          background: inherit;
-          opacity: 0;
-        }
-        .glitch-link::before {
-          color: #0ff;
-          clip-path: inset(0 0 50% 0);
-          animation: glitch-anim-1 3s infinite linear alternate-reverse;
-        }
-        .glitch-link::after {
-          color: #f0f;
-          clip-path: inset(50% 0 0 0);
-          animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim-1 {
-          0%, 100% { clip-path: inset(0 100% 0 0); opacity: 0; }
-          10% { clip-path: inset(15% 0 30% 0); transform: translateX(-2px); opacity: 0.8; }
-          12% { clip-path: inset(45% 0 10% 0); transform: translateX(2px); opacity: 0.8; }
-          14% { clip-path: inset(0 100% 0 0); opacity: 0; }
-          40% { clip-path: inset(60% 0 5% 0); transform: translateX(-1px); opacity: 0.6; }
-          42% { clip-path: inset(0 100% 0 0); opacity: 0; }
-          80% { clip-path: inset(20% 0 50% 0); transform: translateX(3px); opacity: 0.7; }
-          82% { clip-path: inset(0 100% 0 0); opacity: 0; }
-        }
-        @keyframes glitch-anim-2 {
-          0%, 100% { clip-path: inset(0 100% 0 0); opacity: 0; }
-          15% { clip-path: inset(35% 0 20% 0); transform: translateX(2px); opacity: 0.8; }
-          17% { clip-path: inset(5% 0 60% 0); transform: translateX(-2px); opacity: 0.8; }
-          19% { clip-path: inset(0 100% 0 0); opacity: 0; }
-          50% { clip-path: inset(70% 0 10% 0); transform: translateX(-3px); opacity: 0.6; }
-          52% { clip-path: inset(0 100% 0 0); opacity: 0; }
-          85% { clip-path: inset(10% 0 40% 0); transform: translateX(1px); opacity: 0.7; }
-          87% { clip-path: inset(0 100% 0 0); opacity: 0; }
-        }
-      `}</style>
     </section>
   );
 }

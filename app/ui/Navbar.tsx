@@ -6,8 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   motion,
-  useScroll,
-  useTransform,
   AnimatePresence,
 } from "motion/react";
 import slices_logo from "../../public/slices.svg";
@@ -17,8 +15,6 @@ function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
   const router = useRouter();
-  const { scrollYProgress } = useScroll();
-
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [theme, setTheme] = useState<"dark" | "light">(() => {
@@ -36,18 +32,6 @@ function Navbar() {
   }, [theme]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 80) {
-        navRef.current?.classList.add("nav-active");
-      } else {
-        navRef.current?.classList.remove("nav-active");
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -60,8 +44,6 @@ function Navbar() {
 
   const toggleTheme = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   const handleMenuToggle = () => setMenuOpen((prev) => !prev);
-
-  const borderTopBottom = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const handleHashNavigation = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     e.preventDefault();
@@ -113,42 +95,51 @@ function Navbar() {
 
   return (
     <>
-      {/* Desktop Nav */}
+      {/* Desktop Nav - metabar style */}
       <nav
         ref={navRef}
-        className="hidden md:flex px-6 md:px-6 m-2 w-full lg:w-4xl mx-auto pt-[2rem] nav-desktop-wrapper z-[99998] fixed top-0 left-0 right-0 items-center justify-between"
+        className="hidden md:flex sticky top-0 z-[99998] border-b border-[var(--border-color)] bg-[var(--bg-color)]/60 backdrop-blur-lg max-w-3xl mx-auto w-full"
       >
-        <motion.div
-          style={{ width: borderTopBottom }}
-          className="absolute bottom-0 left-1/2 h-[2px] bg-[var(--border-color)] -translate-x-1/2 origin-center"
-        />
+        <div className="w-full flex items-center h-7 font-mono text-[11px] text-[var(--secondary-text)]">
+          <Link
+            href="/terminal"
+            className="px-3 h-full flex items-center border-r border-[var(--border-color)] text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors"
+          >
+            आ<span className="text-[var(--accent-color)]">1.</span>
+          </Link>
 
-        <Link
-          className="text-[var(--text-color)] text-[1.35rem] md:text-[2rem] hover:tracking-[1rem] logoNav"
-          href="/terminal"
-        >
-          आ<span className="accent">1.</span>
-        </Link>
+          <a
+            href="#about"
+            onClick={(e) => handleHashNavigation(e, "#about")}
+            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
+              getCurrentPage() === "About" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
+            }`}
+          >
+            About
+          </a>
 
-        <ul className="hidden md:flex ml-5 gap-2 text-center items-center font-semibold justify-center">
-          <li className="text-[var(--secondary-text)] text-[.95rem] md:text-[1.1rem] navLinks">
-            <a href="#about" onClick={(e) => handleHashNavigation(e, "#about")}>
-              About
-            </a>
-          </li>
+          <Link
+            href="/projects"
+            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
+              getCurrentPage() === "Projects" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
+            }`}
+          >
+            Projects
+          </Link>
 
-          <li className="text-[var(--secondary-text)] text-[.95rem] md:text-[1.1rem] navLinks">
-            <Link href="/projects">Projects</Link>
-          </li>
+          <Link
+            href="/slices"
+            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
+              getCurrentPage() === "Slices" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
+            }`}
+          >
+            Slices
+          </Link>
 
-          <li className="text-[var(--secondary-text)] text-[.95rem] md:text-[1.1rem] navLinks">
-            <Link href="/slices">Slices</Link>
-          </li>
-
-          <li>
+          <div className="ml-auto h-full flex items-center px-2 border-l border-[var(--border-color)]">
             <ThemeToggleBtn theme={theme} toggleTheme={toggleTheme} />
-          </li>
-        </ul>
+          </div>
+        </div>
       </nav>
 
       {/* Mobile Dock - Always visible at bottom */}

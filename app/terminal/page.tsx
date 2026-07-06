@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { PROJECTS } from "../constants";
 import { motion } from "motion/react";
+import { PROJECTS } from "../constants";
 
 interface CommandOutput {
   cmd: string;
@@ -17,319 +17,270 @@ interface Project {
   projectLive: string;
 }
 
+const PROJECT_MAP: Record<string, number> = {};
+(PROJECTS as Project[]).forEach((p, i) => {
+  PROJECT_MAP[p.projectName.toLowerCase()] = i;
+});
+
+const BOOT_LINES = [
+  "> Initializing system boot sequence...",
+  "> Locating mainframe node...",
+  "> Establishing encrypted uplink [AES-256]...",
+  "> Handshake complete. Access token verified.",
+  "> Launching terminal interface...",
+  "> Connection stable.",
+  "> Welcome back, Ayush.",
+];
+
 function Page() {
   const router = useRouter();
-  const terminalContainer = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
   const bgCounterRef = useRef<number>(1);
 
-  const [prvInputsData, setPrvInputsData] = useState<CommandOutput[]>([]);
-  const [inputData, setInputData] = useState<string>("");
+  const [output, setOutput] = useState<CommandOutput[]>([]);
+  const [inputVal, setInputVal] = useState("");
   const [bootText, setBootText] = useState<string[]>([]);
-  const [bootDone, setBootDone] = useState<boolean>(false);
+  const [bootDone, setBootDone] = useState(false);
+  const [currentDir, setCurrentDir] = useState("~");
+  const [cmdHistory, setCmdHistory] = useState<string[]>([]);
+  const [historyIdx, setHistoryIdx] = useState(-1);
 
-  const commandsArr: string[] = ["whoami", "ls projects", "contact", "help"];
   const bgImgArr = ["/orangeBg.jpg", "/whiteBg.jpg", "/blackBg.jpg","/orangeDark.jpg", "/multiBg.jpg"];
 
-  // --- Boot animation text lines ---
-  const bootLines: string[] = [
-    "> Initializing system boot sequence...",
-    "> Locating mainframe node...",
-    "> Establishing encrypted uplink [AES-256]...",
-    "> Handshake complete. Access token verified.",
-    "> Launching terminal interface...",
-    "> Connection stable.",
-    "> Welcome back, Ayush.",
-  ];
-
-  // Boot typing effect
+  // Boot animation
   useEffect(() => {
-    let i = 0;
-    let j = 0;
+    let i = 0, j = 0;
     let interval: NodeJS.Timeout;
-
     const typeLine = () => {
-      if (i < bootLines.length) {
-        const line = bootLines[i];
+      if (i < BOOT_LINES.length) {
+        const line = BOOT_LINES[i];
         interval = setInterval(() => {
-          setBootText((prev) => {
-            const newLines = [...prev];
-            // Initialize the current line if undefined
-            if (!newLines[i]) newLines[i] = "";
-            newLines[i] += line[j];
-            return newLines;
+          setBootText(prev => {
+            const next = [...prev];
+            if (!next[i]) next[i] = "";
+            next[i] += line[j];
+            return next;
           });
-
           j++;
           if (j >= line.length) {
             clearInterval(interval);
             i++;
             j = 0;
-            setTimeout(typeLine, 15); // short pause before next line
+            setTimeout(typeLine, 15);
           }
         }, 15);
       } else {
-        // typing done
         setTimeout(() => setBootDone(true), 1000);
       }
     };
-
     typeLine();
-
-    // cleanup in case component unmounts early
-    return () => {
-      if (interval) clearInterval(interval);
-    };
+    return () => { if (interval) clearInterval(interval); };
   }, []);
 
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (outputRef.current) {
+      outputRef.current.scrollTop = outputRef.current.scrollHeight;
+    }
+  }, [output, bootDone]);
+
+  // Focus input on mount and click
+  useEffect(() => {
+    if (bootDone && inputRef.current) inputRef.current.focus();
+  }, [bootDone]);
+
+  const focusInput = useCallback(() => {
+    if (bootDone && inputRef.current) inputRef.current.focus();
+  }, [bootDone]);
+
+  const addOutput = (cmd: string, out: string | React.ReactNode) => {
+    setOutput(prev => [...prev, { cmd, output: out }]);
+  };
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputData(e.target.value);
+    setInputVal(e.target.value);
   }
 
-  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter" && inputRef.current && inputRef.current.value.trim()) {
-      const cmd = inputRef.current.value.trim().toLowerCase();
-      inputRef.current.value = "";
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter" && inputVal.trim()) {
+      const cmd = inputVal.trim();
+      setCmdHistory(prev => [...prev, cmd]);
+      setHistoryIdx(-1);
+      setInputVal("");
+      execCommand(cmd);
+    }
 
-      switch (cmd) {
-        case "clr":
-        case "clear":
-        case "cls":
-          setPrvInputsData([]);
-          return;
-        case "exit":
-          router.push("/");
-          return;
-        case "whoami":
-          setPrvInputsData((prev) => [
-            ...prev,
-            {
-              cmd,
-              output:
-                `Hey, I'm Ayush — obsessed with clean UIs & creative chaos, 
-                a 19-year-old Full-stack engineer
-              from India. Currently a second-year Computer Science student, I
-              work with TypeScript, React, and Next.js, building clean and
-              efficient web applications. Beyond the IDE, I enjoy chess and
-              Valorant.
-                
-                `,
-            },
-          ]);
-          break;
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (cmdHistory.length === 0) return;
+      const idx = historyIdx === -1 ? cmdHistory.length - 1 : Math.max(0, historyIdx - 1);
+      setHistoryIdx(idx);
+      setInputVal(cmdHistory[idx]);
+    }
 
-        case "help":
-          setPrvInputsData((prev) => [
-            ...prev,
-            {
-              cmd,
-              output: (
-                <p>
-                  <span className="TconLinks">whoami</span> - intro
-                  <br />
-                  <span className="TconLinks">contact</span> - socials
-                  <br />
-                  <span className="TconLinks">ls projects</span> - my builds
-                  <br />
-                  use <span className="font-bold">cd [project name]</span> to
-                  explore deeper. <br /> <span className="TconLinks">clr</span>{" "}
-                  - *clears the Terminal* <br />
-                  <span className="TconLinks">exit</span> - closes terminal
-                </p>
-              ),
-            },
-          ]);
-          break;
-
-        case "contact":
-          setPrvInputsData((prev) => [
-            ...prev,
-            {
-              cmd,
-              output: (
-                <>
-                  <p>Reach me at:</p>
-                  <ul className="space-y-1">
-                    <li>
-                      <a href="mailto:aayush@mail.com" className="TconLinks">
-                        📧 aayush@mail.com
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://www.linkedin.com/in/constayush/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="TconLinks"
-                      >
-                        🔗 LinkedIn
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://github.com/constayush"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="TconLinks"
-                      >
-                        💻 GitHub
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://www.instagram.com/maihoonayush/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="TconLinks"
-                      >
-                        📷 Instagram
-                      </a>
-                    </li>
-                  </ul>
-                </>
-              ),
-            },
-          ]);
-          break;
-
-        case "ls projects":
-          setPrvInputsData((prev) => [
-            ...prev,
-            {
-              cmd,
-              output: (
-                <p>
-                  {(PROJECTS as Project[]).map((proj, index) => (
-                    <div key={index}>
-                      <span className="TconLinks">{proj.projectName}</span> -{" "}
-                      {proj.projectDescriptionShort}
-                      <br />
-                    </div>
-                  ))}
-                  <br />
-                  use <span className="font-bold">cd</span> to explore deeper.
-                </p>
-              ),
-            },
-          ]);
-          break;
-
-        case "cd slices-ui":
-          setPrvInputsData((prev) => [
-            ...prev,
-            {
-              cmd,
-              output: (
-                <>
-                  {(PROJECTS as Project[])[0].projectName} -{" "}
-                  {(PROJECTS as Project[])[0].projectDescriptionLong} <br />
-                  View code:{" "}
-                  <a
-                    href={(PROJECTS as Project[])[0].projectCode}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="TconLinks"
-                  >
-                    {(PROJECTS as Project[])[0].projectCode}
-                  </a>{" "}
-                  <br />
-                  Live demo:{" "}
-                  <a
-                    href={(PROJECTS as Project[])[0].projectLive}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="TconLinks"
-                  >
-                    {(PROJECTS as Project[])[0].projectLive}
-                  </a>
-                </>
-              ),
-            },
-          ]);
-          break;
-
-        case "cd boxlit":
-          setPrvInputsData((prev) => [
-            ...prev,
-            {
-              cmd,
-              output: (
-                <>
-                  {(PROJECTS as Project[])[1].projectName} -{" "}
-                  {(PROJECTS as Project[])[1].projectDescriptionLong} <br />
-                  View code:{" "}
-                  <a
-                    href={(PROJECTS as Project[])[1].projectCode}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="TconLinks"
-                  >
-                    {(PROJECTS as Project[])[1].projectCode}
-                  </a>{" "}
-                  <br />
-                  Live demo:{" "}
-                  <a
-                    href={(PROJECTS as Project[])[1].projectLive}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="TconLinks"
-                  >
-                    {(PROJECTS as Project[])[1].projectLive}
-                  </a>
-                </>
-              ),
-            },
-          ]);
-          break;
-
-        default:
-          setPrvInputsData((prev) => [
-            ...prev,
-            { cmd, output: `Command not found: ${cmd}. Try 'help'` },
-          ]);
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIdx === -1) return;
+      const idx = historyIdx + 1;
+      if (idx >= cmdHistory.length) {
+        setHistoryIdx(-1);
+        setInputVal("");
+      } else {
+        setHistoryIdx(idx);
+        setInputVal(cmdHistory[idx]);
       }
     }
   }
 
+  function execCommand(cmd: string) {
+    const lower = cmd.toLowerCase().trim();
+
+    if (lower === "clr" || lower === "clear" || lower === "cls") {
+      setOutput([]);
+      return;
+    }
+
+    if (lower === "exit") {
+      router.push("/");
+      return;
+    }
+
+    if (lower === "whoami") {
+      addOutput(cmd, (
+        <div className="space-y-1">
+          <div><span className="text-[var(--secondary-text)]">name:</span> Ayush Srivastava</div>
+          <div><span className="text-[var(--secondary-text)]">role:</span> Full-Stack Engineer</div>
+          <div><span className="text-[var(--secondary-text)]">age:</span> 19</div>
+          <div><span className="text-[var(--secondary-text)]">location:</span> India</div>
+          <div><span className="text-[var(--secondary-text)]">education:</span> B.Tech CSE, 2nd year</div>
+          <div><span className="text-[var(--secondary-text)]">stack:</span> TypeScript · React · Next.js · Node.js · PostgreSQL</div>
+          <div><span className="text-[var(--secondary-text)]">vibe:</span> clean UIs & creative chaos</div>
+        </div>
+      ));
+      return;
+    }
+
+    if (lower === "help") {
+      addOutput(cmd, (
+        <div>
+          <div><span className="text-[var(--accent-color)]">whoami</span>        — about me</div>
+          <div><span className="text-[var(--accent-color)]">contact</span>       — social links</div>
+          <div><span className="text-[var(--accent-color)]">ls projects</span>   — list projects</div>
+          <div><span className="text-[var(--accent-color)]">cd [project]</span>   — explore a project</div>
+          <div><span className="text-[var(--accent-color)]">clr / clear</span>    — clear terminal</div>
+          <div><span className="text-[var(--accent-color)]">exit</span>          — leave terminal</div>
+        </div>
+      ));
+      return;
+    }
+
+    if (lower === "contact") {
+      addOutput(cmd, (
+        <div className="space-y-1">
+          <div><a href="mailto:srivastava-ayush@outlook.com" className="text-[var(--accent-color)] hover:underline">mail</a> — srivastava-ayush@outlook.com</div>
+          <div><a href="https://github.com/srivastava-ayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">github</a> — /srivastava-ayush</div>
+          <div><a href="https://linkedin.com/in/constayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">linkedin</a> — /in/constayush</div>
+          <div><a href="https://instagram.com/maihoonayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">instagram</a> — @maihoonayush</div>
+        </div>
+      ));
+      return;
+    }
+
+    if (lower === "ls projects" || lower === "ls") {
+      addOutput(cmd, (
+        <div>
+          {(PROJECTS as Project[]).map((p, i) => (
+            <div key={i} className="flex items-baseline gap-3">
+              <span className="text-[var(--accent-color)] font-mono">{p.projectName}</span>
+              <span className="text-[var(--secondary-text)] text-sm">— {p.projectDescriptionShort}</span>
+            </div>
+          ))}
+          <div className="mt-2 text-[var(--secondary-text)] text-sm">use <span className="text-[var(--text-color)]">cd [project-name]</span> for details</div>
+        </div>
+      ));
+      return;
+    }
+
+    // cd command
+    if (lower.startsWith("cd ")) {
+      const target = lower.slice(3).trim();
+      if (target === ".." || target === "/") {
+        setCurrentDir("~");
+        addOutput(cmd, "");
+        return;
+      }
+      const projName = Object.keys(PROJECT_MAP).find(k => k === target || k.replace(/\s/g, "") === target);
+      if (projName !== undefined) {
+        const idx = PROJECT_MAP[projName];
+        const p = (PROJECTS as Project[])[idx];
+        setCurrentDir(`~/projects/${projName}`);
+        addOutput(cmd, (
+          <div>
+            <div className="text-lg font-semibold text-[var(--text-color)]">{p.projectName}</div>
+            <p className="text-[var(--secondary-text)] mt-1">{p.projectDescriptionLong}</p>
+            <div className="mt-2 flex gap-5">
+              <a href={p.projectCode} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline text-sm">[source]</a>
+              {p.projectLive && (
+                <a href={p.projectLive} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline text-sm">[live]</a>
+              )}
+            </div>
+          </div>
+        ));
+      } else {
+        addOutput(cmd, `cd: no such project: ${target}`);
+      }
+      return;
+    }
+
+    addOutput(cmd, (
+      <span>command not found: <span className="text-[var(--accent-color)]">{cmd}</span> — try <span className="text-[var(--text-color)]">help</span></span>
+    ));
+  }
+
   function changeBg() {
     bgCounterRef.current = (bgCounterRef.current + 1) % bgImgArr.length;
-    if (terminalContainer.current) {
-      terminalContainer.current.style.backgroundImage = `url(${bgImgArr[bgCounterRef.current]})`;
+    if (terminalRef.current) {
+      terminalRef.current.style.backgroundImage = `url(${bgImgArr[bgCounterRef.current]})`;
     }
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, width: 0 }}
-      animate={{ opacity: 1, width: "100%" }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      ref={terminalContainer}
-      className="terminal will-change-transform relative w-full lg:h-[98vh] h-[95vh] flex flex-col p-4 rounded-lg bg-cover bg-center transition-all duration-500 overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="will-change-transform relative w-full lg:h-[98vh] h-[95vh] flex flex-col p-2 bg-cover bg-center transition-all duration-500 overflow-hidden"
+      ref={terminalRef}
+      style={{ backgroundImage: "url(/blackBg.jpg)" }}
     >
-      <div className="relative w-full h-full bg-[#000000d8] rounded-lg backdrop-blur-sm border border-[#1e1e1e] flex flex-col overflow-hidden shadow-[0_0_30px_#00000070] z-[2]">
-        {/* Top bar */}
-        <nav className="flex items-center justify-between bg-[#101010] text-gray-300 px-4 py-2 border-b border-[#222]">
-          <img
-            src={"/themeIco.svg"}
-            onClick={changeBg}
-            alt="Theme"
-            className="w-6 h-6 cursor-pointer hover:scale-110 transition"
-          />
-          <p className="font-mono text-sm">ayush@portfolio:~</p>
-          <button onClick={() => router.push("/")}>
-            <img
-              src={"/closeIco.svg"}
-              alt="Close"
-              className="w-6 h-6 cursor-pointer hover:scale-110 transition"
-            />
-          </button>
-        </nav>
+      {/* Terminal window frame */}
+      <div className="relative w-full h-full bg-[var(--bg-color)]/40 backdrop-blur-xl rounded-sm border border-[var(--border-color)] flex flex-col overflow-hidden shadow-lg">
 
-        {/* Terminal content */}
-        <div className="flex-1 overflow-auto text-[#ff9900] font-mono text-[1rem] p-4 space-y-2">
+        {/* Title bar */}
+        <div className="flex items-center justify-between bg-[var(--bg-color)]/50 backdrop-blur-sm text-[var(--secondary-text)] px-3 border-b border-[var(--border-color)] h-7 font-mono text-xs shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--text-color)]">●</span>
+            <span>ayush@portfolio: {currentDir}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={changeBg} className="hover:text-[var(--text-color)] transition-colors px-1" title="Change background">
+              ~/bg
+            </button>
+            <button onClick={() => router.push("/")} className="hover:text-[var(--text-color)] transition-colors px-1" title="Close">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        {/* Output area */}
+        <div
+          ref={outputRef}
+          onClick={focusInput}
+          className="flex-1 overflow-auto font-mono text-sm p-4 space-y-2 bg-[var(--bg-color)] text-[var(--text-color)]"
+        >
           {!bootDone && (
-            <div className="text-[#ffbf00] space-y-1 animate-fadeIn">
+            <div className="text-[var(--accent-color)] space-y-1">
               {bootText.map((line, idx) => (
                 <p key={idx}>{line}</p>
               ))}
@@ -339,47 +290,57 @@ function Page() {
 
           {bootDone && (
             <>
-              <p>Welcome to my terminal portfolio!</p>
-              <pre>
-                {String.raw`
-        __     ___    _  _____ _    _
-      /\ \   / / |  | |/ ____| |  | |
-     /  \ \_/ /| |  | | (___ | |__| |
-    / /\ \   / | |  | |\___ \|  __  |
-   / ____ \| |  | |__| |____) | |  | |
-  /_/    \_\_|   \____/|_____/|_|  |_|
-  
-  `}
+              <pre className="text-[var(--accent-color)] leading-tight text-xs">
+{`  __     ___    _  _____ _    _
+ /\\ \\   / / |  | |/ ____| |  | |
+/  \\ \\_/ /| |  | | (___ | |__| |
+/ /\\ \\   / | |  | |\\___ \\|  __  |
+/ ____ \\| |  | |__| |____) | |  | |
+/_/    \\_\\_|   \\____/|_____/|_|  |_|`}
               </pre>
-              <p className="text-gray-400">
-                Type <span className="text-[#ffffff]">help</span> for a list of
-                commands.
+              <p className="text-[var(--secondary-text)]">
+                Type <span className="text-[var(--accent-color)]">help</span> for available commands.
               </p>
 
-              {prvInputsData.map((item, idx) => (
-                <div key={idx} className="space-y-1">
-                  <div className="flex items-start space-x-2">
-                    <span className="text-[#ffffff]">user@ayush:~$</span>
-                    <span>{item.cmd}</span>
+              {output.map((item, i) => (
+                <div key={i} className="space-y-1">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[var(--accent-color)] shrink-0">┌─</span>
+                    <span className="text-[var(--secondary-text)]">user@portfolio</span>
+                    <span className="text-[var(--accent-color)]">:</span>
+                    <span className="text-[var(--text-color)]">{currentDir}</span>
+                    <span className="text-[var(--accent-color)]">$</span>
+                    <span className="text-[var(--text-color)]">{item.cmd}</span>
                   </div>
-                  <div className="pl-6 text-gray-300">{item.output}</div>
+                  <div className="pl-6 text-[var(--text-color)]">{item.output}</div>
                 </div>
               ))}
 
-              {/* New command */}
-              <div className="flex items-center space-x-2 mt-4 relative">
-                <span className="text-[#ffffff]">user@ayush:~$</span>
+              {/* Input line */}
+              <div className="flex items-baseline gap-2 pt-1">
+                <span className="text-[var(--accent-color)] shrink-0">└─</span>
+                <span className="text-[var(--secondary-text)]">user@portfolio</span>
+                <span className="text-[var(--accent-color)]">:</span>
+                <span className="text-[var(--text-color)]">{currentDir}</span>
+                <span className="text-[var(--accent-color)]">$</span>
                 <input
                   ref={inputRef}
                   type="text"
-                  className="bg-transparent outline-none w-full text-gray-400 caret-[#ffbf00]"
+                  value={inputVal}
                   onChange={handleInputChange}
-                  onKeyDown={handleKeyPress}
+                  onKeyDown={handleKeyDown}
+                  className="bg-transparent outline-none flex-1 text-[var(--text-color)] caret-[var(--accent-color)] font-mono"
                   autoFocus
                 />
               </div>
             </>
           )}
+        </div>
+
+        {/* Status bar */}
+        <div className="flex items-center justify-between border-t border-[var(--border-color)] h-6 px-3 font-mono text-[10px] text-[var(--secondary-text)] bg-[var(--bg-color)]/50 backdrop-blur-sm shrink-0">
+          <span>cmd history: {cmdHistory.length}</span>
+          <span>ayush@portfolio ✓</span>
         </div>
       </div>
     </motion.div>

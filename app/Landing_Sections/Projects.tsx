@@ -85,19 +85,15 @@ function Projects() {
       {/* Desktop Layout */}
       <div
         ref={containerRef}
-        className="hidden none md:block  relative w-full"
+        className="hidden none md:block  relative w-full "
         style={{ height: `${SCROLL_SECTIONS * 60}vh` }}
       >
-        <div className="sticky top-0 h-screen overflow-hidden">
-          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
-
-          <div className="hidden md:flex flex-col h-full py-16">
-            <div className="flex justify-between items-center px-8 mb-12">
-              <h1 className="text-3xl md:text-[2.7rem] font-semibold text-(--text-color)">
-                Projects
-                <span className="font-semibold text-[var(--accent-color)]">
-                  .
-                </span>
+        <div className="sticky top-0 h-screen overflow-hidden border-t border-[var(--border-color)]">
+          <div className="hidden md:flex flex-col h-full  ">
+            <div className="flex justify-between items-center px-8 border-b border-[var(--border-color)]">
+              <h1 className="text-3xl md:text-[2.7rem] font-semibold font-mono bg-clip-text text-transparent bg-linear-to-b from-[var(--text-color)] to-[var(--text-color)]/50">
+                <span className="">Projects</span>
+                <span className="text-[var(--accent-color)]">.</span>
               </h1>
               <Link
                 href="/projects"
@@ -124,7 +120,7 @@ function Projects() {
                         id={`${index}`}
                         className={`text-lg md:text-2xl font-medium tracking-tight transition-colors ${
                           index === activeIndex
-                            ? "text-[var(--accent-color)]"
+                            ? "text-[var(--text-color2)]"
                             : "text-(--text-color)/40 group-hover:text-(--text-color)/60"
                         }`}
                         animate={{ x: index === activeIndex ? 4 : 0 }}
@@ -144,7 +140,7 @@ function Projects() {
 
                 {/* 2D Scroll Knob */}
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-36 pointer-events-none">
-                  <div className="w-full h-full rounded-lg border border-[var(--border-color)]/30 bg-(--bg-color)/40 backdrop-blur-sm overflow-hidden relative shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.2)]">
+                  <div className="w-full h-full rounded-lg border border-[var(--border-color)]/60 bg-(--bg-color)/10 backdrop-blur-sm overflow-hidden relative shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.2)]">
                     {/* Horizontal ridges/stripes */}
                     <div className="absolute inset-0 flex flex-col justify-between py-1.5 px-1">
                       {Array.from({ length: 12 }).map((_, i) => {
@@ -187,8 +183,7 @@ function Projects() {
                 </div>
               </div>
 
-              <div className="w-1/2 flex items-center justify-center px-8 relative">
-                <div className="absolute left-0 inset-y-0 w-px bg-gradient-to-b from-transparent via-[var(--border-color)]/40 to-transparent" />
+              <div className="w-1/2 flex items-center justify-center px-8 relative border-l border-[var(--border-color)]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
@@ -211,7 +206,7 @@ function Projects() {
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
-                            className="text-xs font-mono text-[var(--accent-color)]/70 bg-[var(--accent-color)]/5 px-2 py-1 rounded"
+                            className="text-xs font-mono text-[var(--text-color)]/70 bg-[var(--accent-color)]/10 px-2 py-1 rounded"
                           >
                             {tech}
                           </span>
@@ -269,23 +264,21 @@ function Projects() {
                   </motion.div>
                 </AnimatePresence>
               </div>
+              
             </div>
           </div>
         </div>
       </div>
 
       {/* Mobile Layout */}
-      <div className="relative w-full  md:hidden">
+      <div className="relative w-full  md:hidden border-t border-[var(--border-color)]">
         <div className=" overflow-auto">
-          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--border-color)]/50 to-transparent" />
 
           <div className="flex md:hidden  flex-col py-12 px-6 ">
             <div className="flex justify-between items-center mb-6 shrink-0">
-              <h1 className="text-2xl font-semibold text-(--text-color)">
-                Projects
-                <span className="font-semibold text-[var(--accent-color)]">
-                  .
-                </span>
+              <h1 className="text-2xl font-semibold">
+                <span className="text-[#F4F4F4]">Proj</span>
+                <span className="text-[#777777]">ects.</span>
               </h1>
               <Link
                 href="/projects"

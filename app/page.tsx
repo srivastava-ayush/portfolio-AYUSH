@@ -7,7 +7,7 @@ import { useCustomCursor } from "./ui/utils/useCursor";
 import { useEffect, useState } from "react";
 import Hero from "./Landing_Sections/Hero";
 import Projects from "./Landing_Sections/Projects";
-import Activity from "./Landing_Sections/Activity";
+
 import AboutMe from "./Landing_Sections/AboutMe";
 
 function PageClient() {
@@ -36,11 +36,9 @@ function PageClient() {
   return (
     <div
       data-theme={theme}
-      className="w-full min-h-screen relative flex bg-grid-[#000]/[.030] flex-col items-center pt-40 md:pt-44 pb-16 text-(--text-color) bg-(--bg-color)"
+      className="w-full min-h-screen relative flex bg-grid-[#000]/[.030] flex-col items-center text-(--text-color) bg-(--bg-color)"
     >
       <div ref={cursorRef} className="custom-cursor"></div>
-
-      <Navbar />
 
       <motion.span
         initial={{ opacity: 0, top: "-100px" }}
@@ -53,26 +51,24 @@ function PageClient() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="w-full max-w-5xl flex flex-col justify-center items-center gap-24 md:gap-32 px-6"
+        className="w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center"
       >
-        {/* Main Hero Section */}
-        <Hero/>
+        <Navbar />
 
-        <div className="max-w-3xl w-full flex flex-col justify-center items-center gap-24 md:gap-32 ">
-          {/* Projects */}
-        <Projects/>
-
-          {/* Activity */}
-        <Activity />
-
-          {/* About Me */}
-       <AboutMe/>
-
+        <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
+          <section className="w-full px-6 md:px-0 py-12 md:py-16">
+            <Hero/>
+          </section>
+          <section className="w-full px-6 md:px-0 py-12 md:pt-[3rem] ">
+            <Projects/>
+          </section>
+          <section className="w-full px-6 py-12 md:py-16 mb-20 md:mb-0">
+            <AboutMe/>
+          </section>
         </div>
 
        </motion.div>
 
-  
     </div>
   );
 }

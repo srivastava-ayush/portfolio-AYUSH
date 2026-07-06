@@ -33,9 +33,7 @@ function Page() {
 
   return (
 
-    <motion.div initial={{ opacity: 0}} animate={{ opacity: 1}} transition={{duration:1}} className='min-h-[130vh] pt-30 pb-16 px-2 flex flex-col  items-center'>
-<Navbar />
-<main  className='  w-full max-w-3xl flex flex-col gap-8'>
+    <motion.div initial={{ opacity: 0}} animate={{ opacity: 1}} transition={{duration:1}} className='min-h-[130vh] flex flex-col items-center'>
       
       <motion.span
         initial={{ opacity: 0, top: "-100px" }}
@@ -43,6 +41,9 @@ function Page() {
         transition={{ duration: 1 }}
         className="fixed pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
       />
+      <motion.div className='w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center'>
+        <Navbar />
+        <main className='w-full flex flex-col gap-8 px-6 pt-8 pb-16'>
       <div className='flex flex-col items-center '>
         <h1 className='text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold'>Projects</h1>
 <p className='text-md text-[var(--secondary-text)]'>A showcase of projects built across diverse tech stacks.</p>
@@ -55,7 +56,7 @@ function Page() {
 <div className='flex flex-wrap gap-2 justify-center'>
   <button
     onClick={clearAll}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+    className={`flex items-center gap-2 px-4 py-2 rounded- text-sm font-medium transition-all duration-200 border ${
       activeFilters.length === 0
         ? 'bg-[var(--accent-color)]/10 text-white border-[var(--accent-color)]'
         : 'bg-transparent text-[var(--secondary-text)] border-[var(--border-3-color)] hover:border-[var(--accent-color)] hover:text-[var(--text-color)]'
@@ -71,7 +72,7 @@ function Page() {
       <button
         key={filter.value}
         onClick={() => toggleFilter(filter.value)}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+        className={`flex items-center gap-2 px-4 py-2  text-sm font-medium transition-all duration-200 border ${
           isActive
             ? 'bg-[var(--accent-color)]/5 text-white border-[var(--accent-color)]'
             : 'bg-transparent text-[var(--secondary-text)] border-[var(--border-3-color)] hover:border-[var(--accent-color)] hover:text-[var(--text-color)]'
@@ -99,6 +100,7 @@ function Page() {
 })}
 </motion.div>
 </main>
+      </motion.div>
     </motion.div>
   )
 }

@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from "motion/react";
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
 
 function ThemeToggleBtn({
@@ -15,118 +14,19 @@ function ThemeToggleBtn({
   return (
     <button
       aria-label="Toggle theme"
-      aria-pressed={theme === "light"}
       onClick={toggleTheme}
-      className={`relative ${
+      className={`hover:bg-[var(--hover-color)] transition-colors ${
         mobile && dock
-          ? "w-12 h-12 rounded-xl"
+          ? "w-10 h-10 rounded-lg flex items-center justify-center"
           : mobile
-            ? "w-14 h-7"
-            : "w-11 h-6 mt-2"
-      } ${mobile && dock ? "flex items-center justify-center hover:bg-[var(--hover-color)] transition-colors" : "rounded-full border border-[var(--border-color)]/30 bg-[var(--bg-color)]/50 backdrop-blur-sm overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.2)] focus:outline-none focus:ring-2 focus:ring-[var(--text-color)]/10 transition-colors"}`}
+            ? "w-10 h-10 rounded-lg flex items-center justify-center"
+            : "w-7 h-7 rounded-sm flex items-center justify-center"
+      }`}
     >
-      {mobile && dock ? (
-        theme === "dark" ? (
-          <MoonIcon size={22} weight="fill" className="text-blue-300" />
-        ) : (
-          <SunIcon size={22} weight="fill" className="text-amber-400" />
-        )
+      {theme === "dark" ? (
+        <MoonIcon size={mobile ? 18 : 14} weight="fill" className="text-[var(--text-color)]" />
       ) : (
-        <>
-          <motion.div
-            className="absolute inset-0"
-            animate={{
-              background:
-                theme === "dark"
-                  ? "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)"
-                  : "linear-gradient(135deg, #fff9e6 0%, #ffe4a8 100%)",
-            }}
-            transition={{ duration: 0.4 }}
-          />
-          <motion.div
-            className={`absolute ${
-              mobile ? "top-1 left-1" : "top-0.5 left-0.5"
-            } w-5 h-5 rounded-full flex items-center justify-center shadow-[0_2px_4px_rgba(0,0,0,0.2)]`}
-            animate={{
-              x: theme === "dark" ? 0 : mobile ? 24 : 20,
-              backgroundColor: theme === "dark" ? "#1a1a1a" : "#fff",
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 30,
-            }}
-          >
-            <AnimatePresence mode="wait">
-              {theme === "dark" ? (
-                <motion.div
-                  key="moon"
-                  initial={{ scale: 0, rotate: -90 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  exit={{ scale: 0, rotate: 90 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <MoonIcon
-                    size={mobile ? 12 : 10}
-                    weight="fill"
-                    className="text-blue-300"
-                  />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="sun"
-                  initial={{ scale: 0, rotate: -90 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  exit={{ scale: 0, rotate: 90 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <SunIcon
-                    size={mobile ? 12 : 10}
-                    weight="fill"
-                    className="text-amber-400"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-
-          <AnimatePresence>
-            {theme === "dark" && (
-              <>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 0.5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className={`absolute ${
-                    mobile ? "top-1 right-3" : "top-1 right-2"
-                  } w-0.5 h-0.5 bg-white rounded-full`}
-                />
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 0.3, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-                  className={`absolute ${
-                    mobile ? "top-2.5 right-5" : "top-2.5 right-4"
-                  } w-0.5 h-0.5 bg-white rounded-full`}
-                />
-              </>
-            )}
-          </AnimatePresence>
-
-          <AnimatePresence>
-            {theme === "light" && (
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 0.4, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.3 }}
-                className={`absolute ${
-                  mobile ? "top-2 left-3" : "top-1.5 left-2"
-                } w-3 h-1 bg-white rounded-full`}
-              />
-            )}
-          </AnimatePresence>
-        </>
+        <SunIcon size={mobile ? 18 : 14} weight="fill" className="text-[var(--accent-color)]" />
       )}
     </button>
   );

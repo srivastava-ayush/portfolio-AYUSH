@@ -7,7 +7,7 @@ import HighlightedLink from "../ui/HighlightedLink";
 import { SOCIAL_LINKS } from "../constants";
 import orange from "../../public/orange.svg";
 function Hero() {
- const headingWords = " Hi I'm Ayush - A Full Stack Engineer from India";
+   const headingWords = " Hi I'm Ayush - A Full Stack Engineer from India";
   const org = useRef<HTMLImageElement>(null);
   const handleScrollArrow = useCallback(() => {
     window.scrollTo({
@@ -32,61 +32,63 @@ function Hero() {
   );
     return (
    <main className="main-hero-section-container text-center items-center justify-center flex flex-col gap-4 md:gap-8">
-          <h1 className="hero-heading text-[var(--text-color)] text-[1.8rem] md:text-[2.8rem] inline text-center">
-            <TextGenerateEffect className="inline tracking-wide" words={headingWords} />
-            <Link href="/orange_rolling">
-              <motion.img
-                style={{
-                  shapeRendering: "geometricPrecision",
-                  transformOrigin: "center center",
-                  backfaceVisibility: "hidden",
-                }}
-                initial={{
-                  opacity: 0,
-                  scale: 0,
-                  y: 100,
-                  x: 100,
-                  filter: "blur(10px)",
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  x: 0,
-                  filter: "blur(0px)",
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  opacity: { duration: 0.8 },
-                  scale: { duration: 0.8 },
-                  y: { duration: 0.8 },
-                  x: { duration: 0.8 },
-                  filter: { duration: 0.8 },
-                  rotate: {
-                    repeat: Infinity,
-                    duration: 30,
-                    ease: "linear",
-                    repeatType: "loop",
-                  },
-                }}
-                ref={org}
-                className="ml-4 inline w-12 md:w-17 orgLogo"
-                src={orange.src || orange}
-                alt="o"
-                whileHover={{
-                  y: [0, -20, 0],
-                  scale: [1, 1.25, 1],
-                  transition: { duration: 0.5, ease: "easeOut" },
-                }}
-                whileTap={{
-                  scale: [1, 0.85, 1.1, 1],
-                  transition: { duration: 0.4 },
-                }}
-              />
-            </Link>
-          </h1>
+          <div className="w-full border-t border-[var(--border-color)] pt-8">
+            <h1 className="hero-heading text-[1.8rem] md:text-[2.5rem] inline text-center">
+              <TextGenerateEffect className="inline tracking-wide" words={headingWords} />
+              <Link href="/orange_rolling">
+                <motion.img
+                  style={{
+                    shapeRendering: "geometricPrecision",
+                    transformOrigin: "center center",
+                    backfaceVisibility: "hidden",
+                  }}
+                  initial={{
+                    opacity: 0,
+                    scale: 0,
+                    y: 100,
+                    x: 100,
+                    filter: "blur(10px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    x: 0,
+                    filter: "blur(0px)",
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    opacity: { duration: 0.8 },
+                    scale: { duration: 0.8 },
+                    y: { duration: 0.8 },
+                    x: { duration: 0.8 },
+                    filter: { duration: 0.8 },
+                    rotate: {
+                      repeat: Infinity,
+                      duration: 30,
+                      ease: "linear",
+                      repeatType: "loop",
+                    },
+                  }}
+                  ref={org}
+                  className="ml-4 inline w-12 md:w-17 orgLogo"
+                  src={orange.src || orange}
+                  alt="o"
+                  whileHover={{
+                    y: [0, -20, 0],
+                    scale: [1, 1.25, 1],
+                    transition: { duration: 0.5, ease: "easeOut" },
+                  }}
+                  whileTap={{
+                    scale: [1, 0.85, 1.1, 1],
+                    transition: { duration: 0.4 },
+                  }}
+                />
+              </Link>
+            </h1>
+          </div>
 
-          <p className="hero-para text-lg md:text-2xl md:max-w-full text-(--secondary-text) text-shadow font-normal">
+          <p className="hero-para text-lg md:text-xl md:max-w-full text-(--secondary-text) text-shadow font-normal">
           Creating UIs that pop with clean design and code, built using <br/>
             <HighlightedLink name="TypeScript" img="/typescript.svg" /> ,{" "}
             <HighlightedLink name="React" img="/react-2.svg" /> ,{" "}
