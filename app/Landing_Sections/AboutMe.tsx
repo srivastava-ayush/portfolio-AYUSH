@@ -3,9 +3,7 @@
 import {
   useEffect,
   useState,
-  useCallback,
 } from "react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { GitHubCalendar } from "react-github-calendar";
@@ -39,6 +37,13 @@ function AboutMe() {
     update();
     const timer = setInterval(update, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `@keyframes breathe{0%,100%{border-color:var(--border-color)}20%,80%{border-color:var(--secondary-text)}}`;
+    document.head.appendChild(style);
+    return () => style.remove();
   }, []);
 
   const debugInfo = [
@@ -206,22 +211,11 @@ function AboutMe() {
             </div>
             <div className="flex flex-wrap gap-2">
               {TECH_STACK.map(({ icon, name }, i) => (
-                <motion.div
+                <div
                   key={name}
-                  initial={false}
-                  animate={{
-                    borderColor: [
-                      'var(--border-color)',
-                      'var(--secondary-text)',
-                      'var(--secondary-text)',
-                      'var(--border-color)',
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    ease: 'easeInOut',
-                    repeat: Infinity,
-                    delay: i * 0.07,
+                  style={{
+                    animation: `breathe 4s ease-in-out infinite`,
+                    animationDelay: `${i * 0.03}s`,
                   }}
                   className="border border-dotted border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] px-3 py-1.5 flex items-center gap-2"
                 >
@@ -231,7 +225,7 @@ function AboutMe() {
                     <span className="text-[10px] text-[var(--secondary-text)] opacity-50 font-mono">&gt;</span>
                   )}
                   <span className="text-[11px] font-mono text-[var(--secondary-text)]">{name}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
