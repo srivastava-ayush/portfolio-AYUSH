@@ -119,6 +119,9 @@ function AboutMe() {
                 <span className="text-[var(--text-color)]">Ayush</span>
                 <span className="text-[var(--secondary-text)]">Srivastava</span>
               </h1>
+              <span className="text-xs font-mono text-[var(--secondary-text)]/50 mt-0.5 block">
+                आयुष श्रीवास्तव
+              </span>
             </div>
 
             {/* Role */}

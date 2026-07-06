@@ -1,8 +1,17 @@
 "use client";
-import { CodeIcon, CopyIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+import Navbar from "../../ui/Navbar";
+import { CodeIcon, CopyIcon, ArrowLeft } from "@phosphor-icons/react";
 import { useRouter, usePathname } from "next/navigation";
+import { motion } from "motion/react";
 
-const options = [ "parallax-reveal", "pop-blur", "reveal-slices"];
+const options = [
+  "parallax-reveal",
+  "pop-blur",
+  "reveal-slices",
+  "stacked-cards",
+  "grid-mosaic",
+];
 
 export default function ExperiencesLayout({
   children,
@@ -11,42 +20,59 @@ export default function ExperiencesLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const currentSlug = pathname.split("/").pop() || "apple";
+  const currentSlug = pathname.split("/").pop() || "parallax-reveal";
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     router.push(`/slices/experiences/${e.target.value}`);
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen">
-      <nav className="m-4 fixed top-16 z-999 flex justify-center items-center gap-4 text-[var(--secondary-text)] ">
-        <select
-          className="backdrop-blur-md bg-[var(--bg-color)]/50  decoration-none rounded-2xl px-4 py-1 border border-[--border-color]/10 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3),inset_0_-4px_2px_rgba(0,0,0,0.2)]"
-          name="experience"
-          id="experience"
-          value={currentSlug}
-          onChange={handleChange}
-        >
-          {options.map((option) => (
-            <option
-              className="bg-[#ffffffca] backdrop-blur-md border-white/10 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3),inset_0_-4px_2px_rgba(0,0,0,0.2)]"
-              key={option}
-              value={option}
-            >
-              {option}
-            </option>
-          ))}
-        </select>
-  <button className="bg-[var(--bg-color)]/50   flex justify-center items-center gap-1 cursor-pointer  backdrop-blur-md decoration-none rounded-2xl px-4 py-1 border border-[--border-color]/10 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3),inset_0_-4px_2px_rgba(0,0,0,0.2)]" >
-          view code <CodeIcon/>
-        </button>
-        <button className="bg-[var(--bg-color)]/50   flex justify-center items-center gap-1 cursor-pointer  backdrop-blur-md decoration-none rounded-2xl px-4 py-1 border border-[--border-color]/10 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3),inset_0_-4px_2px_rgba(0,0,0,0.2)]" >
-          copy code <CopyIcon/>
-        </button>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="min-h-screen flex flex-col items-center bg-[var(--bg-color)]"
+    >
+      <Navbar />
+      <div className="w-full flex-1 relative">
+        {/* Floating controls */}
+        <nav className="fixed top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3 py-2 rounded-xl border border-[var(--border-color)]/20 bg-[var(--bg-color)]/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+          <Link
+            href="/slices/getting-started"
+            className="flex items-center gap-1 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)]"
+          >
+            <ArrowLeft size={14} />
+            back
+          </Link>
+          <span className="w-px h-4 bg-[var(--border-color)]/20" />
+          <select
+            value={currentSlug}
+            onChange={handleChange}
+            className="bg-transparent text-xs font-mono text-[var(--secondary-text)] border border-[var(--border-color)]/20 rounded-lg px-3 py-1.5 outline-none cursor-pointer appearance-none hover:border-[var(--accent-color)]/40 transition-colors"
+          >
+            {options.map((option) => (
+              <option
+                key={option}
+                value={option}
+                className="bg-[var(--bg-color)] text-[var(--text-color)]"
+              >
+                {option}
+              </option>
+            ))}
+          </select>
+          <span className="w-px h-4 bg-[var(--border-color)]/20" />
+          <button className="flex items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] cursor-pointer">
+            <CodeIcon size={14} />
+            code
+          </button>
+          <button className="flex items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] cursor-pointer">
+            <CopyIcon size={14} />
+            copy
+          </button>
+        </nav>
 
-         
-      </nav>
-      <div className="flex justify-center w-full">{children}</div>
-    </div>
+        {children}
+      </div>
+    </motion.div>
   );
 }

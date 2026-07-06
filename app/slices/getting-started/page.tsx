@@ -1,70 +1,147 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
-function page() {
+import { VideoIcon, NewspaperIcon, ArrowRight } from "lucide-react";
+import Navbar from "../../ui/Navbar";
+
+const navLinks = [
+  { label: "Getting Started", href: "/slices/getting-started" },
+  { label: "Experiences", href: "/slices/experiences" },
+  { label: "Resources", href: "/slices/resources" },
+];
+
+const exploreItems = [
+  {
+    title: "Experiences",
+    description: "Interactive scroll-driven components and animations.",
+    icon: VideoIcon,
+    href: "/slices/experiences",
+  },
+  {
+    title: "Resources",
+    description: "Handpicked tools, channels, and assets I use daily.",
+    icon: NewspaperIcon,
+    href: "/slices/resources",
+  },
+];
+
+function Page() {
+  const pathname = usePathname();
+
   return (
-    <main className="flex-1 relative min-h-screen w-full max-w-4xl mx-auto px-4 md:px-8 py-12">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="min-h-screen flex flex-col items-center"
+    >
+      <motion.div className="w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center">
+        <Navbar />
+        <main className="w-full flex flex-col px-6 pb-16">
+          <div className="pt-[var(--section-gap)]" />
 
-      <motion.span
-        initial={{ opacity: 0, top: "-100px" }}
-        animate={{ opacity: 1, top: 0 }}
-        transition={{ duration: 1 }}
-        className="fixed pointer-events-none z-0 top-0 right-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
-      />
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col items-center text-center">
-              
-      
-          <h1 className="text-[2rem] md:text-[2.8rem] flex text-[var(--text-color)] font-bold">
-            Slices UI{" "}
-    
-          </h1>
-          <p className="text-md text-[var(--secondary-text)] mt-2">
-            components & utilities, engineered, styled, and shipped.
-          </p>
-        </div>
-            <hr className="w-full border-[var(--border-color)]/40" />
+          <div className="border-t border-b border-[var(--border-color)]">
+            <div className="flex text-xs font-mono">
+              {navLinks.map((link) => {
+                const isActive =
+                  pathname === link.href ||
+                  (link.href !== "/slices/getting-started" &&
+                    pathname.startsWith(link.href));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-3 h-7 flex items-center border-r border-[var(--border-color)] last:border-r-0 transition-colors ${
+                      isActive
+                        ? "text-[var(--text-color)] bg-[var(--hover-color)]"
+                        : "text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
 
-        <div className="text-left text-md text-[var(--secondary-text)] flex flex-col gap-4">
-          <p>
-            Wellcome to Slices UI, here I document my lastest explorations and
-            experiments. This is a playground for me to test out new ideas,
-            share my learnings.
-          </p>
+          <div className="flex flex-col gap-8 pt-8">
+            <div className="flex flex-col items-center text-center">
+              <h1 className="text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold">
+                Slices
+              </h1>
+              <p className="text-md text-[var(--secondary-text)] mt-2">
+                components &mdash; engineered, styled, shipped.
+              </p>
+            </div>
 
-          <p>
-            It’s a playground not a polished framework meant for exploration and
-            sharing with other developers
-          </p>
-          <p>
-            So you may be wondering what the heck are Slices? <br />
-            Slices are reusable components, utilities, and templates which I use
-            as building blocks across my projects.
-          </p>
-          <p>
-            Individually, these slices are small and useful on their own but
-            when you put enough of them together, they form something whole.
-            That whole is Orange
-          </p>
-        </div>
+            <hr className="border-[var(--border-color)]/40" />
 
-           <hr className="w-full border-[var(--border-color)]/40" />
+            <div className="text-left text-md text-[var(--secondary-text)] flex flex-col gap-4">
+              <p>
+                Welcome to Slices &mdash; a collection of reusable components,
+                utilities, and templates I use as building blocks across my
+                projects.
+              </p>
+              <p>
+                It&apos;s a playground, not a polished framework. Meant for
+                exploration, experimentation, and sharing ideas with other
+                developers.
+              </p>
+              <p>
+                Individually, these slices are small and useful on their own. Put
+                enough of them together, and they form something whole. That whole
+                is{" "}
+                <span className="text-[var(--text-color)] font-semibold">
+                  Orange
+                </span>
+                .
+              </p>
+            </div>
 
-        <h1 className="text-xl font-bold">Explore</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          {/* Add your content here */}
-          <Link href="/slices/components" className="p-6 bg-[#fff]/20  shadow border border-[var(--border-color)] rounded-lg flex justify-center items-center transition-colors">
-           <h3 className="text-md font-bold mb-2 underline underline-offset-2">Components ⭧</h3>
-            
-          </Link>
-          <Link href="/slices/animations" className="p-6 bg-[#fff]/20 shadow border border-[var(--border-color)] rounded-lg flex justify-center items-center transition-colors">
-            <h3 className="text-md font-bold mb-2 underline underline-offset-2">Animations ⭧</h3>
+            <hr className="border-[var(--border-color)]/40" />
 
-          </Link>
-        </div>
-      </div>
-    </main>
+            <div>
+              <h2 className="text-xl font-bold text-[var(--text-color)] mb-4">
+                Explore
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {exploreItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="group relative overflow-hidden rounded-xl border border-[var(--border-color)]/30 bg-[var(--glass)] p-5 transition-all duration-300 hover:border-[var(--accent-color)]/40 hover:shadow-lg"
+                    >
+                      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                      <div className="flex items-start gap-4">
+                        <div className="p-2 rounded-lg bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20 shrink-0">
+                          <Icon size={20} className="text-[var(--accent-color)]" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base font-semibold text-[var(--text-color)] group-hover:text-[var(--accent-color)] transition-colors flex items-center gap-2">
+                            {item.title}
+                            <ArrowRight
+                              size={14}
+                              className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                            />
+                          </h3>
+                          <p className="text-sm text-[var(--secondary-text)] mt-1">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </main>
+      </motion.div>
+    </motion.div>
   );
 }
 
-export default page;
+export default Page;

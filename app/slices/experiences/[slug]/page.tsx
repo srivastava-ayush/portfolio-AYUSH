@@ -1,11 +1,11 @@
 "use client";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import StackedCards from "../components/StackedCards";
 import ParallaxReveal from "../components/ParallaxReveal";
 import GridMosaic from "../components/GridMosaic";
 import PopBlur from "../components/PopBlur";
 import RevealSlices from "../components/RevealSlices";
-import { Link } from "lucide-react";
 
 const components: Record<string, React.FC> = {
   "stacked-cards": StackedCards,
@@ -22,11 +22,13 @@ export default function SlugPage() {
 
   if (!Component) {
     return (
-      <div className="p-8 text-center text-[--secondary-text]">
-        Experience &quot;{slug}&quot; not found.
-    
-        <Link  className="inline-flex items-center gap-1 mt-4 text-sm text-[--primary-color] hover:underline" href="/slices/">
-          Back to all experiences
+      <div className="h-screen flex flex-col items-center justify-center text-[var(--secondary-text)] gap-4">
+        <p className="text-sm font-mono">Experience &quot;{slug}&quot; not found.</p>
+        <Link
+          href="/slices/experiences"
+          className="text-xs font-mono text-[var(--accent-color)] hover:underline"
+        >
+          Back to experiences
         </Link>
       </div>
     );

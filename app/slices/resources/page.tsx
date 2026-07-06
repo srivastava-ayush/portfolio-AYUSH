@@ -1,6 +1,8 @@
 "use client";
+import Link from "next/link";
 import { motion } from "motion/react";
-import { Newspaper, Youtube, Box, ExternalLink } from "lucide-react";
+import { ArrowLeft, Newspaper, Youtube, Box, ExternalLink } from "lucide-react";
+import Navbar from "../../ui/Navbar";
 
 const yt_channels = [
   {
@@ -55,7 +57,6 @@ const textures = [
     category: "textures",
   },
 ];
-
 
 const allResources = [...yt_channels, ...textures] as const;
 
@@ -135,55 +136,56 @@ function ResourceSection({
 
 export default function ResourcesPage() {
   return (
-    <main className="flex-1 relative min-h-screen w-full max-w-4xl mx-auto px-4 md:px-8 py-12">
-      <motion.span
-        initial={{ opacity: 0, top: "-100px" }}
-        animate={{ opacity: 1, top: 0 }}
-        transition={{ duration: 1 }}
-        className="fixed pointer-events-none z-0 top-0 right-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
-      />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="min-h-screen flex flex-col items-center"
+    >
+      <motion.div className="w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center">
+        <Navbar />
+        <main className="w-full flex flex-col px-6 pb-16">
+          <div className="pt-[var(--section-gap)]" />
 
-      <div className="flex flex-col gap-10">
-        {/* Header */}
-        <div className="flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-        
-          </motion.div>
-          <h1 className="text-[2rem] md:text-[2.8rem] text-[var(--text-color)] font-bold">
-            Resources
-          </h1>
-          <p className="text-md text-[var(--secondary-text)] mt-2 max-w-lg">
-            Handpicked tools, channels, and assets I use daily for design &
-            development.
-          </p>
+          <div className="border-t border-b border-[var(--border-color)]">
+            <Link
+              href="/slices/getting-started"
+              className="flex items-center gap-1.5 px-3 h-7 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors w-fit"
+            >
+              <ArrowLeft size={14} />
+              back
+            </Link>
+          </div>
+
+          <div className="flex flex-col gap-8 pt-8">
+          <div className="flex flex-col items-center text-center">
+            <h1 className="text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold">
+              Resources
+            </h1>
+            <p className="text-md text-[var(--secondary-text)] mt-2 max-w-lg">
+              Handpicked tools, channels, and assets I use daily for design &amp;
+              development.
+            </p>
+          </div>
+
+          <hr className="border-[var(--border-color)]/40" />
+
+          <ResourceSection
+            title="YouTube Channels"
+            icon={sectionIcons.youtube}
+            items={yt_channels}
+          />
+
+          <hr className="border-[var(--border-color)]/40" />
+
+          <ResourceSection
+            title="Texture Assets"
+            icon={sectionIcons.textures}
+            items={textures}
+          />
         </div>
-
-        <hr className="w-full border-[var(--border-color)]/40" />
-
-        {/* YouTube Channels */}
-        <ResourceSection
-          title="YouTube Channels"
-          icon={sectionIcons.youtube}
-          items={yt_channels}
-        />
-
-        <hr className="w-full border-[var(--border-color)]/40" />
-
-        {/* Textures */}
-        <ResourceSection
-          title="Texture Assets"
-          icon={sectionIcons.textures}
-          items={textures}
-        />
-
-        <hr className="w-full border-[var(--border-color)]/40" />
-
-
-      </div>
-    </main>
+        </main>
+      </motion.div>
+    </motion.div>
   );
 }
