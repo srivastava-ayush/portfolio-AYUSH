@@ -59,7 +59,7 @@ function PageClient() {
           <section className="w-full py-[var(--section-gap)]">
             <Hero/>
           </section>
-          <section className="w-full py-[var(--section-gap)]">
+          <section className="w-full pt-[var(--section-gap)]">
             <Projects/>
           </section>
           <section className="w-full py-[var(--section-gap)]">

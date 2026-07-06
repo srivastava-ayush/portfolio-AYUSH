@@ -1,9 +1,11 @@
 'use client';
 
-import { 
+import {
   useEffect,
   useState,
+  useCallback,
 } from "react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { GitHubCalendar } from "react-github-calendar";
@@ -203,10 +205,25 @@ function AboutMe() {
               <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">tech-stack --list</span>
             </div>
             <div className="flex flex-wrap gap-2">
-              {TECH_STACK.map(({ icon, name }) => (
-                <div
+              {TECH_STACK.map(({ icon, name }, i) => (
+                <motion.div
                   key={name}
-                  className="border border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] px-3 py-1.5 flex items-center gap-2"
+                  initial={false}
+                  animate={{
+                    borderColor: [
+                      'var(--border-color)',
+                      'var(--secondary-text)',
+                      'var(--secondary-text)',
+                      'var(--border-color)',
+                    ],
+                  }}
+                  transition={{
+                    duration: 3,
+                    ease: 'easeInOut',
+                    repeat: Infinity,
+                    delay: i * 0.07,
+                  }}
+                  className="border border-dotted border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] px-3 py-1.5 flex items-center gap-2"
                 >
                   {icon ? (
                     <Image unoptimized src={icon} alt={name} width={14} height={14} className="opacity-50 dark:brightness-0 dark:invert" />
@@ -214,7 +231,7 @@ function AboutMe() {
                     <span className="text-[10px] text-[var(--secondary-text)] opacity-50 font-mono">&gt;</span>
                   )}
                   <span className="text-[11px] font-mono text-[var(--secondary-text)]">{name}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

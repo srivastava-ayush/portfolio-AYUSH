@@ -88,9 +88,9 @@ function Projects() {
         className="hidden none md:block  relative w-full "
         style={{ height: `${SCROLL_SECTIONS * 60}vh` }}
       >
-        <div className="sticky top-0 h-screen overflow-hidden border-t border-b border-[var(--border-color)]">
+        <div className="sticky top-0 h-screen overflow-hidden border-t border-[var(--border-color)]">
           <div className="hidden md:flex flex-col h-full  ">
-            <div className="flex justify-between items-center px-8 border-b border-[var(--border-color)] pt-[var(--section-gap)]">
+            <div className="flex justify-between items-center px-8 border-b border-[var(--border-color)] ">
               <h1 className="text-3xl md:text-[2.7rem] font-semibold font-mono bg-clip-text text-transparent bg-linear-to-b from-[var(--text-color)] to-[var(--text-color)]/50">
                 <span className="">Projects</span>
                 <span className="text-[var(--accent-color)]">.</span>
