@@ -56,10 +56,10 @@ function PageClient() {
         <Navbar />
 
         <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
-          <section className="w-full px-6 md:px-0 py-12 md:py-16">
+          <section className="w-full py-12 md:py-16">
             <Hero/>
           </section>
-          <section className="w-full px-6 md:px-0 py-12 md:pt-[3rem] ">
+          <section className="w-full pt-[3rem] ">
             <Projects/>
           </section>
           <section className="w-full px-6 py-12 md:py-16 mb-20 md:mb-0">

@@ -31,8 +31,8 @@ function Hero() {
     [],
   );
     return (
-   <main className="main-hero-section-container text-center items-center justify-center flex flex-col gap-4 md:gap-8">
-          <div className="w-full border-t border-[var(--border-color)] pt-8">
+   <main className="main-hero-section-container  text-center items-center justify-center flex flex-col gap-4 md:gap-8">
+          <div className="w-full border-t px-6  border-[var(--border-color)] pt-8">
             <h1 className="hero-heading text-[1.8rem] md:text-[2.5rem] inline text-center">
               <TextGenerateEffect className="inline tracking-wide" words={headingWords} />
               <Link href="/orange_rolling">
@@ -88,7 +88,7 @@ function Hero() {
             </h1>
           </div>
 
-          <p className="hero-para text-lg md:text-xl md:max-w-full text-(--secondary-text) text-shadow font-normal">
+          <p className="hero-para text-lg md:text-xl px-6   md:max-w-full text-(--secondary-text) text-shadow font-normal">
           Creating UIs that pop with clean design and code, built using <br/>
             <HighlightedLink name="TypeScript" img="/typescript.svg" /> ,{" "}
             <HighlightedLink name="React" img="/react-2.svg" /> ,{" "}
@@ -98,7 +98,7 @@ function Hero() {
           </p>
 
           {/* Socials & Resume */}
-          <div className="social-container flex mt-6 md:mt-6">
+          <div className="social-container flex mt-6 md:mt-6 px-6 ">
             <div className="networks flex flex-col lg:flex-row-reverse justify-center items-center gap-4">
                  <div className="netbox relative overflow-hidden bg-[var(--netbox-bg-color)] border border-[var(--border-color)]/50 rounded-lg flex gap-4 p-4 shadow-[inset_0_2px_8px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.25),0_4px_20px_rgba(0,0,0,0.15)] w-full">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
