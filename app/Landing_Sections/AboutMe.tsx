@@ -261,12 +261,12 @@ function AboutMe() {
             <div className="w-4 md:w-6 shrink-0" />
             <div className="w-full flex justify-between items-center gap-4 py-2">
               <p className="px-3 py-1.5 h-9 flex items-center border-x border-[var(--border-color)] text-[var(--secondary-text)] font-mono text-xs">
-                curl https://srivastava-ayush.vercel.app/contact | bash
+                constayush@gmail.com
               </p>
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    "curl https://srivastava-ayush.vercel.app/contact | bash"
+                    "constayush@gmail.com"
                   );
                 }}
                 className="flex items-center justify-center gap-2 px-3 h-9 border-x border-[var(--border-color)] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200 font-mono text-xs"

@@ -35,12 +35,12 @@ function Page() {
 
     <motion.div initial={{ opacity: 0}} animate={{ opacity: 1}} transition={{duration:1}} className='min-h-[130vh] flex flex-col items-center'>
       
-      <motion.span
+      {/* <motion.span
         initial={{ opacity: 0, top: "-100px" }}
         animate={{ opacity: 1, top: 0 }}
         transition={{ duration: 1 }}
         className="fixed pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
-      />
+      /> */}
       <motion.div className='w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center'>
         <Navbar />
         <main className='w-full flex flex-col gap-8 px-6 pt-8 pb-16'>

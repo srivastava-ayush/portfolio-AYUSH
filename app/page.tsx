@@ -40,12 +40,12 @@ function PageClient() {
     >
       <div ref={cursorRef} className="custom-cursor"></div>
 
-      <motion.span
+      {/* <motion.span
         initial={{ opacity: 0, top: "-100px" }}
         animate={{ opacity: 1, top: 0 }}
         transition={{ duration: 1 }}
-        className="fixed pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
-      />
+        className="fixed opacity-10  pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
+      /> */}
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -56,13 +56,13 @@ function PageClient() {
         <Navbar />
 
         <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
-          <section className="w-full py-12 md:py-16">
+          <section className="w-full py-[var(--section-gap)]">
             <Hero/>
           </section>
-          <section className="w-full pt-[3rem] ">
+          <section className="w-full py-[var(--section-gap)]">
             <Projects/>
           </section>
-          <section className="w-full px-6 py-12 md:py-16 mb-20 md:mb-0">
+          <section className="w-full py-[var(--section-gap)]">
             <AboutMe/>
           </section>
         </div>

@@ -32,7 +32,7 @@ function Hero() {
   );
     return (
    <main className="main-hero-section-container  text-center items-center justify-center flex flex-col gap-4 md:gap-8">
-          <div className="w-full border-t px-6  border-[var(--border-color)] pt-8">
+          <div className="w-full border-t px-6  border-[var(--border-color)] pt-[var(--section-gap)]">
             <h1 className="hero-heading text-[1.8rem] md:text-[2.5rem] inline text-center">
               <TextGenerateEffect className="inline tracking-wide" words={headingWords} />
               <Link href="/orange_rolling">
@@ -88,7 +88,7 @@ function Hero() {
             </h1>
           </div>
 
-          <p className="hero-para text-lg md:text-xl px-6   md:max-w-full text-(--secondary-text) text-shadow font-normal">
+          <p className="hero-para text-md md:text-xl px-6   md:max-w-full text-(--secondary-text) text-shadow font-normal">
           Creating UIs that pop with clean design and code, built using <br/>
             <HighlightedLink name="TypeScript" img="/typescript.svg" /> ,{" "}
             <HighlightedLink name="React" img="/react-2.svg" /> ,{" "}

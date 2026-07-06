@@ -65,6 +65,7 @@
     rgba(60, 60, 60, 0.527) 0px 0px 0px 1px inset;
 
     --gh-empty-contrib: rgba(255, 255, 255, 0.1);
+    --section-gap: clamp(2rem, 4vw, 3rem);
     
 }
 

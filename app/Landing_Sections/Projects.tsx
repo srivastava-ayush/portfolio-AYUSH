@@ -88,9 +88,9 @@ function Projects() {
         className="hidden none md:block  relative w-full "
         style={{ height: `${SCROLL_SECTIONS * 60}vh` }}
       >
-        <div className="sticky top-0 h-screen overflow-hidden border-t border-[var(--border-color)]">
+        <div className="sticky top-0 h-screen overflow-hidden border-t border-b border-[var(--border-color)]">
           <div className="hidden md:flex flex-col h-full  ">
-            <div className="flex justify-between items-center px-8 border-b border-[var(--border-color)]">
+            <div className="flex justify-between items-center px-8 border-b border-[var(--border-color)] pt-[var(--section-gap)]">
               <h1 className="text-3xl md:text-[2.7rem] font-semibold font-mono bg-clip-text text-transparent bg-linear-to-b from-[var(--text-color)] to-[var(--text-color)]/50">
                 <span className="">Projects</span>
                 <span className="text-[var(--accent-color)]">.</span>
@@ -274,7 +274,7 @@ function Projects() {
       <div className="relative w-full  md:hidden border-t border-[var(--border-color)]">
         <div className=" overflow-auto">
 
-          <div className="flex md:hidden  flex-col py-12 px-6 ">
+          <div className="flex md:hidden  flex-col pt-[var(--section-gap)] pb-12 px-6 ">
             <div className="flex justify-between items-center mb-6 shrink-0">
               <h1 className="text-2xl font-semibold">
                 <span className="text-[#F4F4F4]">Proj</span>
