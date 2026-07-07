@@ -4,6 +4,7 @@ import { Montserrat, Orbitron, Source_Code_Pro, Zen_Dots , Source_Serif_4,} from
 import ScrollToTop from "./ui/utils/ScrollToTop";
 import { SoundProvider } from "./ui/SoundProvider";
 import { ThemeInitializer } from "./ui/ThemeInitializer";
+import { ClarityProvider } from "./ui/ClarityProvider";
 
 
 const montserrat = Montserrat({
@@ -79,6 +80,7 @@ export default function RootLayout({
         className={` ${montserrat.variable} ${serif.variable} ${orbitron.variable} ${code.variable} ${zen.variable} antialiased`}
       >
         <SoundProvider/>
+        <ClarityProvider />
         <ScrollToTop />
         {children}
         <span className="fixed z-99 bottom-[-40] bg-[var(--bg-color)]  blur-[20px] w-full  h-20"/>

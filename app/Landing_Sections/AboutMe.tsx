@@ -6,6 +6,7 @@ import {
 } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "motion/react";
 import { GitHubCalendar } from "react-github-calendar";
 import GitHubStreak from "../ui/GitHubStreak";
 import { TECH_STACK } from "../constants";
@@ -29,6 +30,78 @@ const socialLinks = [
   { href: "mailto:srivastava-ayush@outlook.com", icon: Envelope, label: "Mail" },
 ];
 
+const cards = [
+  {
+    href: "/slices/getting-started",
+    img1: "/sliced_org.jpg",
+    img2: "/project-img1.png",
+    label: "Slices",
+    desc: "components, animations, expriences",
+  },
+  {
+    href: "/build-logs",
+    img1: "/build-log-img-1.webp",
+    img2: "/build-log-img-2.webp",
+    label: "Build Logs",
+    desc: "notes, ideas, observations and learnings",
+  },
+  {
+    href: "/side-quests",
+    img1: "/side-quest-img-1.webp",
+    img2: "/side-quest-img-2.webp",
+    label: "Side Quests",
+    desc: "movies, music, anime, etc, that have influenced how I think",
+  },
+];
+
+function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: string; img2: string; label: string; desc: string }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link href={href}>
+      <motion.div
+        className="relative w-40 md:w-30 h-40 md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glass-bg-color)]"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        animate={hovered ? { y: 6 } : { y: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+      >
+        <motion.div
+          className="flex flex-col items-center gap-1"
+          animate={hovered ? { y: -4 } : { y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <span className="text-xs md:text-sm font-mono text-[var(--text-color)] font-semibold select-none">
+            {label}
+          </span>
+          <motion.p
+            className="text-[9px] md:text-[10px] font-mono text-[var(--secondary-text)] text-center px-2 leading-tight overflow-hidden"
+            animate={hovered ? { maxHeight: 60, opacity: 1 } : { maxHeight: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+          >
+            {desc}
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="absolute w-16 h-16 md:w-20 md:h-20 border border-[var(--border-color)] overflow-hidden bg-[var(--bg-color)] shadow-lg"
+          animate={hovered ? { y: -80, x: -30, rotate: -12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
+          transition={{ type: "spring", stiffness: 250, damping: 18 }}
+        >
+          <img src={img1} alt="" className="w-full h-full object-cover" />
+        </motion.div>
+
+        <motion.div
+          className="absolute w-16 h-16 md:w-20 md:h-20 border border-[var(--border-color)] overflow-hidden bg-[var(--bg-color)] shadow-lg"
+          animate={hovered ? { y: -80, x: 30, rotate: 12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
+          transition={{ type: "spring", stiffness: 250, damping: 18, delay: 0.04 }}
+        >
+          <img src={img2} alt="" className="w-full h-full object-cover" />
+        </motion.div>
+      </motion.div>
+    </Link>
+  );
+}
+
 function AboutMe() {
   const [dateStr, setDateStr] = useState("");
 
@@ -48,12 +121,12 @@ function AboutMe() {
 
   const debugInfo = [
     { label: "", value: "127.0.0.1" },
-    { label: "", value: "3al6ms" },
-    { label: "", value: "Unknown" },
-    { label: "", value: "UP" },
+    { label: "", value: "36ms" },
+    { label: "", value: "20yo" },
+    { label: "", value: "Noida,UP" },
     { label: "", value: "IN" },
     { label: "", value: "Arch Linux" },
-    { label: "", value: dateStr, wide: true },
+    { label: "", value: dateStr, wide: false },
     { label: "", value: "1.082k visitors" },
   ];
 
@@ -68,14 +141,14 @@ function AboutMe() {
           {debugInfo.map((item, i) => (
             <span
               key={i}
-              className={`px-2 border-l border-b border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] ${item.wide ? "w-40" : "w-fit"}`}
+              className={`px-2 border-l border-t  border-b border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] ${item.wide ? "w-40" : "w-fit"}`}
             >
               {item.value}
             </span>
           ))}
           <Link
             href="/orange_rolling"
-            className="px-2 border-l hover:cursor-crosshair  border-b border-[var(--border-color)] h-6 flex items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            className="px-2 border-l border-t  hover:cursor-crosshair  border-b border-[var(--border-color)] h-6 flex items-center justify-center gap-1 hover:opacity-80 transition-opacity"
           >
             <span className="size-3 text-[var(--accent-color)] flex items-center justify-center">
               <Play weight="fill" />
@@ -171,11 +244,19 @@ function AboutMe() {
           
                 Most of what I build is shaped by one question:<span className="text-[var(--text-color)] italic"> does this stay fast and cost less as it scales?
               </span>  </p>
+
+           <div className="flex justify-center gap-3 md:gap-16 pt-16">
+            {cards.map((card, i) => (
+              <HoverCard key={i} {...card} />
+            ))}
           </div>
+
+           </div>
 
        
         </div>
-    {/* Education */}
+        
+        {/* Education */}
           <div className="mt-10 mb-8">
             <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-3">
               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
@@ -202,8 +283,8 @@ function AboutMe() {
               </div>
             </div>
           </div>
-
-          {/* Tech Stack */}
+        
+        {/* Tech Stack */}
           <div className="mt-10 mb-10">
             <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-3">
               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
@@ -229,6 +310,7 @@ function AboutMe() {
               ))}
             </div>
           </div>
+        
         {/* Social + Buttons section */}
         <div className="border-y border-[var(--border-color)] relative">
          
