@@ -34,22 +34,7 @@ import PostmanIcon from "../public/icons/postman.svg";
 import CloudinaryIcon from "../public/icons/cloudinary.svg";
 import VercelIcon from "../public/icons/vercel.svg";
 
-type EntryImg = {
-  src: string;
-  desc?: string;
-};
 
-type SideQuestEntry = {
-  title: string;
-  para?: string;
-  imgs?: EntryImg[];
-};
-
-type SideQuest = {
-  category: string;
-  banner: string;
-  entries: SideQuestEntry[];
-};
 
 export const PROJECTS = [
   {
@@ -159,7 +144,7 @@ export const PROJECTS = [
   },
 ];
 
-export const SIDE_QUESTS: SideQuest[] = [
+export const SIDE_QUESTS= [
   {
     category: "Philosophy",
     banner:
@@ -167,6 +152,7 @@ export const SIDE_QUESTS: SideQuest[] = [
     entries: [
       {
         title: "what i have been reading recently",
+        para:""
       },
       {
         title: "Advaita Vedanta",
