@@ -138,9 +138,7 @@ function Navbar() {
 
           <Link
             href="/side-quests"
-            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-              getCurrentPage() === "Side Quests" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
-            }`}
+            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors `}
           >
             /Side Quests
           </Link>
