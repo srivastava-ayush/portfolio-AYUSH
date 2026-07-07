@@ -136,6 +136,15 @@ function Navbar() {
             /Slices
           </Link>
 
+          <Link
+            href="/side-quests"
+            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
+              getCurrentPage() === "Side Quests" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
+            }`}
+          >
+            /Side Quests
+          </Link>
+
           <div className="ml-auto h-full flex items-center px-2 border-l border-[var(--border-color)]">
             <ThemeToggleBtn theme={theme} toggleTheme={toggleTheme} />
           </div>
