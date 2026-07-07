@@ -433,7 +433,7 @@ const Page = () => {
         {/* Obstacle */}
         <img
           className="obstacle object-scale-down relative animate-spin"
-          src={"/obs.svg"}
+          src={"/icons/obs.svg"}
           alt="Obstacle"
      
           style={{
