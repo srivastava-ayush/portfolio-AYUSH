@@ -34,6 +34,23 @@ import PostmanIcon from "../public/icons/postman.svg";
 import CloudinaryIcon from "../public/icons/cloudinary.svg";
 import VercelIcon from "../public/icons/vercel.svg";
 
+type EntryImg = {
+  src: string;
+  desc?: string;
+};
+
+type SideQuestEntry = {
+  title: string;
+  para?: string;
+  imgs?: EntryImg[];
+};
+
+type SideQuest = {
+  category: string;
+  banner: string;
+  entries: SideQuestEntry[];
+};
+
 export const PROJECTS = [
   {
     projectName: "Slices-UI",
@@ -142,7 +159,7 @@ export const PROJECTS = [
   },
 ];
 
-export const SIDE_QUESTS = [
+export const SIDE_QUESTS: SideQuest[] = [
   {
     category: "Philosophy",
     banner:
