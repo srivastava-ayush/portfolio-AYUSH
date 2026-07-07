@@ -143,7 +143,7 @@ function Navbar() {
       </nav>
 
       {/* Mobile Dock - Always visible at bottom */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[99998] md:hidden w-[90%] max-w-[400px]">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[99998] md:hidden w-[90%] max-w-[400px] pb-[env(safe-area-inset-bottom,0px)]">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -178,7 +178,7 @@ function Navbar() {
                       }
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className={`relative w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-200 ${
+                    className={`relative w-10 h-10 flex items-center justify-center rounded-2xl transition-all duration-200 ${
                       isActive
                         ? "text-[var(--text-color)] bg-[var(--hover-color)]"
                         : "text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)]"

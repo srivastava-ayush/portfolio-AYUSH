@@ -36,7 +36,7 @@ export default function ExperiencesLayout({
       <Navbar />
       <div className="w-full flex-1 relative">
         {/* Floating controls */}
-        <nav className="fixed top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3 py-2 rounded-xl border border-[var(--border-color)]/20 bg-[var(--bg-color)]/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+        <nav className="fixed top-14 md:top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 rounded-xl border border-[var(--border-color)]/20 bg-[var(--bg-color)]/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
           <Link
             href="/slices/getting-started"
             className="flex items-center gap-1 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)]"

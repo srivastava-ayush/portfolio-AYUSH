@@ -85,14 +85,14 @@ function AboutMe() {
         </div>
 
         {/* Main content */}
-        <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative pt-14 md:pt-16 overflow-hidden">
+        <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative pt-16 md:pt-16 overflow-hidden">
        
 
           {/* Name + Role + Bio + GitHub with dot matrix bg */}
           <div className="relative">
        
             {/* GitHub Activity Calendar */}
-            <div className="mb-5 border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 relative z-[1]">
+            <div className="mb-5 border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 relative z-[1] overflow-x-auto">
               <GitHubStreak username="srivastava-ayush" />
               <GitHubCalendar
                 username="srivastava-ayush"

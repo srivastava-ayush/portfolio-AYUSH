@@ -48,7 +48,7 @@ function Projects() {
       }
     };
 
-    if (window.innerWidth >= 770) {
+    if (window.innerWidth >= 768) {
       window.addEventListener("wheel", handleScroll, { passive: true });
       handleScroll();
       return () => window.removeEventListener("wheel", handleScroll);
@@ -58,7 +58,7 @@ function Projects() {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const index = Number(e.currentTarget.dataset.index);
  const container = containerRef.current;
-    if (container && window.innerWidth >= 770) {
+    if (container && window.innerWidth >= 768) {
       const containerTop = container.getBoundingClientRect().top + window.scrollY;
       const scrollableHeight = container.offsetHeight - window.innerHeight;
       const progress = index / (SCROLL_SECTIONS - 1);
