@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowLeft, Newspaper, Youtube, Box, ExternalLink } from "lucide-react";
 import Navbar from "../../ui/Navbar";
+import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 
 const yt_channels = [
   {
@@ -142,7 +143,7 @@ export default function ResourcesPage() {
       transition={{ duration: 1 }}
       className="min-h-screen flex flex-col items-center"
     >
-      <motion.div className="w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center">
+      <PageWithBorderStrips><motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
         <Navbar />
         <main className="w-full flex flex-col px-6 pb-16">
           <div className="pt-[var(--section-gap)]" />
@@ -185,7 +186,7 @@ export default function ResourcesPage() {
           />
         </div>
         </main>
-      </motion.div>
+      </motion.div></PageWithBorderStrips>
     </motion.div>
   );
 }

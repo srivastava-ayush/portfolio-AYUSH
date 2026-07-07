@@ -5,6 +5,7 @@ import ProjectCard from '../ui/ProjectCard'
 import { motion } from 'motion/react'
 import { useState, useMemo } from 'react'
 import { Grid, Code, Layout, Database, Brain, Box, X } from 'lucide-react'
+import PageWithBorderStrips from '../ui/PageWithBorderStrips'
 
 function Page() {
 
@@ -41,7 +42,7 @@ function Page() {
         transition={{ duration: 1 }}
         className="fixed pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
       /> */}
-      <motion.div className='w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center'>
+      <PageWithBorderStrips><motion.div className='w-full border border-[var(--border-color)] flex flex-col items-center'>
         <Navbar />
         <main className='w-full flex flex-col gap-8 px-6 pt-8 pb-16'>
       <div className='flex flex-col items-center '>
@@ -100,7 +101,7 @@ function Page() {
 })}
 </motion.div>
 </main>
-      </motion.div>
+      </motion.div></PageWithBorderStrips>
     </motion.div>
   )
 }

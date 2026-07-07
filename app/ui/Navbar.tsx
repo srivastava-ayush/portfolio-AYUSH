@@ -115,7 +115,7 @@ function Navbar() {
               getCurrentPage() === "About" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
             }`}
           >
-            About
+            /About
           </a>
 
           <Link
@@ -124,7 +124,7 @@ function Navbar() {
               getCurrentPage() === "Projects" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
             }`}
           >
-            Projects
+            /Projects
           </Link>
 
           <Link
@@ -133,7 +133,7 @@ function Navbar() {
               getCurrentPage() === "Slices" ? "text-[var(--text-color)] bg-[var(--hover-color)]" : ""
             }`}
           >
-            Slices
+            /Slices
           </Link>
 
           <div className="ml-auto h-full flex items-center px-2 border-l border-[var(--border-color)]">

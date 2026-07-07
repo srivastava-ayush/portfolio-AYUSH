@@ -266,3 +266,13 @@ html {
 .react-activity-calendar__calendar g rect[data-level="0"] {
   fill: var(--gh-empty-contrib);
 }
+
+.bg-slant-pattern {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    color-mix(in srgb, var(--border-color) 25%, transparent) 10px,
+    color-mix(in srgb, var(--border-color) 25%, transparent) 13px
+  );
+}

@@ -47,27 +47,31 @@ function PageClient() {
         className="fixed opacity-10  pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
       /> */}
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="w-full max-w-3xl border border-[var(--border-color)] flex flex-col items-center"
-      >
-        <Navbar />
+      <div className="relative w-full max-w-3xl">
+        <div className="hidden md:block absolute right-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-l border-[var(--border-color)]" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="w-full border border-[var(--border-color)] flex flex-col items-center"
+        >
+          <Navbar />
 
-        <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
-          <section className="w-full py-[var(--section-gap)]">
-            <Hero/>
-          </section>
-          <section className="w-full pt-[var(--section-gap)]">
-            <Projects/>
-          </section>
-          <section className="w-full py-[var(--section-gap)]">
-            <AboutMe/>
-          </section>
-        </div>
+          <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
+            <section className="w-full py-[var(--section-gap)]">
+              <Hero/>
+            </section>
+            <section className="w-full pt-[var(--section-gap)]">
+              <Projects/>
+            </section>
+            <section className="w-full py-[var(--section-gap)]">
+              <AboutMe/>
+            </section>
+          </div>
 
-       </motion.div>
+         </motion.div>
+        <div className="hidden md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />
+       </div>
 
     </div>
   );

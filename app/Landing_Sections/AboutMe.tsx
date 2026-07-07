@@ -59,7 +59,7 @@ function AboutMe() {
 
   return (
     <section id="about" className="relative w-full scroll-mt-7">
-      <div className="border border-[var(--border-color)]  relative">
+      <div className="  relative">
        
        
 
