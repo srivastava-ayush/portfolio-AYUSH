@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 ::-webkit-scrollbar {
-  width: 6px;   /* vertical */
-  height: 6px;  /* horizontal */
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; /* no track */
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -16,7 +16,6 @@
 ::-webkit-scrollbar-thumb:active {
   background: rgba(255,255,255,0.3);
 }
-
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.6);
@@ -29,12 +28,11 @@
 }
 
 * {
-  scrollbar-width: thin;              /* thin line */
+  scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
 
 :root {
-  /* ========== Shared ========== */
   --light-accent-color: #FE8808;
   --dark-accent-color: #FE8808;
   --accent-color: var(--dark-accent-color);
@@ -45,7 +43,6 @@
   --icon-color: 1;
   --blob-color: #ffffffdb;
 
-  /* ========== Dark Theme Defaults ========== */
   --bg-color: #080808;
   --text-color: #dedede;
   --secondary-text: #a8a8a8;
@@ -58,18 +55,15 @@
   --nav-text-color: #c0c0c0;
   --netbox-bg-color: #080808;
   --shine-color: rgba(255, 255, 255, 0.08);
---border-3-color: #ffffff30;
+  --border-3-color: #ffffff30;
   --box-shadow:
     rgba(255, 255, 255, 0.025) 0px 12px 28px 0px,
     rgba(255, 255, 255, 0) 0px 2px 4px 0px,
     rgba(60, 60, 60, 0.527) 0px 0px 0px 1px inset;
-
-    --gh-empty-contrib: rgba(255, 255, 255, 0.1);
-    --section-gap: clamp(2rem, 4vw, 3rem);
-    
+  --gh-empty-contrib: rgba(255, 255, 255, 0.1);
+  --section-gap: clamp(2rem, 4vw, 3rem);
 }
 
-/* ========== Light Theme Overrides ========== */
 [data-theme="light"] {
   --accent-color: var(--light-accent-color);
   --bg-color: hsla(30, 100%, 98%, 0.941);
@@ -94,8 +88,7 @@
     rgba(0, 0, 0, 0.234) 0px 12px 28px 0px,
     rgba(0, 0, 0, 0.025) 0px 2px 4px 0px,
     rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-
-     --gh-empty-contrib: rgba(0, 0, 0, 0.06);
+  --gh-empty-contrib: rgba(0, 0, 0, 0.06);
 }
 
 body,
@@ -107,27 +100,17 @@ html {
   scroll-behavior: smooth;
 }
 
-h1{
+h1 {
   font-family: var(--font-serif), serif;
 }
+
 html {
   ::selection {
     color: var(--text-color);
     background: rgba(255, 136, 0, 0.801);
   }
-
   background-color: var(--bg-color);
   color: var(--text-color);
-}
-
-.projects-img {
-  transition: all ease 2s;
-}
-
-.porject-card:hover .projects-img {
-
-
-  transform: scale(1.5);
 }
 
 @keyframes ripple {
@@ -135,90 +118,22 @@ html {
     transform: scale(0);
     opacity: 0.7;
   }
-
   100% {
     transform: scale(2.5);
     opacity: 0;
   }
 }
 
-.animate-ripple {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: #FE8808;
-  border-radius: 50%;
-  animation: ripple 0.6s ease-out forwards;
-}
-
-.text-shadow-lg {
-  text-shadow: 1px 1px 1px rgb(0, 0, 0);
-}
-
-.porject-card {
-  box-shadow: var(--box-shadow);
-}
-
-.card:hover {
-  border: 1px solid var(--border-3-color);
- 
-}
-
-
 @keyframes fatBlink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
-.animate-fatBlink {
-  animation: fatBlink 0.8s infinite;
+
+@keyframes textShine {
+  0% { background-position: -150% 0%; }
+  100% { background-position: 150% 0%; }
 }
 
-.fatCursor {
-  font-family: monospace;
-  position: relative;
-}
-
-
-.glitch {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 2;
-}
-
-
-.glitch::before,
-.glitch::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    transparent 0%,
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 2px
-  );
-  mix-blend-mode: screen;
-  opacity: 0.15;
-  animation: glitchSkew 2s infinite linear alternate-reverse;
-}
-
-.glitch::before {
-  background: rgba(255, 0, 0, 0.04);
-  transform: translate(-1px, 0);
-  animation: glitchMove 1.8s infinite ease-in-out alternate;
-}
-
-.glitch::after {
-  background: rgba(0, 255, 255, 0.04);
-  transform: translate(1px, 0);
-  animation: glitchMove 1.5s infinite ease-in-out alternate-reverse;
-}
-
-/* subtle flicker + random shifts */
 @keyframes glitchMove {
   0% { transform: translate(0, 0); opacity: 0.1; }
   25% { transform: translate(-1px, -1px); opacity: 0.3; }
@@ -235,34 +150,6 @@ html {
   100% { transform: skew(0deg); }
 }
 
-
-.TconLinks {
-  color: #ffaa00;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.TconLinks:hover {
-  color: #fff;
-  text-shadow: 0 0 6px #eaeaea, 0 0 10px #ffe100;
-}
-@keyframes fatBlink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fatBlink {
-  animation: fatBlink 1s infinite;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease forwards;
-}
-
 .react-activity-calendar__calendar g rect[data-level="0"] {
   fill: var(--gh-empty-contrib);
 }
@@ -275,4 +162,47 @@ html {
     color-mix(in srgb, var(--border-color) 25%, transparent) 10px,
     color-mix(in srgb, var(--border-color) 25%, transparent) 13px
   );
+}
+
+/* Element styles used by navbar and hero */
+nav {
+  transform-origin: center;
+  transition: all .6s ease;
+  background-color: #ffffff00;
+}
+
+main {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* Utility classes used in components */
+.accent {
+  filter: grayscale(1);
+  color: #FE8808;
+  outline: dashed 1px;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background: url('../public/projects/sliced_org.jpg') no-repeat center;
+  background-size: cover;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  mix-blend-mode: normal;
+  cursor: none;
+  will-change: transform;
+}
+
+.custom-cursor.show {
+  opacity: 1;
 }

@@ -8,8 +8,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { GitHubCalendar } from "react-github-calendar";
-import GitHubStreak from "../ui/GitHubStreak";
-import { TECH_STACK } from "../constants";
+import GitHubStreak from "../GitHubStreak";
+import { TECH_STACK } from "../../constants";
 import { 
   GithubLogo,
   LinkedinLogo,
@@ -33,22 +33,22 @@ const socialLinks = [
 const cards = [
   {
     href: "/slices/getting-started",
-    img1: "/sliced_org.jpg",
-    img2: "/project-img1.png",
+    img1: "/projects/sliced_org.jpg",
+    img2: "/projects/project-img1.png",
     label: "Slices",
     desc: "components, animations, expriences",
   },
   {
     href: "/build-logs",
-    img1: "/build-log-img-1.webp",
-    img2: "/build-log-img-2.webp",
+    img1: "/misc/build-log-img-1.webp",
+    img2: "/misc/build-log-img-2.webp",
     label: "Build Logs",
     desc: "notes, ideas, observations and learnings",
   },
   {
     href: "/side-quests",
-    img1: "/side-quest-img-1.webp",
-    img2: "/side-quest-img-2.webp",
+    img1: "/misc/side-quest-img-1.webp",
+    img2: "/misc/side-quest-img-2.webp",
     label: "Side Quests",
     desc: "movies, music, anime, etc, that have influenced how I think",
   },
@@ -57,9 +57,9 @@ const cards = [
 function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: string; img2: string; label: string; desc: string }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <Link href={href}>
+    <Link href={href} className="block w-full md:w-auto">
       <motion.div
-        className="relative w-40 md:w-30 h-40 md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glass-bg-color)]"
+        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glass-bg-color)]"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         animate={hovered ? { y: 6 } : { y: 0 }}
@@ -104,6 +104,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
 
 function AboutMe() {
   const [dateStr, setDateStr] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const update = () => setDateStr(new Date().toLocaleString("en-US"));
@@ -188,7 +189,7 @@ function AboutMe() {
               <Link href="/terminal" className="shrink-0">
                 <Image
                   unoptimized
-                  src="/avatar.png"
+                  src="/avatars/avatar.png"
                   alt="avatar"
                   width={48}
                   height={48}
@@ -245,7 +246,7 @@ function AboutMe() {
                 Most of what I build is shaped by one question:<span className="text-[var(--text-color)] italic"> does this stay fast and cost less as it scales?
               </span>  </p>
 
-           <div className="flex justify-center gap-3 md:gap-16 pt-16">
+           <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-16 pt-8 md:pt-16">
             {cards.map((card, i) => (
               <HoverCard key={i} {...card} />
             ))}
@@ -361,14 +362,24 @@ function AboutMe() {
               </p>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(
-                    "constayush@gmail.com"
-                  );
+                  navigator.clipboard.writeText("constayush@gmail.com");
+                  setCopied(true);
                 }}
-                className="flex items-center justify-center gap-2 px-3 h-9 border-x border-[var(--border-color)] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200 font-mono text-xs"
+                className="flex items-center justify-center gap-2 px-3 h-9 border-x border-[var(--border-color)] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200 font-mono text-xs relative"
               >
                 <Copy size={14} />
-                <span className="hidden sm:inline">Copy</span>
+                <span className="hidden sm:inline">{copied ? "Copied!" : "Copy"}</span>
+                {copied && (
+                  <motion.span
+                    initial={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+                    onAnimationComplete={() => setCopied(false)}
+                    className="absolute -top-8 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[var(--accent-color)] whitespace-nowrap pointer-events-none"
+                  >
+                    Copied!
+                  </motion.span>
+                )}
               </button>
             </div>
             <div className="w-4 md:w-6 shrink-0" />

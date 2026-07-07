@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Ayush Srivastava Portfolio",
     description: "Ayush Srivastava (constayush), A Full-Stack Engineer",
     url: "https://srivastava-ayush.vercel.app",
-    images: "https://srivastava-ayush.vercel.app/thumbnail.png",
+    images: "https://srivastava-ayush.vercel.app/projects/thumbnail.png",
     type: "article",
   },
   verification: {
@@ -74,7 +74,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <ThemeInitializer />
-        <link rel="shortcut icon" href="/orange.svg" type="image/x-icon" />
+        <link rel="shortcut icon" href="/icons/orange.svg" type="image/x-icon" />
       </head>
       <body
         className={` ${montserrat.variable} ${serif.variable} ${orbitron.variable} ${code.variable} ${zen.variable} antialiased`}

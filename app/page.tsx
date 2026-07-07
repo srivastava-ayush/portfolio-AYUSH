@@ -1,14 +1,13 @@
 "use client";
 import { motion } from "motion/react";
-import "./heroStyles.css";
 import Lenis from "lenis";
 import Navbar from "./ui/Navbar";
 import { useCustomCursor } from "./ui/utils/useCursor";
 import { useEffect, useState } from "react";
-import Hero from "./Landing_Sections/Hero";
-import Projects from "./Landing_Sections/Projects";
+import Hero from "./ui/Landing_Sections/Hero";
+import Projects from "./ui/Landing_Sections/Projects";
 
-import AboutMe from "./Landing_Sections/AboutMe";
+import AboutMe from "./ui/Landing_Sections/AboutMe";
 
 function PageClient() {
 

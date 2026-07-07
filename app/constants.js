@@ -1,51 +1,38 @@
-import github from "../public/github.svg";
-import linkedin from "../public/linked-in.svg";
-import insta from "../public/instagram.svg";
-import mail from "../public/mail.svg";
-import xIcon from "../public/x.svg";
-import ReactIcon from "../public/react-2.svg";
-import TypescriptIcon from "../public/typescript.svg";
-import JavascriptIcon from "../public/javascript.svg";
-import NextjsIcon from "../public/nextjs.svg";
-import projectImg3 from "../public/project-img3.png";
-import projectImg1 from "../public/project-img1.png";
-import projectImg2 from "../public/project-img2.png";
-import projectImg4 from "../public/project-img4.png";
-import projectImg5 from "../public/project-img5.png";
-import projectImg6 from "../public/project-img6.png";
-import projectImg7 from "../public/project-img7.png";
-import projectImg8 from "../public/project-img8.png";
-import ExpressjsIcon from "../public/express.svg";
-import NodejsIcon from "../public/nodejs.svg";
-import MongoDBIcon from "../public/mongodb.svg";
-import BunjsIcon from "../public/bun.svg";
-import PostgresqlIcon from "../public/postgresql.svg";
-import TailwindIcon from "../public/tailwind.svg";
-import PythonIcon from "../public/python.svg";
-import HonoIcon from "../public/hono.svg";
-import FastapiIcon from "../public/fastapi.svg";
-import SocketioIcon from "../public/socketio.svg";
-import ReduxIcon from "../public/redux.svg";
-import ZustandIcon from "../public/zustand.svg";
-import ShadcnuiIcon from "../public/shadcnui.svg";
-import FramermotionIcon from "../public/framermotion.svg";
-import RedisIcon from "../public/redis.svg";
-import PrismaIcon from "../public/prisma.svg";
-import DrizzleIcon from "../public/drizzle.svg";
-import CloudflareIcon from "../public/cloudflare.svg";
-import DockerIcon from "../public/docker.svg";
-import GitIcon from "../public/git.svg";
-import PostmanIcon from "../public/postman.svg";
-import CloudinaryIcon from "../public/cloudinary.svg";
-import VercelIcon from "../public/vercel.svg";
-
-export const SOCIAL_LINKS = [
-  { href: "https://github.com/srivastava-ayush", icon: github, alt: "GitHub" },
-  { href: "https://www.linkedin.com/in/constayush/", icon: linkedin, alt: "LinkedIn" },
-  { href: "https://www.instagram.com/maihoonayush/", icon: insta, alt: "Instagram" },
-  { href: "https://www.x.com/srivastava-ayush/", icon: xIcon, alt: "X" },
-  { href: "mailto:srivastava-ayush@outlook.com", icon: mail, alt: "Mail" }
-];
+import ReactIcon from "../public/icons/react-2.svg";
+import TypescriptIcon from "../public/icons/typescript.svg";
+import JavascriptIcon from "../public/icons/javascript.svg";
+import NextjsIcon from "../public/icons/nextjs.svg";
+import projectImg3 from "../public/projects/project-img3.png";
+import projectImg1 from "../public/projects/project-img1.png";
+import projectImg2 from "../public/projects/project-img2.png";
+import projectImg4 from "../public/projects/project-img4.png";
+import projectImg5 from "../public/projects/project-img5.png";
+import projectImg6 from "../public/projects/project-img6.png";
+import projectImg7 from "../public/projects/project-img7.png";
+import projectImg8 from "../public/projects/project-img8.png";
+import ExpressjsIcon from "../public/icons/express.svg";
+import NodejsIcon from "../public/icons/nodejs.svg";
+import MongoDBIcon from "../public/icons/mongodb.svg";
+import BunjsIcon from "../public/icons/bun.svg";
+import PostgresqlIcon from "../public/icons/postgresql.svg";
+import TailwindIcon from "../public/icons/tailwind.svg";
+import PythonIcon from "../public/icons/python.svg";
+import HonoIcon from "../public/icons/hono.svg";
+import FastapiIcon from "../public/icons/fastapi.svg";
+import SocketioIcon from "../public/icons/socketio.svg";
+import ReduxIcon from "../public/icons/redux.svg";
+import ZustandIcon from "../public/icons/zustand.svg";
+import ShadcnuiIcon from "../public/icons/shadcnui.svg";
+import FramermotionIcon from "../public/icons/framermotion.svg";
+import RedisIcon from "../public/icons/redis.svg";
+import PrismaIcon from "../public/icons/prisma.svg";
+import DrizzleIcon from "../public/icons/drizzle.svg";
+import CloudflareIcon from "../public/icons/cloudflare.svg";
+import DockerIcon from "../public/icons/docker.svg";
+import GitIcon from "../public/icons/git.svg";
+import PostmanIcon from "../public/icons/postman.svg";
+import CloudinaryIcon from "../public/icons/cloudinary.svg";
+import VercelIcon from "../public/icons/vercel.svg";
 
 export const PROJECTS = [
   {

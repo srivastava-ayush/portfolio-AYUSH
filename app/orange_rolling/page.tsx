@@ -400,7 +400,7 @@ const Page = () => {
 
         {/* Player */}
         <motion.img
-          src="/orange.svg"
+          src="/icons/orange.svg"
           alt="Orange"
           className=" dino object-contain"
           animate={{

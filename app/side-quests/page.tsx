@@ -10,24 +10,25 @@ import CategoryEntry from "../ui/CategoryEntry";
 const sideQuests = [
   {
     category: "linux",
+    banner: "/backgrounds/blackBg.jpg",
     entries: [
-      { title: "Distribution I am using", para: "Arch Linux, yeah mainly because of memes. Took a weekend to install, years to appreciate." },
-      { title: "Window Manager", para: "Hyprland The Tiling, animations are so goated, and a config file that keeps growing till the end of time" },
-      { title: "Terminal", para: "Kitty with powerlvl10k and starship prompt, look kinda trash but yeah works" },
+      { title: "Distribution", para: "Arch Linux — rolling release, pacman, AUR. Took a weekend to install, years to appreciate.", imgs: { src: "/projects/project-img1.png", desc: "neofetch" } },
+      { title: "Window Manager", para: "Hyprland — Wayland-native, wlroots-based. Tiling, animations, and a config file that keeps growing." },
+      { title: "Terminal", para: "Kitty — GPU-accelerated, ligature support, splits and tabs out of the box." },
     ],
   },
   {
     category: "music",
     entries: [
-      { title: "Genre", para: "HipHop mostly, chill and lowkey hip hop, at workouts hardcore dhh, and the occasional 2010 bollywood." },
-      { title: "Artists", para: "J Cole, Kanye West, Babu Mann, Eminem, Karma, Bella, Logic, Lil Wayne, Jagjit Singh, wolfcryman, Big Scratch, Farak. " },
+      { title: "Genre", para: "Synthwave, lo-fi hip hop, ambient electronic, and the occasional metal deep cut.", imgs: [{ src: "/projects/project-img2.png", desc: "midnight drive vibes" }, { src: "/projects/project-img3.png", desc: "lo-fi session" }] },
+      { title: "Artist", para: "HOME, Carpenter Brut, Mac DeMarco — depends on the mood." },
     ],
   },
   {
     category: "anime",
     entries: [
-      { title: "My favourites", para: "Attack On Titan (none of em can top this), Naruto, Vinland Saga, Hajime no Ippo ,Code Geass, Silent Voice." },
-      { title: "Recent", para: "none, I'm too lazy now" },
+      { title: "All-Time", para: "Serial Experiments Lain — captured the internet's existential dread before it was mainstream." },
+      { title: "Recent", para: "Dandadan — chaotic, heartfelt, and visually unhinged in the best way.", imgs: [{ src: "/projects/project-img4.png", desc: "opening scene" }, { src: "/projects/project-img5.png", desc: "character art" }, { src: "/projects/project-img6.png", desc: "key visual" }] },
     ],
   },
 ];
@@ -60,9 +61,9 @@ function Page() {
 
               {sideQuests.map((sq, i) => (
                 <div key={sq.category}>
-                  <SideQuestCategory title={sq.category}>
+                  <SideQuestCategory title={sq.category} banner={sq.banner}>
                     {sq.entries.map((entry) => (
-                      <CategoryEntry key={entry.title} title={entry.title} para={entry.para} />
+                      <CategoryEntry key={entry.title} title={entry.title} para={entry.para} imgs={entry.imgs} />
                     ))}
                   </SideQuestCategory>
                   {i < sideQuests.length - 1 && <hr className="border-[var(--border-color)]/40 mt-8" />}

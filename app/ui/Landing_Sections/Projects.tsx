@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { PROJECTS } from "../constants";
+import { PROJECTS } from "../../constants";
 
 const DISPLAY_PROJECTS = PROJECTS.filter((p) =>
   ["Slices-UI", "Boxlit", "Mihika Arts", "Kodak"].includes(p.projectName),
@@ -17,7 +17,7 @@ function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("/click_sound.wav");
+    audioRef.current = new Audio("/audio/click_sound.wav");
     audioRef.current.volume = 0.02;
   }, []);
 

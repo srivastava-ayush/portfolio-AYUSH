@@ -13,22 +13,22 @@ const cardData: CardData[] = [
   {
     title: "Discovery",
     text: "Every great journey begins with a single step. Explore the unknown and let curiosity be your compass through uncharted territories of innovation and creativity.",
-    image: "/orangeBg.jpg",
+    image: "/backgrounds/orangeBg.jpg",
   },
   {
     title: "Innovation",
     text: "Pushing boundaries and breaking molds — innovation thrives at the intersection of imagination and determination. Build what others haven't dared to dream.",
-    image: "/sliced_org.jpg",
+    image: "/projects/sliced_org.jpg",
   },
   {
     title: "Craft",
     text: "Precision meets passion in the art of creation. Every detail matters, each line of code tells a story, and every pixel finds its purpose.",
-    image: "/multiBg.jpg",
+    image: "/backgrounds/multiBg.jpg",
   },
   {
     title: "Impact",
     text: "The final piece of the puzzle — creating work that resonates, inspires, and leaves a lasting mark on the world around us.",
-    image: "/whiteBg.jpg",
+    image: "/backgrounds/whiteBg.jpg",
   },
 ];
 

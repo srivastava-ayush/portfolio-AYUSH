@@ -8,7 +8,7 @@ import {
   motion,
   AnimatePresence,
 } from "motion/react";
-import slices_logo from "../../public/slices.svg";
+import slices_logo from "../../public/icons/slices.svg";
 import ThemeToggleBtn from "./ThemeBtn";
 
 function Navbar() {
