@@ -276,12 +276,13 @@ function AboutMe() {
               <div className="flex justify-between items-center px-4 py-3">
                 <div className="flex items-center gap-2.5">
                   <span className="text-[10px] font-mono text-[var(--secondary-text)]">◆</span>
-                  <span className="text-xs font-mono text-[var(--text-color)]">Diploma in CSE</span>
+                  <span className="text-xs font-mono text-[var(--text-color)]">Diploma in Computer Science</span>
                 </div>
                 <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
                   2022 – 2025 | 8.5 CGPA
                 </span>
-              </div>
+            </div>
+            
             </div>
           </div>
         
