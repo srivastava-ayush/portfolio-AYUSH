@@ -1,107 +1,119 @@
 "use client"
-import {PROJECTS} from '../constants'
+import Link from "next/link"
+import { PROJECTS } from '../constants'
 import Navbar from '../ui/Navbar'
 import ProjectCard from '../ui/ProjectCard'
 import { motion } from 'motion/react'
 import { useState, useMemo } from 'react'
-import { Grid, Code, Layout, Database, Brain, Box, X } from 'lucide-react'
+import { Code, Layout, Brain, Box, ArrowLeft } from 'lucide-react'
 import PageWithBorderStrips from '../ui/PageWithBorderStrips'
 
+const filterOptions = [
+  { label: 'Full-Stack', value: 'full-stack', icon: Code },
+  { label: 'Landing Pages', value: 'landing-page', icon: Layout },
+  { label: 'AI/ML', value: 'ai', icon: Brain },
+  { label: 'Other', value: 'other', icon: Box },
+]
+
 function Page() {
-
-  const filterOptions = [
-    { label: 'Full-Stack', value: 'full-stack', icon: Code },
-    { label: 'Landing Pages & Design', value: 'landing-page', icon: Layout },{ label: 'AI/ML', value: 'ai', icon: Brain },
-    { label: 'Other', value: 'other', icon: Box },
-  ];
-
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [activeFilters, setActiveFilters] = useState<string[]>([])
 
   const toggleFilter = (value: string) => {
     setActiveFilters((prev) =>
       prev.includes(value) ? prev.filter((f) => f !== value) : [...prev, value]
-    );
-  };
+    )
+  }
 
-  const clearAll = () => setActiveFilters([]);
+  const clearAll = () => setActiveFilters([])
 
   const filteredProjects = useMemo(() => {
-    if (activeFilters.length === 0) return PROJECTS;
+    if (activeFilters.length === 0) return PROJECTS
     return PROJECTS.filter((project) =>
       (project.category ?? []).some((cat) => activeFilters.includes(cat))
-    );
-  }, [activeFilters]);
+    )
+  }, [activeFilters])
 
   return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="min-h-screen flex flex-col items-center"
+    >
+      <PageWithBorderStrips>
+        <motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
+          <Navbar />
+          <main className="w-full flex flex-col px-6 pb-16">
+            <div className="pt-[var(--section-gap)]" />
 
-    <motion.div initial={{ opacity: 0}} animate={{ opacity: 1}} transition={{duration:1}} className='min-h-[130vh] flex flex-col items-center'>
-      
-      {/* <motion.span
-        initial={{ opacity: 0, top: "-100px" }}
-        animate={{ opacity: 1, top: 0 }}
-        transition={{ duration: 1 }}
-        className="fixed pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
-      /> */}
-      <PageWithBorderStrips><motion.div className='w-full border border-[var(--border-color)] flex flex-col items-center'>
-        <Navbar />
-        <main className='w-full flex flex-col gap-8 px-6 pt-8 pb-16'>
-      <div className='flex flex-col items-center '>
-        <h1 className='text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold'>Projects</h1>
-<p className='text-md text-[var(--secondary-text)]'>A showcase of projects built across diverse tech stacks.</p>
-</div>
+            <div className="border-t border-b border-[var(--border-color)]">
+              <Link
+                href="/#projects"
+                className="flex items-center gap-1.5 px-3 h-7 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors w-fit"
+              >
+                <ArrowLeft size={14} />
+                back
+              </Link>
+            </div>
 
+            <div className="flex flex-col gap-8 pt-8">
+              <div className="flex flex-col items-center text-center">
+                <h1 className="text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold">
+                  Projects
+                </h1>
+                <p className="text-md text-[var(--secondary-text)] mt-2">
+                  A showcase of projects built across diverse tech stacks.
+                </p>
+              </div>
 
-<hr className='text-[var(--border-color)]/30' />
+              <hr className="border-[var(--border-color)]/40" />
 
-<div className='flex flex-col items-center gap-4'>
-<div className='flex flex-wrap gap-2 justify-center'>
-  <button
-    onClick={clearAll}
-    className={`flex items-center gap-2 px-4 py-2 rounded- text-sm font-medium transition-all duration-200 border ${
-      activeFilters.length === 0
-        ? 'bg-[var(--accent-color)]/10 text-white border-[var(--accent-color)]'
-        : 'bg-transparent text-[var(--secondary-text)] border-[var(--border-3-color)] hover:border-[var(--accent-color)] hover:text-[var(--text-color)]'
-    }`}
-  >
-    <Grid size={16} />
-    <span>All</span>
-  </button>
-  {filterOptions.map((filter) => {
-    const Icon = filter.icon;
-    const isActive = activeFilters.includes(filter.value);
-    return (
-      <button
-        key={filter.value}
-        onClick={() => toggleFilter(filter.value)}
-        className={`flex items-center gap-2 px-4 py-2  text-sm font-medium transition-all duration-200 border ${
-          isActive
-            ? 'bg-[var(--accent-color)]/5 text-white border-[var(--accent-color)]'
-            : 'bg-transparent text-[var(--secondary-text)] border-[var(--border-3-color)] hover:border-[var(--accent-color)] hover:text-[var(--text-color)]'
-        }`}
-      >
-        <Icon size={16} />
-        <span>{filter.label}</span>
-      </button>
-    );
-  })}
-</div>
-{activeFilters.length > 0 && (
-  <button onClick={clearAll} className='text-xs text-[var(--secondary-text)] hover:text-[var(--accent-color)] transition-colors flex items-center gap-1'>
-    <X size={12} />
-    Clear all filters
-  </button>
-)}
-</div>
+              <div className="flex text-xs font-mono overflow-x-auto border-t border-b border-[var(--border-color)]">
+                <button
+                  onClick={clearAll}
+                  className={`px-3 h-7 shrink-0 flex items-center border-r border-[var(--border-color)] transition-colors ${
+                    activeFilters.length === 0
+                      ? 'text-[var(--text-color)] bg-[var(--hover-color)]'
+                      : 'text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)]'
+                  }`}
+                >
+                  All
+                </button>
+                {filterOptions.map((filter) => {
+                  const Icon = filter.icon
+                  const isActive = activeFilters.includes(filter.value)
+                  return (
+                    <button
+                      key={filter.value}
+                      onClick={() => toggleFilter(filter.value)}
+                      className={`px-3 h-7 shrink-0 flex items-center gap-1.5 border-r border-[var(--border-color)] last:border-r-0 transition-colors ${
+                        isActive
+                          ? 'text-[var(--text-color)] bg-[var(--hover-color)]'
+                          : 'text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)]'
+                      }`}
+                    >
+                      <Icon size={14} />
+                      {filter.label}
+                    </button>
+                  )
+                })}
+              </div>
 
-<motion.div key={activeFilters.join(',')} initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{duration:.6}} className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-{filteredProjects.map((project)=> {
-  return (
-    <ProjectCard key={project.projectName} {...project} />
-  )
-})}
-</motion.div>
-</main>
-      </motion.div></PageWithBorderStrips>
+              <motion.div
+                key={activeFilters.join(',')}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                {filteredProjects.map((project) => (
+                  <ProjectCard key={project.projectName} {...project} />
+                ))}
+              </motion.div>
+            </div>
+          </main>
+        </motion.div>
+      </PageWithBorderStrips>
     </motion.div>
   )
 }

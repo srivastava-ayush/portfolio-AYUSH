@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 
 type EntryImg = { src: string; desc?: string };
 
-export default function CategoryEntry({ title, para, imgs }: { title: string; para: string; imgs?: EntryImg | EntryImg[] }) {
+export default function CategoryEntry({ title, para, imgs }: { title: string; para?: string; imgs?: EntryImg | EntryImg[] }) {
   const [selectedImg, setSelectedImg] = useState<EntryImg | null>(null);
   const images = imgs ? (Array.isArray(imgs) ? imgs : [imgs]) : [];
   return (
@@ -14,7 +14,7 @@ export default function CategoryEntry({ title, para, imgs }: { title: string; pa
         
         <div className="flex flex-col gap-1">
           <span className="text-xs font-mono text-[var(--text-color)] font-semibold">{title}</span>
-          <p className="text-xs font-mono text-[var(--secondary-text)] leading-relaxed">{para}</p>
+          {para && <p className="text-xs font-mono text-[var(--secondary-text)] leading-relaxed">{para}</p>}
         </div>{images.length > 0 && (
           <div className="flex gap-3 overflow-x-auto pb-1">
             {images.map((img, i) => (

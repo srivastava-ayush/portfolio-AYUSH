@@ -85,11 +85,12 @@ function Navbar() {
     )},
   ];
 
-  const getCurrentPage = () => {
+  const getCurrentPage = (): string => {
     if (pathname === "/") return "About";
     if (pathname === "/projects") return "Projects";
     if (pathname === "/slices") return "Slices";
     if (pathname === "/terminal") return "Terminal";
+    if (pathname === "/side-quests") return "Side Quests";
     return "";
   };
 

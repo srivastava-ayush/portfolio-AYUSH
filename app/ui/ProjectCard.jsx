@@ -9,12 +9,12 @@ function ProjectCard(props) {
     <motion.div
       layout
       key={props.projectName}
-      className="relative overflow-hidden rounded-lg border border-[var(--border-color)]/30 `` shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_-1px_1px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.25)]"
+      className="group relative overflow-hidden rounded-xl border border-[var(--border-color)]/30 bg-[var(--glass)] p-5 transition-all duration-300 hover:border-[var(--accent-color)]/40 hover:shadow-lg"
     >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <motion.div layout className="flex flex-col p-5">
-        <div className="w-full aspect-video overflow-hidden rounded-md bg-(--border-color)/10 mb-4">
+        <div className="w-full aspect-video overflow-hidden rounded-lg bg-(--border-color)/10 mb-4">
           <Image
             src={props.projectImg.src || null}
             alt={props.projectName}

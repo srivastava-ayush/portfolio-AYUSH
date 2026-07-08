@@ -32,35 +32,84 @@ const zen = Zen_Dots({
   variable: "--font-zen",
 });
 
+const siteUrl = "https://srivastava-ayush.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Ayush Srivastava Portfolio",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Ayush Srivastava — Full-Stack Engineer & UI Developer",
+    template: "%s | Ayush Srivastava",
+  },
   description:
-    "It is a portfolio of Ayush Srivastava, Hey, I'm Ayush, an 20-year-old web developer fueled by curiosity and passionate about building ui interfaces...",
-  authors: [{ name: "Ayush Srivastava" }],
+    "Ayush Srivastava is a Full-Stack Engineer specializing in modern UI development. Creator of Slices UI. Explore portfolio built with React, Next.js & TypeScript.",
+  authors: [
+    { name: "Ayush Srivastava", url: siteUrl },
+  ],
+  creator: "Ayush Srivastava",
+  publisher: "Ayush Srivastava",
   keywords: [
     "Ayush Srivastava",
-    "ayush srivastava portfolio",
+    "maihoonayush",
     "constayush",
     "srivastava ayush",
-    "Ayush Portfolio",
-    "AYUSH",
-    "maihoonayush",
-    "ayush srivastava",
+    "ayush srivastava developer",
     "ayush srivastava portfolio",
-    "ayush portfolio",
-    " srivastava-ayush portfolio",
+    "Slices UI",
+    "slices ui ayush",
+    "slices library",
+    "slices ui library",
+    "Full-Stack Engineer",
+    "React Developer",
+    "Next.js Developer",
+    "TypeScript",
+    "web developer",
+    "UI developer",
+    "Ayush Portfolio",
+    "ayush srivastava",
   ],
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Ayush Srivastava Portfolio",
-    description: "Ayush Srivastava (constayush), A Full-Stack Engineer",
-    url: "https://srivastava-ayush.vercel.app",
-    images: "https://srivastava-ayush.vercel.app/projects/thumbnail.png",
-    type: "article",
+    type: "website",
+    locale: "en_IN",
+    siteName: "Ayush Srivastava Portfolio",
+    title: "Ayush Srivastava — Full-Stack Engineer & UI Developer",
+    description:
+      "Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI component library.",
+    url: siteUrl,
+    images: [
+      {
+        url: `${siteUrl}/projects/thumbnail.png`,
+        width: 1200,
+        height: 630,
+        alt: "Ayush Srivastava Portfolio — Full-Stack Engineer & UI Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ayush Srivastava — Full-Stack Engineer & UI Developer",
+    description:
+      "Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI.",
+    images: [`${siteUrl}/projects/thumbnail.png`],
+    creator: "@maihoonayush",
+  },
+  alternates: {
+    canonical: siteUrl,
   },
   verification: {
     google: "ZvV4-8qcmm7ala4RjMTJlyfScxn8SoszBseW9DVbKXY",
   },
+  category: "portfolio",
 };
 
 export default function RootLayout({
@@ -75,6 +124,48 @@ export default function RootLayout({
       <head>
         <ThemeInitializer />
         <link rel="shortcut icon" href="/icons/orange.svg" type="image/x-icon" />
+        <link rel="canonical" href={siteUrl} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Person",
+                  name: "Ayush Srivastava",
+                  alternateName: ["constayush", "maihoonayush", "srivastava-ayush"],
+                  url: siteUrl,
+                  jobTitle: "Full-Stack Engineer",
+                  knowsAbout: [
+                    "React",
+                    "Next.js",
+                    "TypeScript",
+                    "Node.js",
+                    "UI Development",
+                    "Slices UI",
+                  ],
+                  sameAs: [
+                    "https://github.com/srivastava-ayush",
+                    "https://linkedin.com/in/constayush",
+                    "https://instagram.com/maihoonayush",
+                  ],
+                },
+                {
+                  "@type": "WebSite",
+                  name: "Ayush Srivastava Portfolio",
+                  url: siteUrl,
+                  description:
+                    "Portfolio of Ayush Srivastava, a Full-Stack Engineer and UI developer. Creator of Slices UI component library.",
+                  author: {
+                    "@type": "Person",
+                    name: "Ayush Srivastava",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body
         className={` ${montserrat.variable} ${serif.variable} ${orbitron.variable} ${code.variable} ${zen.variable} antialiased`}

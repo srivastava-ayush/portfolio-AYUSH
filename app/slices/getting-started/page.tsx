@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
-import { VideoIcon, NewspaperIcon, ArrowRight } from "lucide-react";
+import { VideoIcon, NewspaperIcon, ArrowRight, ArrowLeft } from "lucide-react";
 import Navbar from "../../ui/Navbar";
 import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 
@@ -44,6 +44,14 @@ function Page() {
 
           <div className="border-t border-b border-[var(--border-color)]">
             <div className="flex text-xs font-mono">
+              <Link
+                href="/"
+                className="flex items-center gap-1.5 px-3 h-7 shrink-0 text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors"
+              >
+                <ArrowLeft size={14} />
+                back
+              </Link>
+              <div className="w-px bg-[var(--border-color)] shrink-0" />
               {navLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
