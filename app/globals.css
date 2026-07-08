@@ -134,6 +134,11 @@ html {
   100% { background-position: 150% 0%; }
 }
 
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
+
 @keyframes glitchMove {
   0% { transform: translate(0, 0); opacity: 0.1; }
   25% { transform: translate(-1px, -1px); opacity: 0.3; }
@@ -183,6 +188,18 @@ main {
   filter: grayscale(1);
   color: #FE8808;
   outline: dashed 1px;
+}
+
+.bg-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.015) 2px,
+    rgba(255, 255, 255, 0.015) 4px
+  );
+  background-size: 100% 4px;
+  animation: scanlines 8s linear infinite;
 }
 
 .custom-cursor {

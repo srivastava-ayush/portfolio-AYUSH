@@ -13,6 +13,7 @@ const SCROLL_SECTIONS = DISPLAY_PROJECTS.length;
 
 function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [ctaHovered, setCtaHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -417,6 +418,67 @@ function Projects() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* View All CTA */}
+      <div
+        className="w-full border-t border-[var(--border-color)] relative overflow-hidden"
+        onMouseEnter={() => setCtaHovered(true)}
+        onMouseLeave={() => setCtaHovered(false)}
+      >
+        <div className="absolute inset-0 bg-scanlines pointer-events-none" />
+        <Link
+          href="/projects"
+          className="group relative flex items-center justify-center py-6 md:py-8 px-6 transition-colors hover:bg-[var(--accent-color)]/[0.03]"
+        >
+          <motion.div
+            className="absolute flex items-center gap-2 md:gap-2.5 pointer-events-none"
+            style={{ left: "calc(50% - 160px)" }}
+            animate={{ x: ctaHovered ? 0 : -100 }}
+            transition={{ type: "spring", stiffness: 180, damping: 22 }}
+          >
+            {DISPLAY_PROJECTS.slice(0, 3).map((p, i) => (
+              <motion.div
+                key={p.projectId}
+                className="w-7 h-7 md:w-9 md:h-9 rounded-sm overflow-hidden border border-[var(--border-color)] shrink-0"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={
+                  ctaHovered
+                    ? { opacity: 1, scale: 1 , x: 0}
+                    : { opacity: 0, scale: 0.8, x: -100 }
+                }
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20,
+                  mass: 0.5,
+                  delay: i * 0.08,
+                }}
+              >
+                <img
+                  src={p.projectImg.src}
+                  alt={p.projectName}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.div
+            className="flex items-center gap-3"
+            animate={{ x: ctaHovered ? 80 : 0 }}
+            transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+          >
+            <span className="text-sm md:text-base font-mono font-medium text-[var(--text-color)]/50 group-hover:text-[var(--accent-color)] transition-colors">
+              View all projects
+            </span>
+            <span className="text-[var(--text-color)]/30 group-hover:text-[var(--accent-color)] transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </motion.div>
+        </Link>
       </div>
     </>
   );
