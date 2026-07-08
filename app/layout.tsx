@@ -107,7 +107,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   verification: {
-    google: "ZvV4-8qcmm7ala4RjMTJlyfScxn8SoszBseW9DVbKXY",
+    google: "fe532f406f3b3d05",
   },
   category: "portfolio",
 };
