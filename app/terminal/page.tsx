@@ -47,7 +47,7 @@ function Page() {
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
 
-  const bgImgArr = ["/backgrounds/orangeBg.jpg", "/backgrounds/whiteBg.jpg", "/backgrounds/blackBg.jpg","/backgrounds/orangeDark.jpg", "/backgrounds/multiBg.jpg"];
+  const bgImgArr = ["/backgrounds/orangeBg.webp", "/backgrounds/whiteBg.webp", "/backgrounds/blackBg.webp","/backgrounds/orangeDark.webp", "/backgrounds/multiBg.webp"];
 
   // Boot animation
   useEffect(() => {
@@ -252,7 +252,7 @@ function Page() {
       animate={{ opacity: 1 }}
       className="will-change-transform relative w-full lg:h-[98vh] h-[95vh] flex flex-col p-2 bg-cover bg-center transition-all duration-500 overflow-hidden"
       ref={terminalRef}
-      style={{ backgroundImage: "url(/backgrounds/blackBg.jpg)" }}
+      style={{ backgroundImage: "url(/backgrounds/blackBg.webp)" }}
     >
       {/* Terminal window frame */}
       <div className="relative w-full h-full bg-[var(--bg-color)]/40 backdrop-blur-xl rounded-sm border border-[var(--border-color)] flex flex-col overflow-hidden shadow-lg">

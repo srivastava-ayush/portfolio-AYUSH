@@ -22,7 +22,7 @@ const Page = () => {
 
   useEffect(() => {
     audioPoolClick.current = Array.from({ length: 6 }, () => {
-      const a = new Audio('/jump.wav');
+      const a = new Audio('/jump.mp3');
       a.volume = 0.05;
       return a;
     });
@@ -30,14 +30,14 @@ const Page = () => {
 
     useEffect(() => {
     audioPoolStageClear.current = Array.from({ length: 6 }, () => {
-      const a = new Audio('/stageCleared.wav');
+      const a = new Audio('/stageCleared.mp3');
       a.volume = 0.05;
       return a;
     });
   }, []);
   useEffect(() => {
     audioPoolRoundOver.current = Array.from({ length: 6 }, () => {
-      const a = new Audio('/roundOver.wav');
+      const a = new Audio('/roundOver.mp3');
       a.volume = 0.05;
       return a;
     });

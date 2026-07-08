@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 import Image from "next/image";
 
 const items = [
-  { title: "Cascade", text: "Ideas flowing down like water, each drop carrying ripples of creative potential.", image: "/backgrounds/orangeBg.jpg" },
-  { title: "Fusion", text: "Elements colliding and combining — the heat of creation forging something entirely new.", image: "/projects/sliced_org.jpg" },
-  { title: "Pulse", text: "The steady rhythm of progress, each beat marking another step toward the horizon.", image: "/backgrounds/multiBg.jpg" },
-  { title: "Radiance", text: "Light emanating from within — the glow of inspiration that illuminates the path forward.", image: "/backgrounds/whiteBg.jpg" },
+  { title: "Cascade", text: "Ideas flowing down like water, each drop carrying ripples of creative potential.", image: "/backgrounds/orangeBg.webp" },
+  { title: "Fusion", text: "Elements colliding and combining — the heat of creation forging something entirely new.", image: "/projects/sliced_org.webp" },
+  { title: "Pulse", text: "The steady rhythm of progress, each beat marking another step toward the horizon.", image: "/backgrounds/multiBg.webp" },
+  { title: "Radiance", text: "Light emanating from within — the glow of inspiration that illuminates the path forward.", image: "/backgrounds/whiteBg.webp" },
   { title: "Drift", text: "Surrendering to the current of creativity, trusting the journey to reveal its destination.", image: "https://images.unsplash.com/photo-1778336110797-0deff0dd4b39?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3MXx8fGVufDB8fHx8fA%3D%3D" },
 ];
 

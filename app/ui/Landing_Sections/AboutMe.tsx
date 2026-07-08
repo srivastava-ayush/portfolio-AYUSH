@@ -33,8 +33,8 @@ const socialLinks = [
 const cards = [
   {
     href: "/slices/getting-started",
-    img1: "/projects/sliced_org.jpg",
-    img2: "/projects/project-img1.png",
+    img1: "/projects/sliced_org.webp",
+    img2: "/projects/project-img1.webp",
     label: "[Slices]",
     desc: "components, animations, expriences",
   },
@@ -87,7 +87,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
           animate={hovered ? { y: -80, x: -30, rotate: -12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 250, damping: 18 }}
         >
-          <img src={img1} alt="" className="w-full h-full object-cover" />
+          <img src={img1} alt="" loading="lazy" className="w-full h-full object-cover" />
         </motion.div>
 
         <motion.div
@@ -95,7 +95,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
           animate={hovered ? { y: -80, x: 30, rotate: 12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 250, damping: 18, delay: 0.04 }}
         >
-          <img src={img2} alt="" className="w-full h-full object-cover" />
+          <img src={img2} alt="" loading="lazy" className="w-full h-full object-cover" />
         </motion.div>
       </motion.div>
     </Link>
@@ -189,7 +189,7 @@ function AboutMe() {
               <Link href="/terminal" className="shrink-0">
                 <Image
                   unoptimized
-                  src="/avatars/avatar.png"
+                  src="/avatars/avatar.webp"
                   alt="avatar"
                   width={48}
                   height={48}

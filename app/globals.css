@@ -208,7 +208,7 @@ main {
   left: 0;
   width: 100px;
   height: 100px;
-  background: url('../public/projects/sliced_org.jpg') no-repeat center;
+  background: url('../public/projects/sliced_org.webp') no-repeat center;
   background-size: cover;
   border-radius: 50%;
   pointer-events: none;

@@ -18,7 +18,7 @@ function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("/audio/click_sound.wav");
+    audioRef.current = new Audio("/audio/click_sound.mp3");
     audioRef.current.volume = 0.02;
   }, []);
 
@@ -198,6 +198,7 @@ function Projects() {
                       <img
                         src={project.projectImg.src}
                         alt={project.projectName}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -338,6 +339,7 @@ function Projects() {
                       <img
                         src={project.projectImg.src}
                         alt={project.projectName}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -458,6 +460,7 @@ function Projects() {
                 <img
                   src={p.projectImg.src}
                   alt={p.projectName}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </motion.div>

@@ -2,14 +2,14 @@ import ReactIcon from "../public/icons/react-2.svg";
 import TypescriptIcon from "../public/icons/typescript.svg";
 import JavascriptIcon from "../public/icons/javascript.svg";
 import NextjsIcon from "../public/icons/nextjs.svg";
-import projectImg3 from "../public/projects/project-img3.png";
-import projectImg1 from "../public/projects/project-img1.png";
-import projectImg2 from "../public/projects/project-img2.png";
-import projectImg4 from "../public/projects/project-img4.png";
-import projectImg5 from "../public/projects/project-img5.png";
-import projectImg6 from "../public/projects/project-img6.png";
-import projectImg7 from "../public/projects/project-img7.png";
-import projectImg8 from "../public/projects/project-img8.png";
+import projectImg3 from "../public/projects/project-img3.webp";
+import projectImg1 from "../public/projects/project-img1.webp";
+import projectImg2 from "../public/projects/project-img2.webp";
+import projectImg4 from "../public/projects/project-img4.webp";
+import projectImg5 from "../public/projects/project-img5.webp";
+import projectImg6 from "../public/projects/project-img6.webp";
+import projectImg7 from "../public/projects/project-img7.webp";
+import projectImg8 from "../public/projects/project-img8.webp";
 import ExpressjsIcon from "../public/icons/express.svg";
 import NodejsIcon from "../public/icons/nodejs.svg";
 import MongoDBIcon from "../public/icons/mongodb.svg";
@@ -178,19 +178,19 @@ export const SIDE_QUESTS= [
         para: "Hyprland The Tiling, animations are so goated, and a config file that keeps growing till the end of time",
         imgs: [
           {
-            src: "/side-quest/entries/distribution-entry-1.png",
+            src: "/side-quest/entries/distribution-entry-1.webp",
             desc: "my hyprland rice",
           },
           {
-            src: "/side-quest/entries/distribution-entry-2.png",
+            src: "/side-quest/entries/distribution-entry-2.webp",
             desc: "my hyprland rice",
           },
           {
-            src: "/side-quest/entries/distribution-entry-3.png",
+            src: "/side-quest/entries/distribution-entry-3.webp",
             desc: "my hyprland rice",
           },
           {
-            src: "/side-quest/entries/distribution-entry-4.png",
+            src: "/side-quest/entries/distribution-entry-4.webp",
             desc: "my hyprland rice",
           },
         ],

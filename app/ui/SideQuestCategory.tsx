@@ -24,7 +24,7 @@ export default function SideQuestCategory({ title, banner, children }: { title: 
       </button>
       {banner && (
         <div className="mb-3 mt-3 border border-[var(--border-color)]/60 overflow-hidden">
-          <img src={banner} alt="" className="w-full h-24 md:h-32 object-cover" />
+          <img src={banner} alt="" loading="lazy" className="w-full h-24 md:h-32 object-cover" />
         </div>
       )}
       <AnimatePresence initial={false}>

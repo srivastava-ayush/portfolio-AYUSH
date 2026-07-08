@@ -13,32 +13,32 @@ const tileData: TileData[] = [
   {
     title: "Vision",
     text: "Seeing beyond the horizon — crafting ideas that shape tomorrow.",
-    image: "/backgrounds/orangeBg.jpg",
+    image: "/backgrounds/orangeBg.webp",
   },
   {
     title: "Flow",
     text: "Where creativity meets rhythm and every motion tells a story.",
-    image: "/projects/sliced_org.jpg",
+    image: "/projects/sliced_org.webp",
   },
   {
     title: "Structure",
     text: "Building foundations with precision and architectural elegance.",
-    image: "/backgrounds/multiBg.jpg",
+    image: "/backgrounds/multiBg.webp",
   },
   {
     title: "Texture",
     text: "Layers of depth that add richness to every experience.",
-    image: "/backgrounds/whiteBg.jpg",
+    image: "/backgrounds/whiteBg.webp",
   },
   {
     title: "Rhythm",
     text: "The pulse that drives design forward in perfect cadence.",
-    image: "/backgrounds/orangeBg.jpg",
+    image: "/backgrounds/orangeBg.webp",
   },
   {
     title: "Harmony",
     text: "Where all elements converge into a seamless whole.",
-    image: "/projects/sliced_org.jpg",
+    image: "/projects/sliced_org.webp",
   },
 ];
 
