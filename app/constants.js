@@ -34,6 +34,8 @@ import PostmanIcon from "../public/icons/postman.svg";
 import CloudinaryIcon from "../public/icons/cloudinary.svg";
 import VercelIcon from "../public/icons/vercel.svg";
 
+
+
 export const PROJECTS = [
   {
     projectName: "Slices-UI",
@@ -142,7 +144,7 @@ export const PROJECTS = [
   },
 ];
 
-export const SIDE_QUESTS = [
+export const SIDE_QUESTS= [
   {
     category: "Philosophy",
     banner:
@@ -150,6 +152,7 @@ export const SIDE_QUESTS = [
     entries: [
       {
         title: "what i have been reading recently",
+        para:""
       },
       {
         title: "Advaita Vedanta",

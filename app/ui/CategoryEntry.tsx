@@ -3,9 +3,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 
-type EntryImg = { src: string; desc?: string };
+type EntryImg = { src: string; desc?: string;};
 
-export default function CategoryEntry({ title, para, imgs }: { title: string; para?: string; imgs?: EntryImg | EntryImg[] }) {
+export default function CategoryEntry({ title, para, imgs }: { title?: string; para?: string; imgs?: EntryImg | EntryImg[] }) {
   const [selectedImg, setSelectedImg] = useState<EntryImg | null>(null);
   const images = imgs ? (Array.isArray(imgs) ? imgs : [imgs]) : [];
   return (
