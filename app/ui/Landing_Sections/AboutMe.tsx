@@ -200,7 +200,7 @@ function AboutMe() {
                   className="rounded-sm opacity-60 hover:opacity-100 transition-opacity"
                 />
               </Link>
-              <h1 className="text-3xl md:text-6xl flex gap-2 sm:gap-3 md:gap-4 items-baseline font-mono font-bold">
+              <h1 className="text-3xl md:text-[2.7rem] flex gap-2 sm:gap-3 md:gap-4 items-baseline font-mono font-bold">
                 <span className="text-[var(--text-color)]">Ayush</span>
                 <span className="text-[var(--secondary-text)]">Srivastava</span>
               </h1>
@@ -210,7 +210,7 @@ function AboutMe() {
             </div>
 
             {/* Role */}
-            <h3 className="text-xl md:text-xl font-mono font-semibold mt-1 relative z-[1]">
+            <h3 className="text-xl md:text-xl font-mono font-semibold mt-1 mb-[1.5rem] relative z-[1]">
               <span className="text-[var(--text-color)]">Full-Stack</span>
               <span className="text-[var(--secondary-text)] ml-2">Engineer</span>
             </h3>
@@ -296,7 +296,7 @@ function AboutMe() {
               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
               <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">tech-stack --list</span>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 px-4 md:px-6">
               {TECH_STACK.map(({ icon, name }, i) => (
                 <div
                   key={name}
@@ -361,7 +361,7 @@ function AboutMe() {
         <div className="border-y border-[var(--border-color)] relative">
           <div className="flex items-center w-full">
             <div className="w-4 md:w-6 shrink-0" />
-            <div className="w-full flex justify-between items-center gap-4 py-2">
+            <div className="w-full flex justify-between items-center gap-4 ">
               <p className="px-3 py-1.5 h-9 flex items-center border-x border-[var(--border-color)] text-[var(--secondary-text)] font-mono text-xs">
                 constayush@gmail.com
               </p>
