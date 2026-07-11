@@ -165,12 +165,12 @@ function Page() {
     if (lower === "help") {
       addOutput(cmd, (
         <div>
-          <div><span className="text-[var(--accent-color)]">whoami</span>        — about me</div>
-          <div><span className="text-[var(--accent-color)]">contact</span>       — social links</div>
-          <div><span className="text-[var(--accent-color)]">ls projects</span>   — list projects</div>
-          <div><span className="text-[var(--accent-color)]">cd [project]</span>   — explore a project</div>
-          <div><span className="text-[var(--accent-color)]">clr / clear</span>    — clear terminal</div>
-          <div><span className="text-[var(--accent-color)]">exit</span>          — leave terminal</div>
+          <div><span className="text-[var(--accent-color)]">whoami</span>        - about me</div>
+          <div><span className="text-[var(--accent-color)]">contact</span>       - social links</div>
+          <div><span className="text-[var(--accent-color)]">ls projects</span>   - list projects</div>
+          <div><span className="text-[var(--accent-color)]">cd [project]</span>   - explore a project</div>
+          <div><span className="text-[var(--accent-color)]">clr / clear</span>    - clear terminal</div>
+          <div><span className="text-[var(--accent-color)]">exit</span>          - leave terminal</div>
         </div>
       ));
       return;
@@ -179,10 +179,10 @@ function Page() {
     if (lower === "contact") {
       addOutput(cmd, (
         <div className="space-y-1">
-          <div><a href="mailto:srivastava-ayush@outlook.com" className="text-[var(--accent-color)] hover:underline">mail</a> — srivastava-ayush@outlook.com</div>
-          <div><a href="https://github.com/srivastava-ayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">github</a> — /srivastava-ayush</div>
-          <div><a href="https://linkedin.com/in/constayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">linkedin</a> — /in/constayush</div>
-          <div><a href="https://instagram.com/maihoonayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">instagram</a> — @maihoonayush</div>
+          <div><a href="mailto:srivastava-ayush@outlook.com" className="text-[var(--accent-color)] hover:underline">mail</a> - srivastava-ayush@outlook.com</div>
+          <div><a href="https://github.com/srivastava-ayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">github</a> - /srivastava-ayush</div>
+          <div><a href="https://linkedin.com/in/constayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">linkedin</a> - /in/constayush</div>
+          <div><a href="https://instagram.com/maihoonayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">instagram</a> - @maihoonayush</div>
         </div>
       ));
       return;
@@ -194,7 +194,7 @@ function Page() {
           {(PROJECTS as Project[]).map((p, i) => (
             <div key={i} className="flex items-baseline gap-3">
               <span className="text-[var(--accent-color)] font-mono">{p.projectName}</span>
-              <span className="text-[var(--secondary-text)] text-sm">— {p.projectDescriptionShort}</span>
+              <span className="text-[var(--secondary-text)] text-sm">- {p.projectDescriptionShort}</span>
             </div>
           ))}
           <div className="mt-2 text-[var(--secondary-text)] text-sm">use <span className="text-[var(--text-color)]">cd [project-name]</span> for details</div>
@@ -235,7 +235,7 @@ function Page() {
     }
 
     addOutput(cmd, (
-      <span>command not found: <span className="text-[var(--accent-color)]">{cmd}</span> — try <span className="text-[var(--text-color)]">help</span></span>
+      <span>command not found: <span className="text-[var(--accent-color)]">{cmd}</span> - try <span className="text-[var(--text-color)]">help</span></span>
     ));
   }
 

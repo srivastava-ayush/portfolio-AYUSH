@@ -1,8 +1,10 @@
 "use client";
+import { useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { VideoIcon, NewspaperIcon, ArrowRight, ArrowLeft } from "lucide-react";
+import Image from "next/image";
 import Navbar from "../../ui/Navbar";
 import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 
@@ -29,7 +31,24 @@ const exploreItems = [
 
 function Page() {
   const pathname = usePathname();
+  const imgRef = useRef<HTMLImageElement>(null);
+  const rafRef = useRef<number>(0);
 
+  const imgParentRef = useRef<HTMLDivElement>(null);
+
+  const handleMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      const img = imgRef.current;
+      const parent = imgParentRef.current;
+      if (!img || !parent) return;
+      const rect = parent.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const translateX = (x - 50) * 2.8;
+      img.style.transform = `translateX(${translateX}%) rotate(${translateX * 1.5}deg)`;
+    });
+  }, []);
+2
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -37,12 +56,12 @@ function Page() {
       transition={{ duration: 1 }}
       className="min-h-screen flex flex-col items-center"
     >
-      <PageWithBorderStrips><motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
+      <PageWithBorderStrips><motion.div className="w-full   border border-[var(--border-color)] flex flex-col items-center">
         <Navbar />
-        <main className="w-full flex flex-col px-6 pb-16">
+        <main className="w-full flex flex-col pb-16">
           <div className="pt-[var(--section-gap)]" />
 
-          <div className="border-t border-b border-[var(--border-color)]">
+          <div className="border-t border-b   border-[var(--border-color)]">
             <div className="flex text-xs font-mono">
               <Link
                 href="/"
@@ -74,12 +93,29 @@ function Page() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-8 pt-8">
-            <div className="flex flex-col items-center text-center">
-              <h1 className="text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold">
-                Slices
+          <div className="flex flex-col gap-8 pt-8 px-6">
+            <div
+              ref={imgParentRef}
+              className="flex flex-col items-center text-center relative overflow-hidden py-8"
+              onMouseMove={handleMove}
+            >
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
+                <Image
+                  ref={imgRef}
+                  unoptimized
+                  src="/projects/sliced_org.webp"
+                  alt=""
+                  width={96}
+                  height={96}
+                  className="w-24 h-24 rounded-full md:w-28 md:h-28 object-contain opacity-[0.22]"
+                  style={{ transform: "translateX(0%) rotate(0deg)", transition: "none" }}
+                />
+              </div>
+              <h1 className="text-[1.8rem] md:text-[2.8rem] font-bold flex gap-3 items-baseline relative z-10">
+                <span className="text-[var(--text-color)]">Slices</span>
+                <span className="text-[var(--secondary-text)]">UI</span>
               </h1>
-              <p className="text-md text-[var(--secondary-text)] mt-2">
+              <p className="text-md text-[var(--secondary-text)] mt-2 relative z-10">
                 components &mdash; engineered, styled, shipped.
               </p>
             </div>

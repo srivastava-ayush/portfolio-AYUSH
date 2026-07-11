@@ -12,7 +12,7 @@ interface TileData {
 const tileData: TileData[] = [
   {
     title: "Vision",
-    text: "Seeing beyond the horizon — crafting ideas that shape tomorrow.",
+    text: "Seeing beyond the horizon - crafting ideas that shape tomorrow.",
     image: "/backgrounds/orangeBg.webp",
   },
   {

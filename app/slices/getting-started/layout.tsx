@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Slices UI — Getting Started",
+  title: "Slices UI - Getting Started",
   description:
-    "Slices UI by Ayush Srivastava — a curated collection of reusable UI components, utilities, and templates built with React, Tailwind CSS, and Motion. Explore interactive components and scroll-driven animations.",
+    "Slices UI by Ayush Srivastava - a curated collection of reusable UI components, utilities, and templates built with React, Tailwind CSS, and Motion. Explore interactive components and scroll-driven animations.",
   keywords: [
     "Slices UI",
     "slices ui ayush",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     "component library",
   ],
   openGraph: {
-    title: "Slices UI — Getting Started | Ayush Srivastava",
+    title: "Slices UI - Getting Started | Ayush Srivastava",
     description:
-      "Slices UI by Ayush Srivastava — reusable React components, utilities, and templates built with Tailwind CSS and Motion.",
+      "Slices UI by Ayush Srivastava - reusable React components, utilities, and templates built with Tailwind CSS and Motion.",
   },
   alternates: {
     canonical: "https://srivastava-ayush.vercel.app/slices/getting-started",

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Terminal Portfolio | Ayush Srivastava",
     description:
-      "Interactive terminal portfolio — explore Ayush Srivastava's projects and skills via CLI.",
+      "Interactive terminal portfolio - explore Ayush Srivastava's projects and skills via CLI.",
   },
   alternates: {
     canonical: "https://srivastava-ayush.vercel.app/terminal",

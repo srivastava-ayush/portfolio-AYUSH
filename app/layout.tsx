@@ -37,11 +37,11 @@ const siteUrl = "https://srivastava-ayush.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ayush Srivastava Portfolio — Full-Stack Engineer & UI Developer",
+    default: "Ayush Srivastava Portfolio - Full-Stack Engineer & UI Developer",
     template: "%s | Ayush Srivastava",
   },
   description:
-    "Ayush Srivastava Portfolio — Full-Stack Engineer specializing in modern UI development. Creator of Slices UI. Explore projects built with React, Next.js & TypeScript.",
+    "Ayush Srivastava Portfolio - Full-Stack Engineer specializing in modern UI development. Creator of Slices UI. Explore projects built with React, Next.js & TypeScript.",
   authors: [
     { name: "Ayush Srivastava", url: siteUrl },
   ],
@@ -79,24 +79,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: "Ayush Srivastava Portfolio",
-    title: "Ayush Srivastava Portfolio — Full-Stack Engineer & UI Developer",
+    title: "Ayush Srivastava Portfolio - Full-Stack Engineer & UI Developer",
     description:
-      "Ayush Srivastava Portfolio — Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI component library.",
+      "Ayush Srivastava Portfolio - Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI component library.",
     url: siteUrl,
     images: [
       {
         url: `${siteUrl}/projects/thumbnail.png`,
         width: 1200,
         height: 630,
-        alt: "Ayush Srivastava Portfolio — Full-Stack Engineer & UI Developer",
+        alt: "Ayush Srivastava Portfolio - Full-Stack Engineer & UI Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Srivastava Portfolio — Full-Stack Engineer & UI Developer",
+    title: "Ayush Srivastava Portfolio - Full-Stack Engineer & UI Developer",
     description:
-      "Ayush Srivastava Portfolio — Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI.",
+      "Ayush Srivastava Portfolio - Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI.",
     images: [`${siteUrl}/projects/thumbnail.png`],
     creator: "@maihoonayush",
   },
@@ -153,7 +153,7 @@ export default function RootLayout({
                   name: "Ayush Srivastava Portfolio",
                   url: siteUrl,
                   description:
-                    "Ayush Srivastava Portfolio — a Full-Stack Engineer and UI developer. Creator of Slices UI component library.",
+                    "Ayush Srivastava Portfolio - a Full-Stack Engineer and UI developer. Creator of Slices UI component library.",
                   author: {
                     "@type": "Person",
                     name: "Ayush Srivastava",

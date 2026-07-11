@@ -17,7 +17,7 @@ const cardData: CardData[] = [
   },
   {
     title: "Innovation",
-    text: "Pushing boundaries and breaking molds — innovation thrives at the intersection of imagination and determination. Build what others haven't dared to dream.",
+    text: "Pushing boundaries and breaking molds - innovation thrives at the intersection of imagination and determination. Build what others haven't dared to dream.",
     image: "/projects/sliced_org.webp",
   },
   {
@@ -27,7 +27,7 @@ const cardData: CardData[] = [
   },
   {
     title: "Impact",
-    text: "The final piece of the puzzle — creating work that resonates, inspires, and leaves a lasting mark on the world around us.",
+    text: "The final piece of the puzzle - creating work that resonates, inspires, and leaves a lasting mark on the world around us.",
     image: "/backgrounds/whiteBg.webp",
   },
 ];

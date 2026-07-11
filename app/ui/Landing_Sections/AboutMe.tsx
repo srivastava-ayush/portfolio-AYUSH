@@ -96,8 +96,12 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
           transition={{ type: "spring", stiffness: 250, damping: 18, delay: 0.04 }}
         >
           <img src={img2} alt="" loading="lazy" className="w-full h-full object-cover" />
-        </motion.div>
+          </motion.div>
+  
       </motion.div>
+      
+      
+   
     </Link>
   );
 }
@@ -224,7 +228,7 @@ function AboutMe() {
                 developer experience. I work across the{" "}
               </span>
               <span className="font-semibold text-[var(--text-color)]">full stack</span>
-              <span className="text-[var(--secondary-text)]"> — from </span>
+              <span className="text-[var(--secondary-text)]"> - from </span>
               <span className="font-semibold text-[var(--text-color)]">
                 backend APIs
               </span>
@@ -270,7 +274,7 @@ function AboutMe() {
                   <span className="text-xs font-mono text-[var(--text-color)]">B.Tech in Computer Science</span>
                 </div>
                 <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
-                  2025 – 2028 | expected
+                  2025 - 2028 | expected
                 </span>
               </div>
               <div className="flex justify-between items-center px-4 py-3">
@@ -279,7 +283,7 @@ function AboutMe() {
                   <span className="text-xs font-mono text-[var(--text-color)]">Diploma in Computer Science</span>
                 </div>
                 <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
-                  2022 – 2025 | 8.5 CGPA
+                  2022 - 2025 | 8.5 CGPA
                 </span>
             </div>
             

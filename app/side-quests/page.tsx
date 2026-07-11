@@ -19,7 +19,7 @@ function Page() {
       <PageWithBorderStrips>
         <motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
           <Navbar />
-          <main className="w-full flex flex-col px-6 pb-16">
+          <main className="w-full flex flex-col pb-16">
             <div className="pt-[var(--section-gap)]" />
 
             <div className="border-t border-b border-[var(--border-color)]">
@@ -32,10 +32,11 @@ function Page() {
               </Link>
             </div>
 
-            <div className="flex flex-col gap-8 pt-8">
+            <div className="flex flex-col gap-8 pt-8 px-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-[1.8rem] md:text-[2.8rem] text-[var(--text-color)] font-bold">
-                  Side Quests
+                <h1 className="text-[1.8rem] md:text-[2.8rem] font-bold flex gap-3 items-baseline">
+                  <span className="text-[var(--text-color)]">Side</span>
+                  <span className="text-[var(--secondary-text)]">Quests</span>
                 </h1>
                 <p className="text-md text-[var(--secondary-text)] mt-2 max-w-lg">
                 hobbies and random internet things that have

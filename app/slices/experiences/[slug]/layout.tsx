@@ -14,15 +14,15 @@ const experienceNames: Record<string, string> = {
 
 const experienceDescriptions: Record<string, string> = {
   "parallax-reveal":
-    "Interactive Parallax Reveal component — a scroll-driven animation experience built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
+    "Interactive Parallax Reveal component - a scroll-driven animation experience built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
   "pop-blur":
-    "Interactive Pop Blur component — a smooth blur reveal animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
+    "Interactive Pop Blur component - a smooth blur reveal animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
   "reveal-slices":
-    "Interactive Reveal Slices component — a slice-based scroll reveal animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
+    "Interactive Reveal Slices component - a slice-based scroll reveal animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
   "stacked-cards":
-    "Interactive Stacked Cards component — a card stacking animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
+    "Interactive Stacked Cards component - a card stacking animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
   "grid-mosaic":
-    "Interactive Grid Mosaic component — a grid-based reveal animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
+    "Interactive Grid Mosaic component - a grid-based reveal animation built with React and Motion. Part of the Slices UI library by Ayush Srivastava.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -30,10 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const name = experienceNames[slug] || slug.replace(/-/g, " ");
   const description =
     experienceDescriptions[slug] ||
-    `Interactive ${name} component built with React and Motion. Explore Slices UI by Ayush Srivastava — a collection of reusable UI components with scroll-driven animations.`;
+    `Interactive ${name} component built with React and Motion. Explore Slices UI by Ayush Srivastava - a collection of reusable UI components with scroll-driven animations.`;
 
   return {
-    title: `${name} — Slices UI Experience`,
+    title: `${name} - Slices UI Experience`,
     description,
     keywords: [
       "Slices UI",
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "Ayush Srivastava",
     ],
     openGraph: {
-      title: `${name} — Slices UI Experience | Ayush Srivastava`,
+      title: `${name} - Slices UI Experience | Ayush Srivastava`,
       description,
     },
     alternates: {

@@ -91,6 +91,7 @@ function Navbar() {
     if (pathname === "/slices") return "Slices";
     if (pathname === "/terminal") return "Terminal";
     if (pathname === "/side-quests") return "Side Quests";
+    if (pathname === "/build-logs") return "Build Logs";
     return "";
   };
 
@@ -143,7 +144,12 @@ function Navbar() {
           >
             /Side Quests
           </Link>
-
+          <Link
+            href="/build-logs"
+            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors `}
+          >
+            /Build Logs
+          </Link>
           <div className="ml-auto h-full flex items-center px-2 border-l border-[var(--border-color)]">
             <ThemeToggleBtn theme={theme} toggleTheme={toggleTheme} />
           </div>

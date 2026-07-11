@@ -43,7 +43,7 @@ function Page() {
       <PageWithBorderStrips>
         <motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
           <Navbar />
-          <main className="w-full flex flex-col px-6 pb-16">
+          <main className="w-full flex flex-col pb-16">
             <div className="pt-[var(--section-gap)]" />
 
             <div className="border-t border-b border-[var(--border-color)]">
@@ -104,7 +104,7 @@ function Page() {
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6"
               >
                 {filteredProjects.map((project) => (
                   <ProjectCard key={project.projectName} {...project} />

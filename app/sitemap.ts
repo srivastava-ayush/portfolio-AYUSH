@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { BUILD_LOGS } from "./constants";
 
 const baseUrl = "https://srivastava-ayush.vercel.app";
 
@@ -9,6 +10,8 @@ const experienceSlugs = [
   "stacked-cards",
   "grid-mosaic",
 ];
+
+const buildLogIds = BUILD_LOGS.map((l) => l.id);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -75,5 +78,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...experienceRoutes];
+  const buildLogRoutes: MetadataRoute.Sitemap = buildLogIds.map((id) => ({
+    url: `${baseUrl}/build-logs/${id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  return [...staticRoutes, ...experienceRoutes, ...buildLogRoutes];
 }
