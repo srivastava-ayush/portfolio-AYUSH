@@ -105,15 +105,15 @@ function Projects() {
             </div>
 
             <div className="flex-1 flex">
-              <div className="w-1/2 flex flex-col justify-center px-8 cursor-pointer select-none relative">
+              <div className="w-1/2 flex bg-pixel-grid  flex-col justify-center  cursor-pointer select-none relative">
                 {DISPLAY_PROJECTS.map((p, index) => (
                     <motion.div
                         key={p.projectId}
-                        className="py-3 group"
+                        className="py-3 group bg-[var(--bg-color)] border-y border-[var(--border-color)] px-8"
                         data-index={index}
                         onClick={handleClick}
                       >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 ">
                       <span className="text-xs font-mono text-(--text-color)/25 w-5">
                         {String(index + 1).padStart(2, "0")}
                       </span>
@@ -442,7 +442,7 @@ function Projects() {
             {DISPLAY_PROJECTS.slice(0, 3).map((p, i) => (
               <motion.div
                 key={p.projectId}
-                className="w-7 h-7 md:w-9 md:h-9 rounded-sm overflow-hidden border border-[var(--border-color)] shrink-0"
+                className="w-7 h-7   md:w-9 md:h-9 rounded-sm overflow-hidden border border-[var(--border-color)] shrink-0"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={
                   ctaHovered

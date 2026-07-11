@@ -30,7 +30,7 @@ function Hero() {
     });
   }, []);
     return (
-   <main className="main-hero-section-container  text-center items-center justify-center flex flex-col gap-4 md:gap-8">
+   <main className="main-hero-section-container relative text-center items-center justify-center flex flex-col gap-4 md:gap-8">
           <div className="w-full border-t px-6  border-[var(--border-color)] pt-[var(--section-gap)]">
             <h1 className="hero-heading text-[1.8rem] md:text-[2.5rem] inline text-center">
               <TextGenerateEffect className="inline tracking-wide" words={headingWords} />

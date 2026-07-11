@@ -59,7 +59,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
   return (
     <Link href={href} className="block w-full md:w-auto">
       <motion.div
-        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glass-bg-color)]"
+        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glas2-bg-color)] bg-pixel-grid"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         animate={hovered ? { y: 6 } : { y: 0 }}
@@ -370,7 +370,7 @@ function AboutMe() {
                   navigator.clipboard.writeText("constayush@gmail.com");
                   setCopied(true);
                 }}
-                className="flex items-center justify-center gap-2 px-3 h-9 border-x border-[var(--border-color)] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200 font-mono text-xs relative"
+                className="flex bg-pixel-grid items-center justify-center gap-2 px-3 h-9 border-x border-[var(--border-color)] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200 font-mono text-xs relative"
               >
                 <Copy size={14} />
                 <span className="hidden sm:inline">{copied ? "Copied!" : "Copy"}</span>

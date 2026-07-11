@@ -169,6 +169,13 @@ html {
   );
 }
 
+.bg-pixel-grid {
+  background-image: 
+    linear-gradient(rgba(128,128,128,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128,128,128,0.1) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
 /* Element styles used by navbar and hero */
 nav {
   transform-origin: center;
