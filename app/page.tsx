@@ -64,7 +64,7 @@ function PageClient() {
                 loop
                 muted
                 playsInline
-                className="absolute opacity-10  inset-0 w-full h-full object-cover pointer-events-none"
+                className="absolute opacity-7  inset-0 w-full h-full object-cover pointer-events-none"
                 style={{
                   maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
                   WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
