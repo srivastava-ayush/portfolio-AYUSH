@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/projects/thumbnail.png`,
+        url: `${siteUrl}/misc/OG.png`,
         width: 1200,
         height: 630,
         alt: "Ayush Srivastava Portfolio - Full-Stack Engineer & UI Developer",
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     title: "Ayush Srivastava Portfolio - Full-Stack Engineer & UI Developer",
     description:
       "Ayush Srivastava Portfolio - Full-Stack Engineer building modern web experiences with React, Next.js & TypeScript. Creator of Slices UI.",
-    images: [`${siteUrl}/projects/thumbnail.png`],
+    images: [`${siteUrl}/misc/OG.png`],
     creator: "@maihoonayush",
   },
   alternates: {
