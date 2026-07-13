@@ -171,7 +171,18 @@ export default function RootLayout({
         <ClarityProvider />
         <ScrollToTop />
         {children}
-        <span className="fixed z-99 bottom-[-40] bg-[var(--bg-color)]  blur-[20px] w-full  h-20"/>
+        <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.3] mix-blend-screen"
+          style={{ backgroundImage: "url(/textures/noise.png)", backgroundRepeat: "repeat", backgroundSize: "128px" }}
+        />
+        <div className="fixed bottom-0 left-0 w-full h-32 pointer-events-none z-50"
+          style={{
+            background: "linear-gradient(to top, var(--bg-color) 0%, transparent 100%)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            maskImage: "linear-gradient(to top, black 15%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to top, black 15%, transparent 100%)",
+          }}
+        />
           
       
       </body>
