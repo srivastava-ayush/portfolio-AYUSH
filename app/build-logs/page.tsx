@@ -42,15 +42,15 @@ function Page() {
 
 
               <div className="flex flex-col gap-8">
-                
-              {BUILD_LOGS.sort((a, b) => b.id - a.id).map((log) => (
+                still procrastinating
+              {/*{BUILD_LOGS.sort((a, b) => b.id - a.id).map((log) => (
                 <Link key={log.id} href={`/build-logs/${log.id}`}>
                   <div className="flex justify-between items-center border-y px-6 py-2 border-[var(--border-color)]" key={log.id}>
                     <div className="flex justify-center items-center gap-2 "><h2 className="text-[var(--text-color)] font-semibold">{log.title}</h2><p className="text-[var(--secondary-text)] text-xs tracking-tighter">--  {log.desc}</p></div>
                   <p className="text-[var(--secondary-text)] text-xs tracking-tighter"> {log.date}</p>
                  </div>
                   </Link>
-              ))}
+              ))}*/}
               </div>
             </div>
           </main>
