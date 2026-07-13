@@ -6,8 +6,8 @@ import { useCustomCursor } from "./ui/utils/useCursor";
 import { useEffect, useState } from "react";
 import Hero from "./ui/Landing_Sections/Hero";
 import Projects from "./ui/Landing_Sections/Projects";
+
 import AboutMe from "./ui/Landing_Sections/AboutMe";
-import DotMatrix from "./ui/DotMatrix";
 
 function PageClient() {
 
@@ -39,14 +39,6 @@ function PageClient() {
     >
       <div ref={cursorRef} className="custom-cursor"></div>
 
-      {/* <motion.span
-        initial={{ opacity: 0, top: "-100px" }}
-        animate={{ opacity: 1, top: 0 }}
-        transition={{ duration: 1 }}
-        className="fixed opacity-10  pointer-events-none z-0 top-0 left-0 w-[60%] h-24 bg-(--blob-color) blur-[200px]"
-      /> */}
-
-      
       <div className="relative w-full max-w-3xl z-10">
         <div className="hidden md:block absolute right-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-l border-[var(--border-color)]" />
         <motion.div
@@ -58,8 +50,20 @@ function PageClient() {
           <Navbar />
 
           <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
-            <section className="relative w-full py-[var(--section-gap)] overflow-hidden">
-              <DotMatrix />
+            <section className="relative w-full py-[var(--section-gap)]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute opacity-7  inset-0 w-full h-full object-cover pointer-events-none"
+                style={{
+                  maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
+                }}
+              >
+                <source src="/misc/bg.mp4" type="video/mp4" />
+              </video>
               <div className="relative z-10">
                 <Hero />
               </div>
