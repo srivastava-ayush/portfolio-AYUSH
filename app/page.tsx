@@ -6,8 +6,8 @@ import { useCustomCursor } from "./ui/utils/useCursor";
 import { useEffect, useState } from "react";
 import Hero from "./ui/Landing_Sections/Hero";
 import Projects from "./ui/Landing_Sections/Projects";
-
 import AboutMe from "./ui/Landing_Sections/AboutMe";
+import DotMatrix from "./ui/DotMatrix";
 
 function PageClient() {
 
@@ -58,20 +58,8 @@ function PageClient() {
           <Navbar />
 
           <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
-            <section className="relative w-full py-[var(--section-gap)]">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute opacity-7  inset-0 w-full h-full object-cover pointer-events-none"
-                style={{
-                  maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
-                }}
-              >
-                <source src="/misc/bg.mp4" type="video/mp4" />
-              </video>
+            <section className="relative w-full py-[var(--section-gap)] overflow-hidden">
+              <DotMatrix />
               <div className="relative z-10">
                 <Hero />
               </div>
