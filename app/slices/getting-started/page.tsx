@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useCallback } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -32,23 +32,42 @@ const exploreItems = [
 function Page() {
   const pathname = usePathname();
   const imgRef = useRef<HTMLImageElement>(null);
-  const rafRef = useRef<number>(0);
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-  const imgParentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    let id = 0;
+    const step = () => {
+      const m = mouseRef.current;
+      m.x += (m.targetX - m.x) * 0.07;
+      m.y += (m.targetY - m.y) * 0.07;
+      img.style.transform = `translate(${m.x}px, ${m.y}px) rotate(${m.x * 0.4}deg)`;
+      id = requestAnimationFrame(step);
+    };
+    id = requestAnimationFrame(step);
 
-  const handleMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      const img = imgRef.current;
-      const parent = imgParentRef.current;
-      if (!img || !parent) return;
-      const rect = parent.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const translateX = (x - 50) * 2.8;
-      img.style.transform = `translateX(${translateX}%) rotate(${translateX * 1.5}deg)`;
-    });
+    const onMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      mouseRef.current.targetX = (e.clientX - cx) * 0.25;
+      mouseRef.current.targetY = (e.clientY - cy) * 0.25;
+    };
+    const onLeave = () => {
+      mouseRef.current.targetX = 0;
+      mouseRef.current.targetY = 0;
+    };
+
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
-2
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -95,9 +114,7 @@ function Page() {
 
           <div className="flex flex-col gap-8 pt-8 px-6">
             <div
-              ref={imgParentRef}
               className="flex flex-col items-center text-center relative overflow-hidden py-8"
-              onMouseMove={handleMove}
             >
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
                 <Image
@@ -107,7 +124,7 @@ function Page() {
                   alt=""
                   width={96}
                   height={96}
-                  className="w-24 h-24 rounded-full md:w-28 md:h-28 object-contain opacity-[0.22]"
+                  className="w-24 h-24 rounded-full md:w-28 md:h-28 object-contain opacity-[0.42]"
                   style={{ transform: "translateX(0%) rotate(0deg)", transition: "none" }}
                 />
               </div>

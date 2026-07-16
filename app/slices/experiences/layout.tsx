@@ -61,11 +61,11 @@ export default function ExperiencesLayout({
             ))}
           </select>
           <span className="w-px h-4 bg-[var(--border-color)]/20" />
-          <button className="flex items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] cursor-pointer">
+          <button className="flex cursor-not-allowed! items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] cursor-pointer">
             <CodeIcon size={14} />
-            code
+            code 
           </button>
-          <button className="flex items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] cursor-pointer">
+          <button className="flex cursor-not-allowed! items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] cursor-pointer">
             <CopyIcon size={14} />
             copy
           </button>

@@ -186,17 +186,22 @@ export const SIDE_QUESTS = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLkaXGxpSmJT23quw6n864XuIQGn7eucEUhdYsDnyNTw&s=10",
     entries: [
       {
-        title: "what i have been reading recently",
+        title: "what i have been reading recently, note:- sorry for grammatical errors :( ",
         para:""
       },
-      {
-        title: "Advaita Vedanta",
-        para: "as I understand it, is a school of Hindu philosophy and spiritual practice that emphasizes the idea of non-dualism, asserting that the true self (Atman) is identical to the ultimate reality (Brahman). It teaches that the apparent multiplicity of the world is an illusion (Maya) and that realizing this truth leads to liberation (Moksha).",
-      },
+  
       {
         title: "Stoicism",
         para: "Hellenistic philosophy that teaches the development of self-control and fortitude as a means to overcome destructive emotions. It emphasizes rationality, virtue, and the acceptance of fate, advocating for a life in harmony with nature and reason.",
       },
+      {
+        title: "Advaita Vedanta",
+        para: "as I understand it, is a school of Hindu philosophy and spiritual practice that emphasizes the idea of non-dualism, asserting that the true self is identical to the ultimate reality. It teaches that the apparent multiplicity of the world is an illusion and that realizing this truth leads to liberation.",
+      },
+      {
+        title: "Aristotelian Virtue Ethics",
+        para: "Aristotelian philosophy that talk bout stuff like importance of virtue and moral behavior in achieving a just and righteous life. It basically asks: What kind of person should I become?",
+      }
     ],
   },
   {
@@ -214,19 +219,19 @@ export const SIDE_QUESTS = [
         imgs: [
           {
             src: "/side-quest/entries/distribution-entry-1.webp",
-            desc: "my hyprland rice",
+            desc: "desktop",
           },
           {
             src: "/side-quest/entries/distribution-entry-2.webp",
-            desc: "my hyprland rice",
+            desc: "fastfetch",
           },
           {
             src: "/side-quest/entries/distribution-entry-3.webp",
-            desc: "my hyprland rice",
+            desc: "d runner (rofi)",
           },
           {
             src: "/side-quest/entries/distribution-entry-4.webp",
-            desc: "my hyprland rice",
+            desc: "custom zed editor",
           },
         ],
       },
@@ -281,7 +286,7 @@ export const SIDE_QUESTS = [
           },
           {
             src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSPcS_NX64RcnpA74Ba-z7JNYVXk1T0jMcIOb0-tWfag&s=10",
-            desc: "silent voice 810",
+            desc: "silent voice 9/10",
           },
         ],
       },

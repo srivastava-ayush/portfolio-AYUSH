@@ -41,8 +41,8 @@ function Page() {
               </div>
 
 
-              <div className="flex flex-col gap-8">
-                still procrastinating
+              <div className="flex flex-col gap-8 px-6">
+                nothing yet, still procrastinating or trying to articulate...
               {/*{BUILD_LOGS.sort((a, b) => b.id - a.id).map((log) => (
                 <Link key={log.id} href={`/build-logs/${log.id}`}>
                   <div className="flex justify-between items-center border-y px-6 py-2 border-[var(--border-color)]" key={log.id}>
