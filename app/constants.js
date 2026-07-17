@@ -33,6 +33,7 @@ import GitIcon from "../public/icons/git.svg";
 import PostmanIcon from "../public/icons/postman.svg";
 import CloudinaryIcon from "../public/icons/cloudinary.svg";
 import VercelIcon from "../public/icons/vercel.svg";
+import { title } from "motion/react-client";
 
 
 // -----------TECH_STACK--------------
@@ -189,7 +190,7 @@ export const SIDE_QUESTS = [
         title: "what i have been reading recently, note:- sorry for grammatical errors :( ",
         para:""
       },
-  
+
       {
         title: "Stoicism",
         para: "Hellenistic philosophy that teaches the development of self-control and fortitude as a means to overcome destructive emotions. It emphasizes rationality, virtue, and the acceptance of fate, advocating for a life in harmony with nature and reason.",
@@ -235,10 +236,37 @@ export const SIDE_QUESTS = [
           },
         ],
       },
+
       {
         title: "Terminal",
         para: "Kitty with powerlvl10k and starship prompt, look kinda trash but yeah works",
       },
+
+      {
+        title: "[UPDATE] trying out caelstia shell dots",
+        para: " sick animations and pannels idk maybe too much aint that minimal but ill try using this as my daily driver for month.",
+        imgs: [{
+          src: "/side-quest/entries/new_shell-1.png",
+          desc: "media pannel",
+        },
+          {
+            src: "/side-quest/entries/new_shell-2.png",
+            desc: "app launcher",
+          },
+          {
+            src: "/side-quest/entries/new_shell-3.png",
+            desc: "notification + power menu",
+          },
+          {
+            src: "/side-quest/entries/new_shell-4.png",
+            desc: "performance pannel",
+          },
+          {
+            src: "/side-quest/entries/new_shell-5.png",
+            desc: "dashboard pannel",
+          },
+        ],
+      }
     ],
   },
   {
@@ -332,7 +360,7 @@ export const BUILD_LOGS = [
           `user's IDs or username can be public, so we need something which only they would know`
           ,
           `to identify we must ask user for things only user would HAVE, KNOW, ARE, for example - user have thier phones, user know thier password/pins, user are "fingerprints", "retina", "face" etc.`
-        
+
         ]
       },
       {
@@ -341,10 +369,10 @@ export const BUILD_LOGS = [
         ]
       }
 
-      
-      
+
+
     ],
-        
+
 
 
     imgs:  [],
