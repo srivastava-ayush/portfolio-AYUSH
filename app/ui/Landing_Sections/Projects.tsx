@@ -91,8 +91,8 @@ function Projects() {
       >
         <div className="sticky top-0 h-screen overflow-hidden border-t border-[var(--border-color)]">
           <div className="hidden md:flex flex-col h-full">
-            <div className="flex justify-between items-center px-8 border-b border-[var(--border-color)] ">
-              <h1 className="text-3xl md:text-[2.7rem] font-semibold font-mono flex gap-3 items-baseline">
+            <div className="flex justify-between items-center px-6 border-b border-[var(--border-color)] ">
+              <h1 className="text-3xl md:text-[2.4rem] font-semibold font-mono flex gap-3 items-baseline">
                 <span className="text-[var(--text-color)]">Featured</span>
                 <span className="text-[var(--secondary-text)]">Work.</span>
               </h1>
@@ -203,8 +203,8 @@ function Projects() {
                       />
                     </div>
 
-                    <div className="mt-6">
-                      <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="mt-5">
+                      <div className="flex flex-wrap gap-2 mb-5">
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
@@ -214,18 +214,21 @@ function Projects() {
                           </span>
                         ))}
                       </div>
-                      <h3 className="text-lg font-medium text-(--text-color) mb-2">
+                      <h3 className="text-lg font-medium text-(--text-color) mb-5">
                         {project.projectName}
                       </h3>
                       <p className="text-sm text-(--text-color)/50 leading-relaxed mb-5">
                         {project.projectDescriptionShort}
                       </p>
-                      <div className="flex items-center gap-5">
+                      <p className="text-sm text-(--text-color)/50 leading-relaxed mb-5">
+                        {project.projectDescriptionLong}
+                      </p>
+                      <div className="flex items-center gap-5 text-(--text-color)/40 justify-start">
                         <a
                           href={project.projectCode}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5"
+                          className="text-xs bg-pixel-grid border px-4 py-2 text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5"
                         >
                           <svg
                             width="14"
@@ -242,7 +245,7 @@ function Projects() {
                             href={project.projectLive}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors flex items-center gap-1.5"
+                            className="text-xs bg-pixel-grid border px-4 py-2 text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors flex items-center gap-1.5"
                           >
                             <svg
                               width="14"
@@ -262,6 +265,7 @@ function Projects() {
                           </a>
                         )}
                       </div>
+
                     </div>
                   </motion.div>
                 </AnimatePresence>

@@ -10,10 +10,9 @@ import { motion } from "motion/react";
 import { GitHubCalendar } from "react-github-calendar";
 import GitHubStreak from "../GitHubStreak";
 import { TECH_STACK } from "../../constants";
-import { 
+import {
   GithubLogo,
   LinkedinLogo,
-  InstagramLogo,
   XLogo,
   Envelope,
   Play,
@@ -25,7 +24,6 @@ import {
 const socialLinks = [
   { href: "https://github.com/srivastava-ayush", icon: GithubLogo, label: "GitHub" },
   { href: "https://www.linkedin.com/in/constayush/", icon: LinkedinLogo, label: "LinkedIn" },
-  { href: "https://www.instagram.com/maihoonayush/", icon: InstagramLogo, label: "Instagram" },
   { href: "https://www.x.com/srivastava-ayush/", icon: XLogo, label: "X" },
   { href: "mailto:srivastava-ayush@outlook.com", icon: Envelope, label: "Mail" },
 ];
@@ -62,7 +60,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
         className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glas2-bg-color)] bg-pixel-grid"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        animate={hovered ? { y: 6 } : { y: 0 }}
+        animate={hovered ? { y: 20} : { y: 0 }}
         transition={{ type: "spring", stiffness: 200, damping: 15 }}
       >
         <motion.div
@@ -84,7 +82,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
 
         <motion.div
           className="absolute w-16 h-16 md:w-20 md:h-20 border border-[var(--border-color)] overflow-hidden bg-[var(--bg-color)] shadow-lg"
-          animate={hovered ? { y: -80, x: -30, rotate: -12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
+          animate={hovered ? { y: -120, x: -30, rotate: -12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 250, damping: 18 }}
         >
           <img src={img1} alt="" loading="lazy" className="w-full h-full object-cover" />
@@ -92,16 +90,16 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
 
         <motion.div
           className="absolute w-16 h-16 md:w-20 md:h-20 border border-[var(--border-color)] overflow-hidden bg-[var(--bg-color)] shadow-lg"
-          animate={hovered ? { y: -80, x: 30, rotate: 12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
+          animate={hovered ? { y: -120, x: 30, rotate: 12, opacity: 1, scale: 1 } : { y: 0, x: 0, rotate: 0, opacity: 0, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 250, damping: 18, delay: 0.04 }}
         >
           <img src={img2} alt="" loading="lazy" className="w-full h-full object-cover" />
           </motion.div>
-  
+
       </motion.div>
-      
-      
-   
+
+
+
     </Link>
   );
 }
@@ -138,8 +136,8 @@ function AboutMe() {
   return (
     <section id="about" className="relative w-full scroll-mt-7">
       <div className="  relative">
-       
-       
+
+
 
         {/* Metadata bar - top right */}
         <div className="absolute z-99 top-0 right-0 text-xs bg-[var(--bg-color)]  text-[var(--secondary-text)] flex justify-end flex-wrap items-center z-10">
@@ -164,11 +162,11 @@ function AboutMe() {
 
         {/* Main content */}
         <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative pt-16 md:pt-16 overflow-hidden">
-       
+
 
           {/* Name + Role + Bio + GitHub with dot matrix bg */}
           <div className="relative">
-       
+
             {/* GitHub Activity Calendar */}
             <div className="mb-5 border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 relative z-[1] overflow-x-auto">
               <GitHubStreak username="srivastava-ayush" />
@@ -243,9 +241,9 @@ function AboutMe() {
                 , using React, Next.js, Bun, and PostgreSQL.
               </span>
               <br />
-              
 
-          
+
+
                 Most of what I build is shaped by one question:<span className="text-[var(--text-color)] italic"> does this stay fast and cost less as it scales?
               </span>  </p>
 
@@ -257,12 +255,12 @@ function AboutMe() {
 
            </div>
 
-       
+
         </div>
-        
+
         {/* Education */}
-          <div className="mt-10 mb-8">
-            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-3">
+          <div className="mt-10 mb-10">
+            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-10">
               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
               <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">education --verbose</span>
             </div>
@@ -285,13 +283,13 @@ function AboutMe() {
                   2022 - 2025 | 8.5 CGPA
                 </span>
             </div>
-            
+
             </div>
           </div>
-        
+
         {/* Tech Stack */}
-          <div className="mt-10 mb-10">
-            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-3">
+          <div className="mb-10">
+            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-10">
               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
               <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">tech-stack --list</span>
             </div>
@@ -315,10 +313,10 @@ function AboutMe() {
               ))}
             </div>
           </div>
-        
+
         {/* Social + Buttons section */}
         <div className="border-y border-[var(--border-color)] relative">
-         
+
           <div className="flex items-center w-full">
             <div className="w-4 md:w-6 shrink-0" />
             <div className="flex items-center border-x border-[var(--border-color)]">

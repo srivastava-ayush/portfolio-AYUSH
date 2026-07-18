@@ -26,7 +26,7 @@ export const TextGenerateEffect = ({
       (<motion.div className="inline" ref={scope}>
         {wordsArray.map((word, idx) => {
 
-            if(word === "from"){
+            if(word === "FF" || word === "FulFFl" || word === "FF"){
               return (<span key={idx+word+idx}><br className="hidden md:block"/><motion.span
               key={word + idx}
               className="opacity-0 inline"

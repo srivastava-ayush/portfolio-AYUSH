@@ -77,7 +77,7 @@ function PageClient() {
           </div>
 
          </motion.div>
-        <div className="hidden md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />
+        <div className="hidden  md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />
        </div>
 
     </div>

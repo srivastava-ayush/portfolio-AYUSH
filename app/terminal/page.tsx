@@ -182,7 +182,6 @@ function Page() {
           <div><a href="mailto:srivastava-ayush@outlook.com" className="text-[var(--accent-color)] hover:underline">mail</a> - srivastava-ayush@outlook.com</div>
           <div><a href="https://github.com/srivastava-ayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">github</a> - /srivastava-ayush</div>
           <div><a href="https://linkedin.com/in/constayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">linkedin</a> - /in/constayush</div>
-          <div><a href="https://instagram.com/maihoonayush" target="_blank" rel="noopener noreferrer" className="text-[var(--accent-color)] hover:underline">instagram</a> - @maihoonayush</div>
         </div>
       ));
       return;

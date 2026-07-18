@@ -7,7 +7,6 @@ import orange from "../../../public/icons/orange.svg";
 import {
   GithubLogo,
   LinkedinLogo,
-  InstagramLogo,
   XLogo,
   Envelope,
 } from "@phosphor-icons/react";
@@ -15,13 +14,12 @@ import {
 const socialLinks = [
   { href: "https://github.com/srivastava-ayush", icon: GithubLogo, label: "GitHub" },
   { href: "https://www.linkedin.com/in/constayush/", icon: LinkedinLogo, label: "LinkedIn" },
-  { href: "https://www.instagram.com/maihoonayush/", icon: InstagramLogo, label: "Instagram" },
   { href: "https://www.x.com/srivastava-ayush/", icon: XLogo, label: "X" },
   { href: "mailto:srivastava-ayush@outlook.com", icon: Envelope, label: "Mail" },
 ];
 
 function Hero() {
-   const headingWords = " Hi I'm Ayush - A Full Stack Engineer from India";
+   const headingWords = " Hi I'm Ayush - A Full Stack Engineer from India ";
   const org = useRef<HTMLImageElement>(null);
   const handleScrollArrow = useCallback(() => {
     window.scrollTo({
@@ -88,7 +86,7 @@ function Hero() {
           </div>
 
           <p className="hero-para text-md md:text-xl px-6   md:max-w-full text-(--secondary-text) text-shadow font-normal">
-          Creating UIs that pop with clean design and code, built using <br/>
+            Building & shipping products from concept to deployment with<br/>
             <HighlightedLink name="TypeScript" img="/icons/typescript.svg" /> ,{" "}
             <HighlightedLink name="React" img="/icons/react-2.svg" /> ,{" "}
             <HighlightedLink name="Next.js" img="/icons/nextjs.svg" /> ,{" "}
@@ -124,7 +122,7 @@ function Hero() {
           </div>
 
           {/* Scroll Button */}
-          <button className="scrollDown-btn" onClick={handleScrollArrow}>
+          {/*<button className="scrollDown-btn" onClick={handleScrollArrow}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -139,7 +137,7 @@ function Hero() {
             >
               <path d="M8 18L12 22L16 18" />
             </svg>
-          </button>
+          </button>*/}
         </main>
   )
 }
