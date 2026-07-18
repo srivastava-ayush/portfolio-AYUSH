@@ -21,30 +21,27 @@ export default function GitHubStreak({ username }: { username: string }) {
         const days: ContributionDay[] = data.contributions || [];
         const total = days.reduce((sum, d) => sum + d.count, 0);
 
-        let currentStreak = 0;
         let maxStreak = 0;
         let streak = 0;
-
-        for (let i = days.length - 1; i >= 0; i--) {
+        for (let i = 0; i < days.length; i++) {
           if (days[i].count > 0) {
             streak++;
             if (streak > maxStreak) maxStreak = streak;
           } else {
-            if (i === days.length - 1) currentStreak = 0;
             streak = 0;
           }
         }
 
-        streak = 0;
-        for (let i = days.length - 1; i >= 0; i--) {
+        let currentStreak = 0;
+        let start = days.length - 1;
+        if (days[start]?.count === 0 && start > 0) start--;
+        for (let i = start; i >= 0; i--) {
           if (days[i].count > 0) {
-            streak++;
+            currentStreak++;
           } else {
-            if (currentStreak === 0 && streak > 0) currentStreak = streak;
-            streak = 0;
+            break;
           }
         }
-        if (streak > 0) currentStreak = streak;
 
         setStats({ total, currentStreak, maxStreak });
       })

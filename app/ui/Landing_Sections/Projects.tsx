@@ -266,7 +266,7 @@ function Projects() {
                   </motion.div>
                 </AnimatePresence>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -434,7 +434,7 @@ function Projects() {
           className="group relative flex items-center justify-center py-6 md:py-8 px-6 transition-colors hover:bg-[var(--accent-color)]/[0.03]"
         >
           <motion.div
-            className="absolute flex items-center gap-2 md:gap-2.5 pointer-events-none"
+            className=" flex items-center gap-2 md:gap-2.5 pointer-events-none"
             style={{ left: "calc(50% - 160px)" }}
             animate={{ x: ctaHovered ? 0 : -100 }}
             transition={{ type: "spring", stiffness: 180, damping: 22 }}
@@ -468,7 +468,7 @@ function Projects() {
           </motion.div>
           <motion.div
             className="flex items-center gap-3"
-            animate={{ x: ctaHovered ? 80 : 0 }}
+            animate={{ x: ctaHovered ? 30 : -30 }}
             transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
           >
             <span className="text-sm md:text-base font-mono font-medium text-[var(--text-color)]/50 group-hover:text-[var(--accent-color)] transition-colors">

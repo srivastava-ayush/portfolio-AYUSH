@@ -181,7 +181,6 @@ function AboutMe() {
                 fontSize={10}
                 showTotalCount={false}
               />
-              <GitHubStreak username="srivastava-ayush" />
             </div>
              {/* Status */}
           <div className="flex items-center gap-2 mb-2">
