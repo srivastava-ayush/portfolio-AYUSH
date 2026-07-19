@@ -131,7 +131,7 @@ export default function RootLayout({
                 {
                   "@type": "Person",
                   name: "Ayush Srivastava",
-                  alternateName: ["constayush", "maihoonayush", "srivastava-ayush"],
+                  alternateName: ["constayush", "maihoonayush", "srivastava-ayush", "srivastava ayush"],
                   url: siteUrl,
                   jobTitle: "Full-Stack Engineer",
                   knowsAbout: [
