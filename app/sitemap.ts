@@ -1,15 +1,8 @@
 import type { MetadataRoute } from "next";
 import { BUILD_LOGS } from "./constants";
+import { EXPERIENCE_SLUGS } from "./slices/constants";
 
 const baseUrl = "https://srivastava-ayush.vercel.app";
-
-const experienceSlugs = [
-  "parallax-reveal",
-  "pop-blur",
-  "reveal-slices",
-  "stacked-cards",
-  "grid-mosaic",
-];
 
 const buildLogIds = BUILD_LOGS.map((l) => l.id);
 
@@ -71,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const experienceRoutes: MetadataRoute.Sitemap = experienceSlugs.map((slug) => ({
+  const experienceRoutes: MetadataRoute.Sitemap = EXPERIENCE_SLUGS.map((slug) => ({
     url: `${baseUrl}/slices/experiences/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",

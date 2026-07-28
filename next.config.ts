@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['motion', 'lucide-react', '@phosphor-icons/react'],
   },
+  turbopack: {},
 };
 
 export default nextConfig;
