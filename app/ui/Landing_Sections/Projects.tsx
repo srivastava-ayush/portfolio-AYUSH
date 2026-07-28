@@ -282,9 +282,9 @@ function Projects() {
 
           <div className="flex md:hidden  flex-col pt-[var(--section-gap)] pb-12 px-6">
             <div className="flex justify-between items-center mb-6 shrink-0">
-              <h1 className="text-2xl font-semibold flex gap-3 items-baseline">
-                <span className="text-[var(--text-color)]">Proj</span>
-                <span className="text-[var(--secondary-text)]">ects.</span>
+              <h1 className="text-2xl font-semibold flex gap-1 items-baseline">
+                <span className="text-[var(--text-color)]">Featured</span>
+                <span className="text-[var(--secondary-text)]">Work.</span>
               </h1>
               <Link
                 href="/projects"
