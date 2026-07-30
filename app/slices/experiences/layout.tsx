@@ -1,8 +1,8 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Navbar from "../../ui/Navbar";
-import { CodeIcon, CopyIcon, ArrowLeft } from "@phosphor-icons/react";
+import { CodeIcon, ArrowLeft } from "@phosphor-icons/react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { EXPERIENCE_SLUGS, EXPERIENCE_META } from "../constants";
@@ -22,10 +22,6 @@ export default function ExperiencesLayout({
     router.push(`/slices/experiences/${e.target.value}`);
   };
 
-  const handleCopyUrl = useCallback(() => {
-    navigator.clipboard.writeText(window.location.href);
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -36,7 +32,7 @@ export default function ExperiencesLayout({
       <Navbar />
       <div className="w-full flex-1 relative">
         {/* Floating controls */}
-        <div className="fixed top-14 md:top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 rounded-xl border border-[var(--border-color)] bg-[var(--border-color)]/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] bg-scanlines">
+        <div className="fixed top-14 md:top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-color)]/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] bg-scanlines">
           <Link
             href="/slices/getting-started"
             className="flex items-center gap-1 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] border border-[var(--border-color)]/90 bg-white/10"
@@ -61,14 +57,18 @@ export default function ExperiencesLayout({
             ))}
           </select>
           <span className="w-px h-4 bg-[var(--accent-color)]/80" />
-          <button
+          <motion.button
+            layout
+            layoutId="code-modal"
             onClick={() => setCodeOpen(true)}
+            animate={{ opacity: codeOpen ? 0 : 1, scale: codeOpen ? 0.8 : 1 }}
+            transition={{ duration: 0.2 }}
+            style={{ pointerEvents: codeOpen ? "none" : "auto" }}
             className="flex items-center gap-1.5 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-color)] border border-[var(--border-color)]/90 cursor-pointer bg-pixel-grid bg-scanlines text-orange-400 bg-white/10"
           >
             <CodeIcon size={14} />
             code
-          </button>
-         
+          </motion.button>
         </div>
 
         <CodeModal
