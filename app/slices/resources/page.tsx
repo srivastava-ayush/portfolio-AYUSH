@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowLeft, Newspaper, Youtube, Box, ExternalLink } from "lucide-react";
+import { ArrowLeft, Newspaper, Youtube, Box, Sparkles, ExternalLink } from "lucide-react";
 import Navbar from "../../ui/Navbar";
 import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 
@@ -59,7 +59,73 @@ const textures = [
   },
 ];
 
-const allResources = [...yt_channels, ...textures] as const;
+const design_inspirations = [
+  {
+    name: "Recent Design",
+    url: "https://recent.design/",
+    for: "Design",
+    description: "A curated showcase of the latest, best-looking websites.",
+    category: "design_inspirations",
+  },
+  {
+    name: "Awwwards",
+    url: "https://www.awwwards.com/",
+    for: "Design",
+    description: "The awards for design, creativity and innovation on the internet.",
+    category: "design_inspirations",
+  },
+  {
+    name: "Godly",
+    url: "https://godly.website/",
+    for: "Design",
+    description: "Hand-picked websites with outstanding design and motion.",
+    category: "design_inspirations",
+  },
+  {
+    name: "Mobbin",
+    url: "https://mobbin.com/",
+    for: "Mobile & Web",
+    description: "The largest library of real-world mobile and web design references.",
+    category: "design_inspirations",
+  },
+  {
+    name: "Land-book",
+    url: "https://land-book.com/",
+    for: "Landing Pages",
+    description: "The best landing page design inspiration examples from around the web.",
+    category: "design_inspirations",
+  },
+  {
+    name: "Refero",
+    url: "https://refero.design/",
+    for: "Web Design",
+    description: "A searchable collection of the best-designed web pages.",
+    category: "design_inspirations",
+  },
+  {
+    name: "SiteInspire",
+    url: "https://www.siteinspire.com/",
+    for: "Design",
+    description: "A showcase of the finest web and interactive design.",
+    category: "design_inspirations",
+  },
+  {
+    name: "Lapa Ninja",
+    url: "https://www.lapa.ninja/",
+    for: "Landing Pages",
+    description: "The best landing page design inspiration and resources.",
+    category: "design_inspirations",
+  },
+  {
+    name: "One Page Love",
+    url: "https://onepagelove.com/",
+    for: "One Page Websites",
+    description: "A treasure trove of beautiful one-page website designs.",
+    category: "design_inspirations",
+  },
+];
+
+const allResources = [...yt_channels, ...textures, ...design_inspirations] as const;
 
 function ResourceCard({ item }: { item: (typeof allResources)[number] }) {
   const href = "url" in item ? item.url : (item as any).href;
@@ -104,6 +170,7 @@ const sectionIcons = {
   youtube: Youtube,
   textures: Box,
   tools: Newspaper,
+  design_inspirations: Sparkles,
 } as const;
 
 function ResourceSection({
@@ -171,11 +238,21 @@ export default function ResourcesPage() {
 
           <hr className="border-[var(--border-color)]/40" />
 
-          <ResourceSection
+ <ResourceSection
+            title="Design Inspirations"
+            icon={sectionIcons.design_inspirations}
+            items={design_inspirations}
+          />
+          
+       
+
+          <hr className="border-[var(--border-color)]/40" />
+   <ResourceSection
             title="YouTube Channels"
             icon={sectionIcons.youtube}
             items={yt_channels}
           />
+         
 
           <hr className="border-[var(--border-color)]/40" />
 
