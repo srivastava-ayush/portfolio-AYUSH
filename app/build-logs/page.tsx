@@ -8,7 +8,8 @@ import {BUILD_LOGS} from "../constants";
 
 function Page() {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="min-h-screen flex flex-col items-center">
+    <motion.div   initial={{ opacity:.3,  }}
+          animate={{ opacity: 1, }} transition={{ duration: 1 }} className="min-h-screen flex flex-col items-center">
       <PageWithBorderStrips>
         <motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
           <Navbar />

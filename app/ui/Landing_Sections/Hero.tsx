@@ -15,7 +15,7 @@ const socialLinks = [
   { href: "https://github.com/srivastava-ayush", icon: GithubLogo, label: "GitHub" },
   { href: "https://www.linkedin.com/in/constayush/", icon: LinkedinLogo, label: "LinkedIn" },
   { href: "https://www.x.com/srivastava-ayush/", icon: XLogo, label: "X" },
-  { href: "mailto:srivastava-ayush@outlook.com", icon: Envelope, label: "Mail" },
+  { href: "mailto:constayush@gmail.com", icon: Envelope, label: "Mail" },
 ];
 
 function Hero() {

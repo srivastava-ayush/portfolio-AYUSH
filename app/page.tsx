@@ -41,15 +41,15 @@ function PageClient() {
 
       <div className="relative w-full max-w-3xl z-10">
         <div className="hidden md:block absolute right-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-l border-[var(--border-color)]" />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+        <div
+        
           className="w-full border border-[var(--border-color)] flex flex-col items-center"
         >
           <Navbar />
 
-          <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
+          <motion.div   initial={{ filter: "blur(10px)" }}
+          animate={{ filter: "blur(0px)" }}
+          transition={{ duration: 1 }} className="w-full flex flex-col divide-y divide-[var(--border-color)]">
             <section className="relative w-full py-[var(--section-gap)]">
               <video
                 autoPlay
@@ -74,9 +74,9 @@ function PageClient() {
             <section className="w-full py-[var(--section-gap)]">
               <AboutMe/>
             </section>
-          </div>
+          </motion.div>
 
-         </motion.div>
+         </div>
         <div className="hidden  md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />
        </div>
 

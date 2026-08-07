@@ -197,7 +197,7 @@ function AboutMe() {
                   className="rounded-sm opacity-60 hover:opacity-100 transition-opacity"
                 />
               </Link>
-              <h1 className="text-3xl md:text-[2.7rem] flex gap-2 sm:gap-3 md:gap-4 items-baseline font-mono font-bold">
+              <h1 className="text-3xl md:text-[2.7rem] flex flex-wrap gap-2 sm:gap-3 md:gap-4 items-baseline font-mono font-bold">
                 <span className="text-[var(--text-color)]">Ayush</span>
                 <span className="text-[var(--secondary-text)]">Srivastava</span>
               </h1>
@@ -213,7 +213,7 @@ function AboutMe() {
             </h3>
 
             {/* Bio */}
-            <p className="text-sm text-[var(--secondary-text)] mt-3 mb-2 leading-relaxed max-w-[600px] font-mono relative z-[1]">
+            <p className="text-sm text-[var(--secondary-text)] mt-3 mb-2 leading-relaxed font-mono w-full relative z-[1]">
               <span className="text-[var(--secondary-text)]">
                 Engineer from India specializing in the{" "}
               </span>

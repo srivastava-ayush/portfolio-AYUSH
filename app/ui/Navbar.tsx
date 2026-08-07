@@ -66,8 +66,9 @@ function Navbar() {
 
   const navItems = [
     {
-      label: "About",
-      href: "#about",
+      label: "Home",
+      alt_label:"/Home",
+      href: "/",
       icon: (
         <svg
           width="24"
@@ -86,6 +87,7 @@ function Navbar() {
     },
     {
       label: "Projects",
+      alt_label:"/Projects",
       href: "/projects",
       icon: (
         <svg
@@ -107,30 +109,33 @@ function Navbar() {
     },
     {
       label: "Slices",
+      alt_label:"/Slices",
       href: "/slices",
       icon: <Image src={slices_logo} alt="Slices" width={24} height={24} />,
     },
-    {
-      label: "Terminal",
-      href: "/terminal",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="4 17 10 11 4 5" />
-          <line x1="12" y1="19" x2="20" y2="19" />
-        </svg>
-      ),
-    },
+    // {
+    //   label: "Terminal",
+    //   alt_label:"/Terminal",
+    //   href: "/terminal",
+    //   icon: (
+    //     <svg
+    //       width="24"
+    //       height="24"
+    //       viewBox="0 0 24 24"
+    //       fill="none"
+    //       stroke="currentColor"
+    //       strokeWidth="2"
+    //       strokeLinecap="round"
+    //       strokeLinejoin="round"
+    //     >
+    //       <polyline points="4 17 10 11 4 5" />
+    //       <line x1="12" y1="19" x2="20" y2="19" />
+    //     </svg>
+    //   ),
+    // },
     {
       label: "Side Quests",
+      alt_label:"/Side Quests",
       href: "/side-quests",
       icon: (
         <svg
@@ -150,6 +155,7 @@ function Navbar() {
     },
     {
       label: "Build Logs",
+      alt_label:"/Build Logs",
       href: "/build-logs",
       icon: (
         <svg
@@ -233,7 +239,7 @@ function Navbar() {
       {/* Desktop Nav - metabar style */}
       <nav
         ref={navRef}
-        className="hidden md:flex sticky top-0 z-[99998] border-b border-[var(--border-color)] bg-[var(--bg-color)]/60 backdrop-blur-lg max-w-3xl mx-auto w-full"
+        className="hidden md:flex sticky font-mono  upe top-0 z-[99998] border-b border-[var(--border-color)] bg-[var(--bg-color)]/60 backdrop-blur-lg max-w-3xl mx-auto w-full"
       >
         <div className="w-full flex items-center h-7 font-mono text-[11px] text-[var(--secondary-text)]">
           <Link
@@ -243,60 +249,23 @@ function Navbar() {
             आ<span className="text-[var(--accent-color)]">1.</span>
           </Link>
 
-          <a
-            href="#about"
-            onClick={(e) => handleHashNavigation(e, "#about")}
-            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-              getCurrentPage() === "About"
-                ? "text-[var(--text-color)] bg-[var(--hover-color)]"
-                : ""
+          
+          {navItems.map(item => (
+            <Link
+              href={item.href}
+              className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
+                getCurrentPage() === item.label
+                  ? "text-[var(--text-color)] bg-[var(--hover-color)]"
+                  : ""
             }`}
           >
-            /About
-          </a>
+         
+            <span>{item.alt_label}</span>    
+          </Link>))}
 
-          <Link
-            href="/projects"
-            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-              getCurrentPage() === "Projects"
-                ? "text-[var(--text-color)] bg-[var(--hover-color)]"
-                : ""
-            }`}
-          >
-            /Projects
-          </Link>
+        
+          
 
-          <Link
-            href="/slices"
-            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-              getCurrentPage() === "Slices"
-                ? "text-[var(--text-color)] bg-[var(--hover-color)]"
-                : ""
-            }`}
-          >
-            /Slices
-          </Link>
-
-          <Link
-            href="/side-quests"
-            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-              getCurrentPage() === "Side Quests"
-                ? "text-[var(--text-color)] bg-[var(--hover-color)]"
-                : ""
-            }`}
-          >
-            /Side Quests
-          </Link>
-          <Link
-            href="/build-logs"
-            className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-              getCurrentPage() === "Build Logs"
-                ? "text-[var(--text-color)] bg-[var(--hover-color)]"
-                : ""
-            }`}
-          >
-            /Build Logs
-          </Link>
           <div className="ml-auto h-full flex items-center px-2 border-l border-[var(--border-color)]">
             <ThemeToggleBtn theme={theme} toggleTheme={toggleTheme} />
           </div>
