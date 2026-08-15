@@ -1,29 +1,35 @@
 import Image from "next/image";
+import SectionHeading from "./SectionHeading";
 import TypescriptIcon from "../../../../public/icons/typescript.svg";
 import NextjsIcon from "../../../../public/icons/nextjs.svg";
 import NodejsIcon from "../../../../public/icons/nodejs.svg";
 import GolangIcon from "../../../../public/icons/golang.svg";
 import PostgresqlIcon from "../../../../public/icons/postgresql.svg";
+import PythonIcon from "../../../../public/icons/python.svg";
 
 const currentStack = [
-  { name: "TypeScript", icon: TypescriptIcon, href: "https://www.typescriptlang.org/" },
+  {
+    name: "TypeScript",
+    icon: TypescriptIcon,
+    href: "https://www.typescriptlang.org/",
+  },
   { name: "Next.js", icon: NextjsIcon, href: "https://nextjs.org/" },
   { name: "Node.js", icon: NodejsIcon, href: "https://nodejs.org/" },
   { name: "Go", icon: GolangIcon, href: "https://go.dev/" },
-  { name: "PostgreSQL", icon: PostgresqlIcon, href: "https://www.postgresql.org/" },
+  {
+    name: "PostgreSQL",
+    icon: PostgresqlIcon,
+    href: "https://www.postgresql.org/",
+  },
+  { name: "Python", icon: PythonIcon, href: "https://www.python.org/" },
 ];
 
 export default function CurrentStack() {
   return (
-    <section className="flex flex-col gap-3 py-4 mt-2">
-      <div className="flex items-center w-full border-t border-b border-[var(--border-color)]">
-        <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
-        <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">what I ship with --list</span>
-      </div>
-     
-   
+    <section className="mt-10">
+      <SectionHeading command="current-stack --list" />
 
-      <div className="flex flex-wrap gap-2 px-4 sm:px-6">
+      <div className="my-6 flex flex-wrap gap-2 px-4 sm:px-6">
         {currentStack.map(({ name, icon, href }) => (
           <a
             key={name}
@@ -39,7 +45,7 @@ export default function CurrentStack() {
               alt={name}
               width={14}
               height={14}
-              className="group-hover:scale-110 grayscale-100 transition-transform"
+              className="brand-icon group-hover:scale-110 transition-transform"
             />
             <span className="text-[11px] font-mono text-[var(--secondary-text)] group-hover:text-[var(--accent-color)] transition-colors">
               {name}

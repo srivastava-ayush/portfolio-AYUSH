@@ -1,6 +1,5 @@
 import ProfileHeader from "./ProfileHeader";
 import CurrentStack from "./CurrentStack";
-import Overview from "./Overview";
 import SocialLinks from "./SocialLinks";
 import Contributions from "./Contributions";
 import Bio from "./Bio";

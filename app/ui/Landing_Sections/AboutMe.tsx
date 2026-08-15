@@ -7,15 +7,13 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { GitHubCalendar } from "react-github-calendar";
-import GitHubStreak from "../GitHubStreak";
+
 import { TECH_STACK } from "../../constants";
 import {
   GithubLogo,
   LinkedinLogo,
   XLogo,
   Envelope,
-  Play,
   Folder,
   Terminal,
   Copy,
@@ -25,7 +23,7 @@ const socialLinks = [
   { href: "https://github.com/srivastava-ayush", icon: GithubLogo, label: "GitHub" },
   { href: "https://www.linkedin.com/in/constayush/", icon: LinkedinLogo, label: "LinkedIn" },
   { href: "https://www.x.com/srivastava-ayush/", icon: XLogo, label: "X" },
-  { href: "mailto:srivastava-ayush@outlook.com", icon: Envelope, label: "Mail" },
+  { href: "mailto:constaysuh@gmail.com", icon: Envelope, label: "Mail" },
 ];
 
 const cards = [
@@ -105,15 +103,9 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
 }
 
 function AboutMe() {
-  const [dateStr, setDateStr] = useState("");
+
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const update = () => setDateStr(new Date().toLocaleString("en-US"));
-    update();
-    const timer = setInterval(update, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -122,16 +114,7 @@ function AboutMe() {
     return () => style.remove();
   }, []);
 
-  const debugInfo = [
-    { label: "", value: "127.0.0.1" },
-    { label: "", value: "36ms" },
-    { label: "", value: "20yo" },
-    { label: "", value: "Noida,UP" },
-    { label: "", value: "IN" },
-    { label: "", value: "Arch Linux" },
-    { label: "", value: dateStr, wide: false },
-    { label: "", value: "1.082k visitors" },
-  ];
+ 
 
   return (
     <section id="about" className="relative w-full scroll-mt-7">
@@ -200,10 +183,10 @@ function AboutMe() {
                     animation: `breathe 4s ease-in-out infinite`,
                     animationDelay: `${i * 0.03}s`,
                   }}
-                  className="border border-dotted border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] px-3 py-1.5 flex items-center gap-2"
+                  className="group border border-dotted border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] px-3 py-1.5 flex items-center gap-2"
                 >
                   {icon ? (
-                    <Image unoptimized src={icon} alt={name} width={14} height={14} className="opacity-50 dark:brightness-0 dark:invert" />
+                    <Image unoptimized src={icon} alt={name} width={14} height={14} className="brand-icon group-hover:scale-110 transition-transform" />
                   ) : (
                     <span className="text-[10px] text-[var(--secondary-text)] opacity-50 font-mono">&gt;</span>
                   )}
