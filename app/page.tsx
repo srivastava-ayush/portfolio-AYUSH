@@ -6,13 +6,22 @@ import { useCustomCursor } from "./ui/utils/useCursor";
 import { useEffect, useState } from "react";
 import Hero from "./ui/Landing_Sections/Hero";
 import Projects from "./ui/Landing_Sections/Projects";
+import OrangeRollingGame from "./ui/OrangeRollingGame";
 
 import AboutMe from "./ui/Landing_Sections/AboutMe";
 
 function PageClient() {
 
- const [theme, setTheme] = useState("dark");
- const cursorRef = useCustomCursor(".orgLogo");
+  const [theme, setTheme] = useState("dark");
+  const [gameOpen, setGameOpen] = useState(false);
+  const cursorRef = useCustomCursor(".orgLogo");
+
+  useEffect(() => {
+    document.body.style.overflow = gameOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [gameOpen]);
 
 
   useEffect(() => {
@@ -42,30 +51,25 @@ function PageClient() {
       <div className="relative w-full max-w-3xl z-10">
         <div className="hidden md:block absolute right-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-l border-[var(--border-color)]" />
         <div
-        
-          className="w-full border border-[var(--border-color)] flex flex-col items-center"
+          className="w-full relative border border-[var(--border-color)] flex flex-col items-center"
         >
           <Navbar />
+
+          {!gameOpen && (
+            <motion.div
+              layoutId="orange-game"
+              transition={{ type: "spring", stiffness: 200, damping: 26 }}
+              className="pointer-events-none absolute top-7 inset-x-0 mx-auto z-10 h-1 w-16 bg-[var(--accent-color)]"
+            />
+          )}
 
           <motion.div   initial={{ filter: "blur(10px)" }}
           animate={{ filter: "blur(0px)" }}
           transition={{ duration: 1 }} className="w-full flex flex-col divide-y divide-[var(--border-color)]">
-            <section className="relative w-full py-[var(--section-gap)]">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute opacity-7  inset-0 w-full h-full object-cover pointer-events-none"
-                style={{
-                  maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
-                }}
-              >
-                <source src="/misc/bg.mp4" type="video/mp4" />
-              </video>
+            <section className="relative w-full mt-12 border-t border-[var(--border-color)]">
+          
               <div className="relative z-10">
-                <Hero />
+                <Hero onPlay={() => setGameOpen(true)} />
               </div>
             </section>
             <section className="w-full pt-[var(--section-gap)]">
@@ -76,6 +80,15 @@ function PageClient() {
             </section>
           </motion.div>
 
+          {gameOpen && (
+            <motion.div
+              layoutId="orange-game"
+              transition={{ type: "spring", stiffness: 200, damping: 26 }}
+              className="fixed inset-x-0 top-0 md:top-7 bottom-0 z-[99999] overflow-hidden bg-[var(--bg-color)]"
+            >
+              <OrangeRollingGame onClose={() => setGameOpen(false)} />
+            </motion.div>
+          )}
          </div>
         <div className="hidden  md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />
        </div>

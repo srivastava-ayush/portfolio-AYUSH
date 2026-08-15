@@ -137,121 +137,20 @@ function AboutMe() {
     <section id="about" className="relative w-full scroll-mt-7">
       <div className="  relative">
 
-
-
-        {/* Metadata bar - top right */}
-        <div className="absolute z-99 top-0 right-0 text-xs bg-[var(--bg-color)]  text-[var(--secondary-text)] flex justify-end flex-wrap items-center z-10">
-          {debugInfo.map((item, i) => (
-            <span
-              key={i}
-              className={`px-2 border-l border-t  border-b border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] ${item.wide ? "w-40" : "w-fit"}`}
-            >
-              {item.value}
-            </span>
-          ))}
-          <Link
-            href="/orange_rolling"
-            className="px-2 border-l border-t  hover:cursor-crosshair  border-b border-[var(--border-color)] h-6 flex items-center justify-center gap-1 hover:opacity-80 transition-opacity"
-          >
-            <span className="size-3 text-[var(--accent-color)] flex items-center justify-center">
-              <Play weight="fill" />
-            </span>
-            <span className="text-[10px] font-mono text-[var(--accent-color)]">Play</span>
-          </Link>
-        </div>
-
         {/* Main content */}
-        <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative pt-16 md:pt-16 overflow-hidden">
+        <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative  overflow-hidden">
 
 
-          {/* Name + Role + Bio + GitHub with dot matrix bg */}
+        
           <div className="relative">
 
-            {/* GitHub Activity Calendar */}
-            <div className="mb-5 border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 relative z-[1] overflow-x-auto">
-              <GitHubStreak username="srivastava-ayush" />
-              <GitHubCalendar
-                username="srivastava-ayush"
-                theme={{
-                  light: ["#fff", "#fff", "#fff", "#fff", "#fff"],
-                  dark: ["#161b22", "#555555", "#888888", "#BBBBBB", "#F4F4F4"],
-                }}
-                fontSize={10}
-                showTotalCount={false}
-              />
-            </div>
-             {/* Status */}
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-color)] animate-pulse" />
-            <span className="text-xs font-mono text-[var(--text-color)]">
-              Open to work
-            </span>
-          </div>  <div className="flex items-center gap-2 sm:gap-3 md:gap-4 relative z-[1]">
-              <Link href="/terminal" className="shrink-0">
-                <Image
-                  unoptimized
-                  src="/avatars/avatar.webp"
-                  alt="avatar"
-                  width={48}
-                  height={48}
-                  className="rounded-sm opacity-60 hover:opacity-100 transition-opacity"
-                />
-              </Link>
-              <h1 className="text-3xl md:text-[2.7rem] flex flex-wrap gap-2 sm:gap-3 md:gap-4 items-baseline font-mono font-bold">
-                <span className="text-[var(--text-color)]">Ayush</span>
-                <span className="text-[var(--secondary-text)]">Srivastava</span>
-              </h1>
-              <span className="text-xs font-mono text-[var(--secondary-text)]/50 mt-0.5 block">
-                आयुष श्रीवास्तव
-              </span>
-            </div>
-
-            {/* Role */}
-            <h3 className="text-xl md:text-xl font-mono font-semibold mt-1 mb-[1.5rem] relative z-[1]">
-              <span className="text-[var(--text-color)]">Full-Stack</span>
-              <span className="text-[var(--secondary-text)] ml-2">Engineer</span>
-            </h3>
-
-            {/* Bio */}
-            <p className="text-sm text-[var(--secondary-text)] mt-3 mb-2 leading-relaxed font-mono w-full relative z-[1]">
-              <span className="text-[var(--secondary-text)]">
-                Engineer from India specializing in the{" "}
-              </span>
-              <span className="font-semibold text-[var(--text-color)]">
-                TypeScript/Node.js ecosystem
-              </span>
-              <span className="text-[var(--secondary-text)]">
-                , building scalable applications with a focus on clean code and
-                developer experience. I work across the{" "}
-              </span>
-              <span className="font-semibold text-[var(--text-color)]">full stack</span>
-              <span className="text-[var(--secondary-text)]"> - from </span>
-              <span className="font-semibold text-[var(--text-color)]">
-                backend APIs
-              </span>
-              <span className="text-[var(--secondary-text)]"> and </span>
-              <span className="font-semibold text-[var(--text-color)]">database design</span>
-              <span className="text-[var(--secondary-text)]">
-                {" "}to responsive{" "}
-              </span>
-              <span className="font-semibold text-[var(--text-color)]">
-                frontend interfaces
-              </span>
-              <span className="text-[var(--secondary-text)]">
-                , using React, Next.js, Bun, and PostgreSQL.
-              </span>
-              <br />
-
-
-
-                Most of what I build is shaped by one question:<span className="text-[var(--text-color)] italic"> does this stay fast and cost less as it scales?
-              </span>  </p>
-
-           <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-16 pt-8 md:pt-16">
+      
+           <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-16 pt-8 md:pt-20">
             {cards.map((card, i) => (
               <HoverCard key={i} {...card} />
             ))}
-          </div>
+            </div>
+          
 
            </div>
 
