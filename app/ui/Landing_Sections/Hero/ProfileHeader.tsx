@@ -24,7 +24,7 @@ export default function ProfileHeader({ onPlay }: { onPlay?: () => void }) {
         </button>
       </figure>
 
-      <div className="flex flex-col justify-center gap-2.5 px-4 sm:px-0 py-8 sm:py-10">
+      <div className="flex flex-col justify-center gap-2.5 px-0 py-8 sm:py-10">
         <div className="border-y border-[var(--border-color)] flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h1 className="font-mono px-4 font-bold text-3xl md:text-[2.7rem] leading-none text-[var(--text-color)]">
             Ayush<span className="text-[var(--secondary-text)]"> Srivastava</span>

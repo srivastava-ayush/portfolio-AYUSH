@@ -27,7 +27,7 @@ const currentStack = [
 export default function CurrentStack() {
   return (
     <section className="mt-10">
-      <SectionHeading command="current-stack --list" />
+      <SectionHeading command="what I ship with --list" />
 
       <div className="my-6 flex flex-wrap gap-2 px-4 sm:px-6">
         {currentStack.map(({ name, icon, href }) => (

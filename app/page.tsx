@@ -59,7 +59,7 @@ function PageClient() {
             <motion.div
               layoutId="orange-game"
               transition={{ type: "spring", stiffness: 200, damping: 26 }}
-              className="pointer-events-none absolute top-7 inset-x-0 mx-auto z-10 h-1 w-16 bg-[var(--accent-color)]"
+              className="pointer-events-none absolute rounded-full w-full h-0.5 top-7 inset-x-0 mx-auto z-10 bg-[var(--border-color)]"
             />
           )}
 
