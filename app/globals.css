@@ -66,7 +66,7 @@
 
 [data-theme="light"] {
   --accent-color: var(--light-accent-color);
-  --bg-color: hsla(30, 100%, 98%, 0.941);
+  --bg-color: hsla(31, 100%, 96%, 0.941);
   --text-color: #2a2a2a;
   --secondary-text: #333333;
   --border-color: #999999;

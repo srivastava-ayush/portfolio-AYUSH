@@ -1,30 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "motion/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function AvatarFlip() {
   const [flipped, setFlipped] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setFlipped((f) => !f), 5000);
     return () => clearInterval(t);
   }, []);
 
+  const isFlipped = hovered ? !flipped : flipped;
+
   return (
-    <motion.div
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.96 }}
-      transition={{ type: "spring", stiffness: 260, damping: 18 }}
-      className="relative size-32 sm:size-36"
+    <div
+      className="relative size-32 sm:size-36 cursor-pointer"
       style={{ perspective: 1000 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <motion.div
+      <div
         className="relative size-full"
-        style={{ transformStyle: "preserve-3d" }}
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 1, ease: [0.32, 0.72, 0, 1] }}
+        style={{
+          transformStyle: "preserve-3d",
+          transform: `rotateY(${isFlipped ? 180 : 0}deg)`,
+          transition: "transform 1s",
+        }}
       >
         {/* front: avatar */}
         <div
@@ -33,7 +36,7 @@ export default function AvatarFlip() {
         >
           <Image
             unoptimized
-            src="/avatars/avatar.webp"
+            src="/avatars/avatar.png"
             alt="Ayush Srivastava avatar"
             width={144}
             height={144}
@@ -43,7 +46,7 @@ export default function AvatarFlip() {
 
         {/* back: orange */}
         <div
-          className="absolute inset-0 rounded-full overflow-hidden ring-[var(--border-color)] bg-[var(--bg-color)] flex items-center justify-center p-4"
+          className="absolute inset-0 rounded-full overflow-hidden ring-[var(--border-color)] flex items-center justify-center p-4"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -59,7 +62,7 @@ export default function AvatarFlip() {
             className="size-full object-contain"
           />
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
