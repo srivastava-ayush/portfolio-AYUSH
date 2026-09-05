@@ -118,12 +118,27 @@ function AboutMe() {
 
   return (
     <section id="about" className="relative w-full scroll-mt-7">
-      <div className="  relative">
+<div className="  relative">
+
+      
 
         {/* Main content */}
         <div className="p-4 md:px-6 flex flex-col justify-center z-10 relative  overflow-hidden">
 
-
+  {/* Video overlay background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute opacity-4 inset-0 w-full h-full object-cover pointer-events-none"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)",
+          }}
+        >
+          <source src="/misc/bg.mp4" type="video/mp4" />
+        </video>
         
           <div className="relative">
 
