@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Image from "next/image";
 
 interface CardData {
@@ -34,6 +34,64 @@ const cardData: CardData[] = [
 
 const totalCards = cardData.length;
 
+function RevealCard({
+  data,
+  index,
+  scrollYProgress,
+}: {
+  data: CardData;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const start = index / totalCards;
+  const end = (index + 1) / totalCards;
+
+  const scale = useTransform(scrollYProgress, [start, end], [0.6, 1]);
+
+  const blur = useTransform(
+    scrollYProgress,
+    [start, end],
+    ["blur(0px)", "blur(40px)"],
+  );
+
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, start + 0.05, end - 0.05, end],
+    [0.3, 1, 1, 0.3],
+  );
+
+  const y = useTransform(scrollYProgress, [start, end], [100, 0]);
+
+  return (
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+      <motion.div className="absolute inset-0" style={{ scale, filter: blur }}>
+        <Image
+          src={data.image}
+          alt={data.title}
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </motion.div>
+
+      <motion.div
+        className="relative z-10 text-center max-w-2xl px-6"
+        style={{ opacity, y }}
+      >
+        <span className="text-xs font-mono text-white/60 mb-2 tracking-widest uppercase block">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+          {data.title}
+        </h2>
+        <p className="text-sm md:text-base text-white/80 leading-relaxed">
+          {data.text}
+        </p>
+      </motion.div>
+    </section>
+  );
+}
+
 export default function ParallaxReveal() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -44,69 +102,14 @@ export default function ParallaxReveal() {
 
   return (
     <div ref={containerRef} className="relative">
-      {cardData.map((data, i) => {
-        const start = i / totalCards;
-        const end = (i + 1) / totalCards;
-
-        const scale = useTransform(
-          scrollYProgress,
-          [start, end],
-          [0.6, 1],
-        );
-
-        const blur = useTransform(
-          scrollYProgress,
-          [start, end],
-          ["blur(0px)", "blur(40px)"],
-        );
-
-        const opacity = useTransform(
-          scrollYProgress,
-          [start, start + 0.05, end - 0.05, end],
-          [0.3, 1, 1, 0.3],
-        );
-
-        const y = useTransform(
-          scrollYProgress,
-          [start, end],
-          [100, 0],
-        );
-
-        return (
-          <section
-            key={data.title}
-            className="relative h-screen w-full flex items-center justify-center overflow-hidden"
-          >
-            <motion.div
-              className="absolute inset-0"
-              style={{ scale, filter: blur }}
-            >
-              <Image
-                src={data.image}
-                alt={data.title}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40" />
-            </motion.div>
-
-            <motion.div
-              className="relative z-10 text-center max-w-2xl px-6"
-              style={{ opacity, y }}
-            >
-              <span className="text-xs font-mono text-white/60 mb-2 tracking-widest uppercase block">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-                {data.title}
-              </h2>
-              <p className="text-sm md:text-base text-white/80 leading-relaxed">
-                {data.text}
-              </p>
-            </motion.div>
-          </section>
-        );
-      })}
+      {cardData.map((data, i) => (
+        <RevealCard
+          key={data.title}
+          data={data}
+          index={i}
+          scrollYProgress={scrollYProgress}
+        />
+      ))}
     </div>
   );
 }

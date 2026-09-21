@@ -37,7 +37,7 @@ export default function CurrentStack() {
             target="_blank"
             rel="noopener noreferrer"
             title={name}
-            className="group flex items-center gap-2 border border-[var(--border-color)] bg-[var(--glass-bg-color)] px-3 py-1.5 rounded-md hover:border-[var(--accent-color)] hover:bg-[var(--accent-color)]/10 transition-all duration-200"
+            className="group flex items-center gap-2 bg-[var(--glass-bg-color)] px-3 py-1.5 rounded-md hover:bg-[var(--accent-color)]/10 transition-all duration-200 shadow-[var(--chip-inset-shadow)]"
           >
             <Image
               unoptimized

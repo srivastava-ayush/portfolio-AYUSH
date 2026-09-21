@@ -46,7 +46,7 @@ function Navbar() {
   const handleMenuToggle = () => setMenuOpen((prev) => !prev);
 
   const handleHashNavigation = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: { preventDefault: () => void },
     hash: string,
   ) => {
     e.preventDefault();
@@ -252,6 +252,7 @@ function Navbar() {
           
           {navItems.map(item => (
             <Link
+              key={item.label}
               href={item.href}
               className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
                 getCurrentPage() === item.label
@@ -259,7 +260,7 @@ function Navbar() {
                   : ""
             }`}
           >
-         
+          
             <span>{item.alt_label}</span>    
           </Link>))}
 
@@ -305,7 +306,7 @@ function Navbar() {
                     onClick={() => {
                       if (item.href.startsWith("#")) {
                         handleHashNavigation(
-                          { preventDefault: () => {} } as any,
+                          { preventDefault: () => {} },
                           item.href,
                         );
                       } else {
@@ -429,7 +430,7 @@ function Navbar() {
                     onClick={() => {
                       if (item.href.startsWith("#")) {
                         handleHashNavigation(
-                          { preventDefault: () => {} } as any,
+                          { preventDefault: () => {} },
                           item.href,
                         );
                       } else {

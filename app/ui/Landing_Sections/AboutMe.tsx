@@ -55,7 +55,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
   return (
     <Link href={href} className="block w-full md:w-auto">
       <motion.div
-        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--glas2-bg-color)] bg-pixel-grid"
+        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--icon-btn-bg)]"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         animate={hovered ? { y: 20} : { y: 0 }}
@@ -66,11 +66,11 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
           animate={hovered ? { y: -4 } : { y: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <span className="text-xs md:text-sm font-mono text-[var(--text-color)] font-semibold select-none">
+          <span className="text-xs md:text-sm font-mono text-[var(--icon-btn-fg)] font-semibold select-none">
             {label}
           </span>
           <motion.p
-            className="text-[9px] md:text-[10px] font-mono text-[var(--secondary-text)] text-center px-2 leading-tight overflow-hidden"
+            className="text-[9px] md:text-[10px] font-mono text-[var(--icon-btn-fg)] text-center px-2 leading-tight overflow-hidden max-h-[60px] opacity-70"
             animate={hovered ? { maxHeight: 60, opacity: 1 } : { maxHeight: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >

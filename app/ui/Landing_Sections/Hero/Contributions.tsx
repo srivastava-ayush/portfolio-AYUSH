@@ -1,12 +1,15 @@
-import { GitHubCalendar } from "react-github-calendar";
+"use client";
+import dynamic from "next/dynamic";
 import GitHubStreak from "../../GitHubStreak";
-import SectionHeading from "./SectionHeading";
+
+const GitHubCalendar = dynamic(
+  () => import("react-github-calendar").then((m) => m.GitHubCalendar),
+  { ssr: false },
+);
 
 export default function Contributions() {
   return (
     <section className="">
-      {/*<SectionHeading command="contributions --verbose" />*/}
-
       <div className="my-6 px-4 sm:px-6">
         <div className="relative border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 overflow-x-auto">
           <GitHubStreak username="srivastava-ayush" />

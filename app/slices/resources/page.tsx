@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowLeft, Newspaper, Youtube, Box, Sparkles, ExternalLink } from "lucide-react";
+import { ArrowLeft, Newspaper, Youtube, Box, Sparkles, ExternalLink, type LucideIcon } from "lucide-react";
 import Navbar from "../../ui/Navbar";
 import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 
@@ -125,11 +125,14 @@ const design_inspirations = [
   },
 ];
 
-const allResources = [...yt_channels, ...textures, ...design_inspirations] as const;
+type Resource =
+  | (typeof yt_channels)[number]
+  | (typeof textures)[number]
+  | (typeof design_inspirations)[number];
 
-function ResourceCard({ item }: { item: (typeof allResources)[number] }) {
-  const href = "url" in item ? item.url : (item as any).href;
-  const title = "name" in item ? item.name : (item as any).title;
+function ResourceCard({ item }: { item: Resource }) {
+  const href = "url" in item ? item.url : item.href;
+  const title = "name" in item ? item.name : item.title;
   const subtitle = "for" in item ? item.for : null;
   const description = "description" in item ? item.description : null;
 
@@ -179,8 +182,8 @@ function ResourceSection({
   icon: Icon,
 }: {
   title: string;
-  items: readonly any[];
-  icon: any;
+  items: readonly Resource[];
+  icon: LucideIcon;
 }) {
   return (
     <section>
@@ -194,7 +197,7 @@ function ResourceSection({
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {items.map((item: any, i: number) => (
+        {items.map((item, i) => (
           <ResourceCard key={i} item={item} />
         ))}
       </div>

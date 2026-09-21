@@ -42,6 +42,10 @@
   --hover-color: rgba(255, 255, 255, 0.05);
   --icon-color: 1;
   --blob-color: #ffffffdb;
+  --icon-btn-bg: #bdbdbd;
+  --icon-btn-fg: #000000;
+  --icon-btn-shadow: 0 4px 8px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  --chip-inset-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.16), inset 0 -1px 2px rgba(255, 255, 255, 0.12), inset 0 -6px 10px -6px rgba(0, 0, 0, 0.25);
 
   --bg-color: #080808;
   --text-color: #dedede;
@@ -66,7 +70,7 @@
 
 [data-theme="light"] {
   --accent-color: var(--light-accent-color);
-  --bg-color: hsla(31, 100%, 96%, 0.941);
+  --bg-color: hsl(31, 20%, 93%);
   --text-color: #2a2a2a;
   --secondary-text: #333333;
   --border-color: #999999;
@@ -84,6 +88,10 @@
   --icon-color: 0;
   --shine-color: rgba(0, 0, 0, 0.653);
   --blob-color: #ff6a0089;
+  --icon-btn-bg: #000000;
+  --icon-btn-fg: #ffffff;
+  --icon-btn-shadow: 0 4px 8px rgba(255, 255, 255, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  --chip-inset-shadow: inset 0 -1px 2px rgba(255, 255, 255, 0.3), inset 0 -6px 10px -6px rgba(0, 0, 0, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.16);
   --box-shadow:
     rgba(0, 0, 0, 0.234) 0px 12px 28px 0px,
     rgba(0, 0, 0, 0.025) 0px 2px 4px 0px,
@@ -177,7 +185,7 @@ html {
 }
 
 .bg-pixel-grid {
-  background-image: 
+  background-image:
     linear-gradient(rgba(128,128,128,0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(128,128,128,0.1) 1px, transparent 1px);
   background-size: 16px 16px;

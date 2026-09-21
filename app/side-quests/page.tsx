@@ -54,7 +54,7 @@ function Page() {
                         key={entry.title}
                         title={entry.title}
                         para={entry.para}
-                        imgs={(entry as { imgs?: any }).imgs}
+                        imgs={entry.imgs}
                       />
                     ))}
                   </SideQuestCategory>

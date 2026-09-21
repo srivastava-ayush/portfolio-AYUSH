@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Image from "next/image";
 
 interface TileData {
@@ -51,22 +51,59 @@ const entranceDirs = [
   { x: 120, y: 0 },
 ];
 
+function MosaicTile({
+  data,
+  index,
+  scrollYProgress,
+}: {
+  data: TileData;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const progress = index / tileData.length;
+  const dir = entranceDirs[index];
+
+  const opacity = useTransform(scrollYProgress, [progress, progress + 0.12], [0, 1]);
+  const scale = useTransform(scrollYProgress, [progress, progress + 0.12], [0.8, 1]);
+  const x = useTransform(scrollYProgress, [progress, progress + 0.12], [dir.x, 0]);
+  const y = useTransform(scrollYProgress, [progress, progress + 0.12], [dir.y, 0]);
+
+  return (
+    <motion.div
+      className="group relative h-[280px] md:h-[320px] rounded-2xl overflow-hidden border border-[--border-color]/10 cursor-pointer"
+      style={{ opacity, scale, x, y }}
+    >
+      <div className="absolute inset-0">
+        <Image
+          src={data.image}
+          alt={data.title}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      </div>
+
+      <div className="relative z-10 h-full flex flex-col justify-end p-5">
+        <span className="text-xs font-mono text-white/50 mb-1 tracking-widest uppercase">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-tight">
+          {data.title}
+        </h3>
+        <p className="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs">
+          {data.text}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function GridMosaic() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
-  });
-
-  const anims = tileData.map((_, i) => {
-    const progress = i / tileData.length;
-
-    const opacity = useTransform(scrollYProgress, [progress, progress + 0.12], [0, 1]);
-    const scale = useTransform(scrollYProgress, [progress, progress + 0.12], [0.8, 1]);
-    const x = useTransform(scrollYProgress, [progress, progress + 0.12], [entranceDirs[i].x, 0]);
-
-    return { opacity, scale, x };
   });
 
   return (
@@ -76,37 +113,12 @@ export default function GridMosaic() {
     >
       <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {tileData.map((tile, i) => (
-          <motion.div
+          <MosaicTile
             key={tile.title}
-            className="group relative h-[280px] md:h-[320px] rounded-2xl overflow-hidden border border-[--border-color]/10 cursor-pointer"
-            style={{
-              opacity: anims[i].opacity,
-              scale: anims[i].scale,
-              x: anims[i].x,
-            }}
-          >
-            <div className="absolute inset-0">
-              <Image
-                src={tile.image}
-                alt={tile.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            </div>
-
-            <div className="relative z-10 h-full flex flex-col justify-end p-5">
-              <span className="text-xs font-mono text-white/50 mb-1 tracking-widest uppercase">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-tight">
-                {tile.title}
-              </h3>
-              <p className="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs">
-                {tile.text}
-              </p>
-            </div>
-          </motion.div>
+            data={tile}
+            index={i}
+            scrollYProgress={scrollYProgress}
+          />
         ))}
       </motion.div>
     </div>
