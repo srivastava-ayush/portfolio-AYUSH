@@ -16,7 +16,7 @@ export default function AvatarFlip() {
 
   return (
     <div
-      className="relative size-32 sm:size-36 cursor-pointer"
+      className="relative size-32 sm:size-36 cursor-pointer p-6"
       style={{ perspective: 1000 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -46,7 +46,7 @@ export default function AvatarFlip() {
 
         {/* back: orange */}
         <div
-          className="absolute inset-0 rounded-full overflow-hidden ring-[var(--border-color)] flex items-center justify-center p-4"
+          className="absolute inset-0 rounded-full overflow-hidden ring-[var(--border-color)] flex items-center justify-center"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",

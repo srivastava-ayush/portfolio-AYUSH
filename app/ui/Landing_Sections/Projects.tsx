@@ -228,7 +228,7 @@ function Projects() {
                           href={project.projectCode}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs bg-pixel-grid border px-4 py-2 text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5"
+                          className="text-xs bg-pixel-grid border px-4 py-2 text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5 rounded-md"
                         >
                           <svg
                             width="14"
@@ -245,7 +245,7 @@ function Projects() {
                             href={project.projectLive}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs bg-pixel-grid border px-4 py-2 text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors flex items-center gap-1.5"
+                            className="text-xs bg-[var(--icon-btn-bg)] text-[var(--icon-btn-fg)] shadow-[var(--icon-btn-shadow)] border px-4 py-2 rounded-md hover:text-[var(--bg-color)] hover:bg-[var(--accent-color)] transition-colors flex items-center gap-1.5"
                           >
                             <svg
                               width="14"
@@ -370,7 +370,7 @@ function Projects() {
                           href={project.projectCode}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5"
+                          className="text-xs text-(--text-color)/40 hover:text-(--text-color) transition-colors flex items-center gap-1.5 rounded-md"
                         >
                           <svg
                             width="14"
@@ -387,7 +387,7 @@ function Projects() {
                             href={project.projectLive}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-(--text-color)/40 hover:text-[var(--accent-color)] transition-colors flex items-center gap-1.5"
+                            className="text-xs bg-[var(--icon-btn-bg)] text-[var(--icon-btn-fg)] shadow-[var(--icon-btn-shadow)] border px-4 py-2 rounded-md hover:text-[var(--bg-color)] hover:bg-[var(--accent-color)] transition-colors flex items-center gap-1.5"
                           >
                             <svg
                               width="14"

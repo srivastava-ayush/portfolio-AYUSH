@@ -55,7 +55,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
   return (
     <Link href={href} className="block w-full md:w-auto">
       <motion.div
-        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--icon-btn-bg)]"
+        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--icon-btn-bg)] rounded-md"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         animate={hovered ? { y: 20} : { y: 0 }}
