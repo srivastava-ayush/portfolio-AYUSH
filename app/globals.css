@@ -203,6 +203,12 @@ nav {
   background-color: #ffffff00;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 main {
   background-repeat: no-repeat;
   background-size: cover;

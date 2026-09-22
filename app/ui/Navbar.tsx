@@ -41,8 +41,59 @@ function Navbar() {
     };
   }, [menuOpen]);
 
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  const toggleTheme = (e?: React.MouseEvent<HTMLElement>) => {
+    const next = theme === "dark" ? "light" : "dark";
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem("theme", next);
+      setTheme(next);
+    };
+
+    const x = e?.clientX ?? window.innerWidth / 2;
+    const y = e?.clientY ?? window.innerHeight / 2;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+
+    if (document.startViewTransition) {
+      const transition = document.startViewTransition(apply);
+      transition.ready.then(() => {
+        try {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: 900,
+              easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+              pseudoElement: "::view-transition-new(root)",
+            },
+          );
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+                `circle(0px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: 3000,
+              easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+              pseudoElement: "::view-transition-old(root)",
+            },
+          );
+        } catch {
+          /* fallback to default crossfade */
+        }
+      });
+    } else {
+      apply();
+    }
+  };
   const handleMenuToggle = () => setMenuOpen((prev) => !prev);
 
   const handleHashNavigation = (
