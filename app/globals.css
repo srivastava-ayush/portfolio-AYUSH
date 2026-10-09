@@ -144,6 +144,22 @@ html {
   50%, 100% { opacity: 0; }
 }
 
+/* "Ask Orange" assistant: smooth typing dots + soft streaming cursor */
+@keyframes orangeTyping {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes orangeCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes shineSweep {
+  0% { left: -40%; }
+  100% { left: 130%; }
+}
+
 @keyframes textShine {
   0% { background-position: -150% 0%; }
   100% { background-position: 150% 0%; }

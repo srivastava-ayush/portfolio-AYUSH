@@ -4,7 +4,7 @@ import SocialLinks from "./SocialLinks";
 import Contributions from "./Contributions";
 import Bio from "./Bio";
 
-export default function Hero({ onPlay }: { onPlay?: () => void }) {
+export default function Hero({ onPlay, onAskOrange }: { onPlay?: () => void; onAskOrange?: () => void }) {
   return (
     <div className="w-full flex flex-col divide-y divide-[var(--border-color)]">
       <section className="relative">
@@ -22,7 +22,7 @@ export default function Hero({ onPlay }: { onPlay?: () => void }) {
           <source src="/misc/bg.mp4" type="video/mp4" />
         </video>
         <ProfileHeader onPlay={onPlay} />
-        <SocialLinks />
+        <SocialLinks onAskOrange={onAskOrange} />
       </section>
         <CurrentStack />
       <Contributions />

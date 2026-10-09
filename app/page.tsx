@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "motion/react";
 import Lenis from "lenis";
+import dynamic from "next/dynamic";
 import Navbar from "./ui/Navbar";
 import { useCustomCursor } from "./ui/utils/useCursor";
 import { useEffect, useState } from "react";
@@ -10,18 +11,30 @@ import OrangeRollingGame from "./ui/OrangeRollingGame";
 
 import AboutMe from "./ui/Landing_Sections/AboutMe";
 
+const TerminalWindow = dynamic(() => import("./ui/terminal/TerminalWindow"), { ssr: false });
+
 function PageClient() {
 
   const [theme, setTheme] = useState("dark");
   const [gameOpen, setGameOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
   const cursorRef = useCustomCursor(".orgLogo");
 
   useEffect(() => {
-    document.body.style.overflow = gameOpen ? "hidden" : "";
+    document.body.style.overflow = gameOpen || terminalOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [gameOpen]);
+  }, [gameOpen, terminalOpen]);
+
+  useEffect(() => {
+    if (!terminalOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setTerminalOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [terminalOpen]);
 
 
   useEffect(() => {
@@ -69,7 +82,7 @@ function PageClient() {
             <section className="relative w-full mt-12 border-t border-[var(--border-color)]">
           
               <div className="relative z-10">
-                <Hero onPlay={() => setGameOpen(true)} />
+                <Hero onPlay={() => setGameOpen(true)} onAskOrange={() => setTerminalOpen(true)} />
               </div>
             </section>
             <section className="w-full pt-[var(--section-gap)]">
@@ -88,6 +101,32 @@ function PageClient() {
             >
               <OrangeRollingGame onClose={() => setGameOpen(false)} />
             </motion.div>
+          )}
+
+          {terminalOpen && (
+            <div
+              className="fixed inset-0 z-[99999] flex items-center justify-center p-2 sm:p-6"
+              data-lenis-prevent
+            >
+              {/* Backdrop — click to close */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => setTerminalOpen(false)}
+              />
+
+              {/* Window */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, y: 14 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 26 }}
+                className="relative w-full max-w-5xl h-[85vh] rounded-md overflow-hidden border border-[var(--border-color)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
+              >
+                <TerminalWindow bare onClose={() => setTerminalOpen(false)} initialMode="ai" />
+              </motion.div>
+            </div>
           )}
          </div>
         <div className="hidden  md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />

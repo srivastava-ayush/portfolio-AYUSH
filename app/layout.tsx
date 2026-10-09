@@ -173,17 +173,6 @@ export default function RootLayout({
         <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.3] mix-blend-screen"
           style={{ backgroundImage: "url(/textures/noise.png)", backgroundRepeat: "repeat", backgroundSize: "128px" }}
         />
-        <div
-          className="fixed bottom-0 left-0 right-0 pointer-events-none z-40 h-[18vh]"
-          style={{
-            backdropFilter: "blur(50px)",
-            WebkitBackdropFilter: "blur(50px)",
-            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
-            maskImage: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
-          }}
-        />
-
-
       </body>
     </html>
   );
