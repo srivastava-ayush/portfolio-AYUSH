@@ -19,7 +19,7 @@ export default function SocialLinks({ onAskOrange }: { onAskOrange?: () => void 
             target="_blank"
             rel="noopener noreferrer"
             title={label}
-            className="flex items-center justify-center size-9 border border-[var(--border-color)] bg-[var(--icon-btn-bg)] rounded-md text-[var(--icon-btn-fg)] shadow-[var(--icon-btn-shadow)] hover:text-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all duration-200"
+            className="flex items-center justify-center size-9 border border-[var(--border-color)] bg-[var(--icon-btn-bg)] rounded-md text-[var(--icon-btn-fg)] shadow-[var(--icon-btn-shadow)] hover:text-[var(--bg-color)] hover:bg-[var(--accent-color)] transition-all duration-200"
           >
             <Icon size={17} weight="fill" className="opacity-80 hover:opacity-100 transition-opacity" />
           </a>
