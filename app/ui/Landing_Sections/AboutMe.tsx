@@ -55,7 +55,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
   return (
     <Link href={href} className="block w-full md:w-auto">
       <motion.div
-        className="relative w-full md:w-30 h-fit md:h-30 border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--icon-btn-bg)] rounded-md"
+        className="relative w-full md:w-(--landing-card-size) h-fit md:h-(--landing-card-size) border border-[var(--border-color)] flex flex-col items-center justify-center gap-1 cursor-pointer bg-[var(--icon-btn-bg)] rounded-(--landing-radius-control)"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         animate={hovered ? { y: 20} : { y: 0 }}
@@ -70,7 +70,7 @@ function HoverCard({ href, img1, img2, label, desc }: { href: string; img1: stri
             {label}
           </span>
           <motion.p
-            className="text-[9px] md:text-[10px] font-mono text-[var(--icon-btn-fg)] text-center px-2 leading-tight overflow-hidden max-h-[60px] opacity-70"
+            className="text-(length:--landing-type-tiny) md:text-(length:--landing-type-terminal) font-mono text-[var(--icon-btn-fg)] text-center px-2 leading-tight overflow-hidden max-h-(--landing-card-description-limit) opacity-70"
             animate={hovered ? { maxHeight: 60, opacity: 1 } : { maxHeight: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
@@ -143,7 +143,7 @@ function AboutMe() {
           <div className="relative">
 
       
-           <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-16 pt-8 md:pt-20">
+            <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-(--landing-card-gap-wide) pt-8 md:pt-20">
             {cards.map((card, i) => (
               <HoverCard key={i} {...card} />
             ))}
@@ -156,27 +156,27 @@ function AboutMe() {
         </div>
 
         {/* Education */}
-          <div className="mt-10 mb-10">
-            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-10">
-              <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
-              <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">education --verbose</span>
+          <div className="my-(--landing-block-space)">
+            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-(--landing-block-space)">
+               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-(length:--landing-type-terminal) text-[var(--secondary-text)]">$</span>
+               <span className="px-2 h-6 flex items-center font-mono text-(length:--landing-type-terminal) text-[var(--secondary-text)]">education --verbose</span>
             </div>
             <div className="border border-[var(--border-color)]/60 bg-[var(--glass-bg-color)] divide-y divide-[var(--border-color)]">
               <div className="flex justify-between items-center px-4 py-3">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[10px] font-mono text-[var(--secondary-text)]">◆</span>
+                   <span className="text-(length:--landing-type-terminal) font-mono text-[var(--secondary-text)]">◆</span>
                   <span className="text-xs font-mono text-[var(--text-color)]">B.Tech in Computer Science</span>
                 </div>
-                <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
+                 <span className="text-(length:--landing-type-terminal) font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
                   2025 - 2028 | expected
                 </span>
               </div>
               <div className="flex justify-between items-center px-4 py-3">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[10px] font-mono text-[var(--secondary-text)]">◆</span>
+                   <span className="text-(length:--landing-type-terminal) font-mono text-[var(--secondary-text)]">◆</span>
                   <span className="text-xs font-mono text-[var(--text-color)]">Diploma in Computer Science</span>
                 </div>
-                <span className="text-[10px] font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
+                 <span className="text-(length:--landing-type-terminal) font-mono text-[var(--secondary-text)]/60 whitespace-nowrap ml-3">
                   2022 - 2025 | 8.5 CGPA
                 </span>
             </div>
@@ -185,10 +185,10 @@ function AboutMe() {
           </div>
 
         {/* Tech Stack */}
-          <div className="mb-10">
-            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-10">
-              <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">$</span>
-              <span className="px-2 h-6 flex items-center font-mono text-[10px] text-[var(--secondary-text)]">tech-stack --list</span>
+          <div className="mb-(--landing-block-space)">
+            <div className="flex items-center w-full border-t border-b border-[var(--border-color)] mb-(--landing-block-space)">
+               <span className="px-2 border-r border-[var(--border-color)] h-6 flex items-center font-mono text-(length:--landing-type-terminal) text-[var(--secondary-text)]">$</span>
+               <span className="px-2 h-6 flex items-center font-mono text-(length:--landing-type-terminal) text-[var(--secondary-text)]">tech-stack --list</span>
             </div>
             <div className="flex flex-wrap gap-2 px-4 md:px-6">
               {TECH_STACK.map(({ icon, name }, i) => (
@@ -203,9 +203,9 @@ function AboutMe() {
                   {icon ? (
                     <Image unoptimized src={icon} alt={name} width={14} height={14} className="brand-icon group-hover:scale-110 transition-transform" />
                   ) : (
-                    <span className="text-[10px] text-[var(--secondary-text)] opacity-50 font-mono">&gt;</span>
+                     <span className="text-(length:--landing-type-terminal) text-[var(--secondary-text)] opacity-50 font-mono">&gt;</span>
                   )}
-                  <span className="text-[11px] font-mono text-[var(--secondary-text)]">{name}</span>
+                   <span className="text-(length:--landing-type-chip) font-mono text-[var(--secondary-text)]">{name}</span>
                 </div>
               ))}
             </div>
@@ -235,14 +235,14 @@ function AboutMe() {
             <div className="absolute top-0 bottom-0 right-4 md:right-6 flex items-center">
               <Link
                 href="/projects"
-                className="flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-[11px] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
+                 className="flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-(length:--landing-type-chip) text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
               >
                 <Folder size={14} />
                 <span>Projects</span>
               </Link>
               <Link
                 href="/terminal"
-                className="hidden md:flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-[11px] text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
+                 className="hidden md:flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-(length:--landing-type-chip) text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
               >
                 <Terminal size={14} />
                 <span>Terminal</span>
@@ -274,7 +274,7 @@ function AboutMe() {
                     animate={{ opacity: 0, y: -16 }}
                     transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
                     onAnimationComplete={() => setCopied(false)}
-                    className="absolute -top-8 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[var(--accent-color)] whitespace-nowrap pointer-events-none"
+                     className="absolute -top-8 left-1/2 -translate-x-1/2 text-(length:--landing-type-terminal) font-mono text-[var(--accent-color)] whitespace-nowrap pointer-events-none"
                   >
                     Copied!
                   </motion.span>

@@ -10,6 +10,8 @@ import Projects from "./ui/Landing_Sections/Projects";
 import OrangeRollingGame from "./ui/OrangeRollingGame";
 
 import AboutMe from "./ui/Landing_Sections/AboutMe";
+import { Container, Section } from "./ui/Landing_Sections/primitives";
+import "./ui/Landing_Sections/tokens.css";
 
 const TerminalWindow = dynamic(() => import("./ui/terminal/TerminalWindow"), { ssr: false });
 
@@ -57,11 +59,11 @@ function PageClient() {
   return (
     <div
       data-theme={theme}
-      className="w-full min-h-screen relative flex bg-grid-[#000]/[.030] flex-col items-center text-(--text-color) bg-(--bg-color)"
+      className="landing-page w-full min-h-screen relative flex bg-grid-[#000]/[.030] flex-col items-center text-(--text-color) bg-(--bg-color)"
     >
       <div ref={cursorRef} className="custom-cursor"></div>
 
-      <div className="relative w-full max-w-3xl z-10">
+      <Container className="z-10">
         <div className="hidden md:block absolute right-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-l border-[var(--border-color)]" />
         <div
           className="w-full relative border border-[var(--border-color)] flex flex-col items-center"
@@ -85,12 +87,12 @@ function PageClient() {
                 <Hero onPlay={() => setGameOpen(true)} onAskOrange={() => setTerminalOpen(true)} />
               </div>
             </section>
-            <section className="w-full pt-[var(--section-gap)]">
+            <Section>
               <Projects/>
-            </section>
-            <section className="w-full py-[var(--section-gap)]">
+            </Section>
+            <Section space="both">
               <AboutMe/>
-            </section>
+            </Section>
           </motion.div>
 
           {gameOpen && (
@@ -130,7 +132,7 @@ function PageClient() {
           )}
          </div>
         <div className="hidden  md:block absolute left-full top-0 bottom-0 w-5 bg-slant-pattern border-y border-r border-[var(--border-color)]" />
-       </div>
+       </Container>
 
     </div>
   );

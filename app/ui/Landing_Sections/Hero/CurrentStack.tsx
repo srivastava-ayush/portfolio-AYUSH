@@ -26,10 +26,10 @@ const currentStack = [
 
 export default function CurrentStack() {
   return (
-    <section className="mt-10">
+    <section className="mt-(--landing-block-space)">
       <SectionHeading command="what I ship with --list" />
 
-      <div className="my-6 flex flex-wrap gap-2 px-4 sm:px-6">
+      <div className="my-(--landing-row-space) flex flex-wrap gap-2 px-(--landing-gutter)">
         {currentStack.map(({ name, icon, href }) => (
           <a
             key={name}
@@ -37,7 +37,7 @@ export default function CurrentStack() {
             target="_blank"
             rel="noopener noreferrer"
             title={name}
-            className="group flex items-center gap-2 bg-[var(--glass-bg-color)] px-3 py-1.5 rounded-md hover:bg-[var(--accent-color)]/10 transition-all duration-200 shadow-[var(--chip-inset-shadow)]"
+            className="group flex items-center gap-2 bg-[var(--glass-bg-color)] px-3 py-1.5 rounded-(--landing-radius-control) hover:bg-[var(--accent-color)]/10 transition-all duration-200 shadow-[var(--chip-inset-shadow)]"
           >
             <Image
               unoptimized
@@ -47,7 +47,7 @@ export default function CurrentStack() {
               height={14}
               className="brand-icon group-hover:scale-110 transition-transform"
             />
-            <span className="text-[11px] font-mono text-[var(--secondary-text)] group-hover:text-[var(--accent-color)] transition-colors">
+              <span className="text-(length:--landing-type-chip) font-mono text-[var(--secondary-text)] group-hover:text-[var(--accent-color)] transition-colors">
               {name}
             </span>
           </a>

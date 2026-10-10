@@ -1,5 +1,6 @@
 import AvatarFlip from "./AvatarFlip";
 import FlipText from "./FlipText";
+import { Heading } from "../primitives";
 
 const taglines = [
   "Full-Stack Engineer from India.",
@@ -24,11 +25,11 @@ export default function ProfileHeader({ onPlay }: { onPlay?: () => void }) {
         </button>
       </figure>
 
-      <div className="flex flex-col justify-center gap-2.5 px-0 py-8 sm:py-10">
+      <div className="flex flex-col justify-center gap-(--landing-stack-tight) px-0 py-8 sm:py-10">
         <div className="border-y border-[var(--border-color)] flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h1 className="font-mono px-4 font-bold text-3xl md:text-[2.7rem] leading-none text-[var(--text-color)]">
+          <Heading as="h1" variant="display" className="font-mono px-4 font-bold leading-none text-[var(--text-color)]">
             Ayush<span className="text-[var(--secondary-text)]"> Srivastava</span>
-          </h1>
+          </Heading>
           <span className="text-xs font-mono text-[var(--secondary-text)]/50">
             आयुष श्रीवास्तव
           </span>

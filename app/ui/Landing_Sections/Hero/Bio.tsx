@@ -1,13 +1,14 @@
 import SectionHeading from "./SectionHeading";
+import { Text } from "../primitives";
 
 export default function Bio() {
   return (
-    <section className="mt-10 mb-10">
+    <section className="my-(--landing-block-space)">
       <SectionHeading command="about --verbose" />
 
-      <div className="mt-6 px-4 sm:px-6">
+      <div className="mt-(--landing-row-space) px-(--landing-gutter)">
         <div className=" ">
-          <p className="text-sm text-[var(--secondary-text)] leading-relaxed font-mono w-full">
+          <Text className="text-[var(--secondary-text)] font-mono w-full">
             <span className="text-[var(--secondary-text)]">
               Engineer from India specializing in the{" "}
             </span>
@@ -39,7 +40,7 @@ export default function Bio() {
             <span className="text-[var(--text-color)] italic">
               {" "}does this stay fast and cost less as it scales?
             </span>
-          </p>
+          </Text>
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ const GitHubCalendar = dynamic(
 export default function Contributions() {
   return (
     <section className="">
-      <div className="my-6 px-4 sm:px-6">
+      <div className="my-(--landing-row-space) px-(--landing-gutter)">
         <div className="relative border border-[var(--border-color)] bg-[var(--glass-bg-color)] p-3 pt-8 overflow-x-auto">
           <GitHubStreak username="srivastava-ayush" />
           <GitHubCalendar

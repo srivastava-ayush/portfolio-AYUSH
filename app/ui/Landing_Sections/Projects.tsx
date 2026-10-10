@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { PROJECTS } from "../../constants";
+import { Heading, Text } from "./primitives";
 
 const DISPLAY_PROJECTS = PROJECTS.filter((p) =>
   ["Slices-UI", "Boxlit", "Mihika Arts", "Kodak"].includes(p.projectName),
@@ -92,10 +93,10 @@ function Projects() {
         <div className="sticky top-0 h-screen overflow-hidden border-t border-[var(--border-color)]">
           <div className="hidden md:flex flex-col h-full">
             <div className="flex justify-between items-center px-6 border-b border-[var(--border-color)] ">
-              <h1 className="text-3xl md:text-[2.4rem] font-semibold font-mono flex gap-3 items-baseline">
+              <Heading as="h1" variant="work" className="font-semibold font-mono flex gap-3 items-baseline">
                 <span className="text-[var(--text-color)]">Featured</span>
                 <span className="text-[var(--secondary-text)]">Work.</span>
-              </h1>
+              </Heading>
               <Link
                 href="/projects"
                 className="text-xs text-(--text-color)/40 hover:text-(--text-color)/70 transition-colors"
@@ -203,8 +204,8 @@ function Projects() {
                       />
                     </div>
 
-                    <div className="mt-5">
-                      <div className="flex flex-wrap gap-2 mb-5">
+                    <div className="mt-5 flex flex-col gap-5">
+                      <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
@@ -214,15 +215,15 @@ function Projects() {
                           </span>
                         ))}
                       </div>
-                      <h3 className="text-lg font-medium text-(--text-color) mb-5">
+                      <h3 className="text-lg font-medium text-(--text-color)">
                         {project.projectName}
                       </h3>
-                      <p className="text-sm text-(--text-color)/50 leading-relaxed mb-5">
+                      <Text className="text-(--text-color)/50">
                         {project.projectDescriptionShort}
-                      </p>
-                      <p className="text-sm text-(--text-color)/50 leading-relaxed mb-5">
+                      </Text>
+                      <Text className="text-(--text-color)/50">
                         {project.projectDescriptionLong}
-                      </p>
+                      </Text>
                       <div className="flex items-center gap-5 text-(--text-color)/40 justify-start">
                         <a
                           href={project.projectCode}
@@ -280,12 +281,12 @@ function Projects() {
       <div className="relative w-full  md:hidden border-t border-[var(--border-color)]">
         <div className=" overflow-auto">
 
-          <div className="flex md:hidden  flex-col pt-[var(--section-gap)] pb-12 px-6">
+           <div className="flex md:hidden  flex-col pt-(--landing-section-space) pb-12 px-6">
             <div className="flex justify-between items-center mb-6 shrink-0">
-              <h1 className="text-2xl font-semibold flex gap-1 items-baseline">
+              <Heading as="h1" variant="work" className="font-semibold flex gap-1 items-baseline">
                 <span className="text-[var(--text-color)]">Featured</span>
                 <span className="text-[var(--secondary-text)]">Work.</span>
-              </h1>
+              </Heading>
               <Link
                 href="/projects"
                 className="text-xs text-(--text-color)/40 hover:text-(--text-color)/70 transition-colors"
@@ -298,7 +299,7 @@ function Projects() {
               <button
                 onClick={handlePrev}
                 disabled={activeIndex === 0}
-                className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm shrink-0"
+                  className="absolute left-0 z-10 size-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm shrink-0"
               >
                 <svg
                   width="20"
@@ -315,7 +316,7 @@ function Projects() {
               <button
                 onClick={handleNext}
                 disabled={activeIndex === DISPLAY_PROJECTS.length - 1}
-                className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm shrink-0"
+                  className="absolute right-0 z-10 size-10 flex items-center justify-center rounded-full bg-(--bg-color)/80 border border-[var(--border-color)]/30 disabled:opacity-20 backdrop-blur-sm shrink-0"
               >
                 <svg
                   width="20"
@@ -362,9 +363,9 @@ function Projects() {
                       <h3 className="text-lg font-medium text-(--text-color) mb-1">
                         {project.projectName}
                       </h3>
-                      <p className="text-sm text-(--text-color)/50 leading-relaxed mb-4 line-clamp-2">
-                        {project.projectDescriptionShort}
-                      </p>
+                       <Text className="text-(--text-color)/50 mb-4 line-clamp-2">
+                         {project.projectDescriptionShort}
+                       </Text>
                       <div className="flex items-center gap-5">
                         <a
                           href={project.projectCode}
