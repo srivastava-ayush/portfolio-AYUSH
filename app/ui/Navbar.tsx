@@ -3,12 +3,12 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
-import slices_logo from "../../public/icons/slices.svg";
 import ThemeToggleBtn from "./ThemeBtn";
 
-function Navbar() {
+function Navbar({ onSectionNavigate }: {
+  onSectionNavigate?: () => void;
+} = {}) {
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -136,34 +136,6 @@ function Navbar() {
         </svg>
       ),
     },
-    {
-      label: "Projects",
-      alt_label:"/Projects",
-      href: "/projects",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="7" height="7" rx="1" />
-          <rect x="14" y="3" width="7" height="7" rx="1" />
-          <rect x="14" y="14" width="7" height="7" rx="1" />
-          <rect x="3" y="14" width="7" height="7" rx="1" />
-        </svg>
-      ),
-    },
-    {
-      label: "Slices",
-      alt_label:"/Slices",
-      href: "/slices",
-      icon: <Image src={slices_logo} alt="Slices" width={24} height={24} />,
-    },
     // {
     //   label: "Terminal",
     //   alt_label:"/Terminal",
@@ -186,23 +158,8 @@ function Navbar() {
     // },
     {
       label: "Side Quests",
-      alt_label:"/Side Quests",
+      alt_label: "/Side Quests",
       href: "/side-quests",
-      icon: (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-        </svg>
-      ),
     },
     {
       label: "Build Logs",
@@ -229,10 +186,8 @@ function Navbar() {
 
   const getCurrentPage = (): string => {
     if (pathname === "/") return "About";
-    if (pathname === "/projects") return "Projects";
-    if (pathname === "/slices") return "Slices";
-    if (pathname === "/terminal") return "Terminal";
     if (pathname === "/side-quests") return "Side Quests";
+    if (pathname === "/terminal") return "Terminal";
     if (pathname === "/build-logs") return "Build Logs";
     return "";
   };
@@ -242,7 +197,8 @@ function Navbar() {
       {/* Desktop Nav - metabar style */}
       <nav
         ref={navRef}
-        className="hidden md:flex sticky font-mono  upe top-0 z-[99998] border-b border-[var(--border-color)] bg-[var(--bg-color)]/60 backdrop-blur-lg max-w-3xl mx-auto w-full"
+        className="hidden md:flex sticky font-mono  upe top-0 z-[99998] border-b border-[var(--border-color)] bg-[var(--bg-color)]/60 backdrop-blur-lg mx-auto w-full"
+        style={{ maxWidth: "var(--landing-frame, 48rem)" }}
       >
         <div className="w-full flex items-center h-7 font-mono text-[11px] text-[var(--secondary-text)]">
           <Link
@@ -257,8 +213,9 @@ function Navbar() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={() => { if (item.label === "Side Quests") onSectionNavigate?.(); }}
               className={`px-3 h-full flex items-center border-r border-[var(--border-color)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors ${
-                getCurrentPage() === item.label
+                 getCurrentPage() === item.label
                   ? "text-[var(--text-color)] bg-[var(--hover-color)]"
                   : ""
             }`}
@@ -405,6 +362,7 @@ function Navbar() {
                             item.href,
                           );
                         } else {
+                          if (item.label === "Side Quests") onSectionNavigate?.();
                           handleNavClick(item.href);
                         }
                       }}

@@ -28,7 +28,7 @@ const socialLinks = [
 
 const cards = [
   {
-    href: "/slices/getting-started",
+    href: "https://slices-ui.vercel.app/slices/getting-started",
     img1: "/projects/sliced_org.webp",
     img2: "/projects/project-img1.webp",
     label: "[Slices]",
@@ -234,7 +234,7 @@ function AboutMe() {
             </div>
             <div className="absolute top-0 bottom-0 right-4 md:right-6 flex items-center">
               <Link
-                href="/projects"
+                href="/side-quests#projects"
                  className="flex items-center gap-1.5 px-3 h-full border-x border-[var(--border-color)] font-mono text-(length:--landing-type-chip) text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-all duration-200"
               >
                 <Folder size={14} />

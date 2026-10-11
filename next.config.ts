@@ -1,6 +1,30 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/projects',
+        destination: '/side-quests#projects',
+        permanent: true,
+      },
+      {
+        source: '/orange',
+        destination: '/side-quests',
+        permanent: true,
+      },
+      {
+        source: '/slices',
+        destination: 'https://slices-ui.vercel.app/slices',
+        permanent: true,
+      },
+      {
+        source: '/slices/:path*',
+        destination: 'https://slices-ui.vercel.app/slices/:path*',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { hostname: 'content.pexels.com' },

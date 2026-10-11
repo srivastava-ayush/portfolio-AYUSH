@@ -81,8 +81,8 @@ export const PROJECTS = [
       "Inspired by libraries like Hero UI and Aceternity UI, Slices UI is a curated set of sleek, reusable components designed for fast, modern web dev. Built with love, Tailwind, and way too much coffee.",
     projectImg: projectImg1,
     projectCode:
-      "https://github.com/srivastava-ayush/portfolio-AYUSH/tree/master/src/components/slices",
-    projectLive: "https://srivastava-ayush.vercel.app/slices",
+      "https://github.com/srivastava-ayush/slice",
+    projectLive: "https://slices-ui.vercel.app/slices",
     projectId: 1,
     category: ["frontend"],
     techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Motion"],
@@ -348,6 +348,27 @@ export const SIDE_QUESTS = [
       {
         title: "Recent",
         para: "none, I'm too lazy now",
+      },
+    ],
+  },
+  {
+    category: "My Setup",
+    entries: [
+      {
+        title: "Hardware",
+        para: "ASUS TUF Gaming A15 FA506ICB — AMD Ryzen 7 4800H, NVIDIA GeForce RTX 3050 Laptop GPU (4 GB), 16 GB RAM, ~477 GB NVMe storage, ~90 Wh battery.",
+      },
+      {
+        title: "Operating System & Desktop",
+        para: "Arch Linux, Hyprland on Wayland, Caelestia Shell, Quickshell.",
+      },
+      {
+        title: "Shell",
+        para: "zsh, starship.",
+      },
+      {
+        title: "Keyboard",
+        para: "EvoFox Katana S Mini (blue lubed switches).",
       },
     ],
   },

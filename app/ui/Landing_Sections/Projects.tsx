@@ -104,7 +104,7 @@ function Projects() {
                 <span className="text-[var(--secondary-text)]">Work.</span>
               </Heading>
               <Link
-                href="/projects"
+                href="/side-quests#projects"
                 className="text-xs text-(--text-color)/40 hover:text-(--text-color)/70 transition-colors"
               >
                 View all
@@ -294,7 +294,7 @@ function Projects() {
                 <span className="text-[var(--secondary-text)]">Work.</span>
               </Heading>
               <Link
-                href="/projects"
+                href="/side-quests#projects"
                 className="text-xs text-(--text-color)/40 hover:text-(--text-color)/70 transition-colors"
               >
                 View all
@@ -450,7 +450,7 @@ function Projects() {
       >
         <div className="absolute inset-0 bg-scanlines pointer-events-none" />
         <Link
-          href="/projects"
+          href="/side-quests#projects"
           className="group relative flex items-center justify-center py-6 md:py-8 px-6 transition-colors hover:bg-[var(--accent-color)]/[0.03]"
         >
           <motion.div

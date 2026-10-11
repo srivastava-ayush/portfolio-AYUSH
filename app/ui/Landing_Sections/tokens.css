@@ -1,6 +1,5 @@
 .landing-page {
-  /* Keep the bordered, compact portfolio frame rather than widening the layout. */
-  --landing-frame: 48rem;
+  --landing-frame: 57.6rem;
   --landing-gutter: 1rem;
   --landing-section-space: clamp(2rem, 4vw, 3rem);
   --landing-heading-display: 1.875rem;

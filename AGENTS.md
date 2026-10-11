@@ -34,12 +34,7 @@ app/
   ui/                # Reusable components, Landing_Sections/, utils/
   ui/utils/cn.js     # cn() = clsx + tailwind-merge
   ui/utils/useCursor.ts  # RAF-throttled custom cursor hook
-  projects/          # /projects page
-  slices/            # /slices/* — redirects /slices → /slices/getting-started
-    experiences/     # Dynamic [slug] routes mapped via Record<string, React.FC>
-    getting-started/
-    resources/
-  side-quests/       # Personal interests
+  side-quests/       # Interactive dial for Projects, Philosophy, Linux, Music, Anime
   terminal/          # Terminal-style page
   build-logs/
   orange_rolling/    # Fun page
@@ -52,13 +47,9 @@ app/
 - `ThemeInitializer` inline script prevents FOUC
 - No external theming library
 
-## Slices experiences
+## Slices UI
 
-Components live in `app/slices/experiences/components/`. New slugs must be added to:
-
-1. The `components` record in `app/slices/experiences/[slug]/page.tsx`
-2. The metadata maps in `app/slices/experiences/[slug]/layout.tsx`
-3. The `experienceSlugs` array in `app/sitemap.ts`
+The standalone project lives at `/vol1/PROJECTS/slice`. Legacy `/slices/*` URLs redirect to `https://slices-ui.vercel.app/slices/*` via `next.config.ts`.
 
 ## No tests, no CI
 

@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { BUILD_LOGS } from "./constants";
-import { EXPERIENCE_SLUGS } from "./slices/constants";
 
 const baseUrl = "https://srivastava-ayush.vercel.app";
 
@@ -13,18 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/side-quests`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
       url: `${baseUrl}/build-logs`,
@@ -45,31 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/slices/getting-started`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/slices/experiences`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/slices/resources`,
+      url: `${baseUrl}/side-quests`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.5,
     },
   ];
-
-  const experienceRoutes: MetadataRoute.Sitemap = EXPERIENCE_SLUGS.map((slug) => ({
-    url: `${baseUrl}/slices/experiences/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
 
   const buildLogRoutes: MetadataRoute.Sitemap = buildLogIds.map((id) => ({
     url: `${baseUrl}/build-logs/${id}`,
@@ -78,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...experienceRoutes, ...buildLogRoutes];
+  return [...staticRoutes, ...buildLogRoutes];
 }

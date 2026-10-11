@@ -1,0 +1,96 @@
+.orange-page {
+  --landing-frame: 57.6rem;
+  --orbit-radius: 205px;
+  --dial-height: clamp(620px, calc(100dvh - 4rem), 680px);
+  --orbit-step: calc(var(--dial-height) / 6);
+  --orbit-origin: calc(100% - 1px);
+  --card-width: 120px;
+  font-family: var(--font-montserrat), sans-serif;
+
+  --sq-bg: var(--bg-color);
+  --sq-fg: var(--text-color);
+  --sq-surface: #111311;
+  --sq-surface-header: #151614;
+  --sq-inset: #0b0d0b;
+  --sq-card: #1b1b19;
+  --sq-card-active: #292018;
+  --sq-line: rgba(255, 255, 255, .2);
+  --sq-line-strong: rgba(255, 255, 255, .25);
+  --sq-line-soft: rgba(255, 255, 255, .13);
+  --sq-hover-border: rgba(255, 255, 255, .6);
+  --sq-text-strong: rgba(255, 255, 255, .9);
+  --sq-text-mid: rgba(255, 255, 255, .65);
+  --sq-text-dim: rgba(255, 255, 255, .5);
+  --sq-text-faint: rgba(255, 255, 255, .42);
+  --sq-img-bg: rgba(255, 255, 255, .05);
+  --sq-header-tint: rgba(255, 255, 255, .025);
+  --sq-arc: rgba(255, 255, 255, .25);
+  --sq-orbit-inner: rgba(255, 255, 255, .09);
+  --sq-grid-line: rgba(255, 255, 255, .017);
+  --sq-dial-grad: radial-gradient(circle at 100% 50%, #292019 0, #171615 44%, #10100f 80%);
+}
+
+[data-theme="light"] .orange-page {
+  --sq-surface: hsl(31, 18%, 88%);
+  --sq-surface-header: hsl(31, 20%, 90%);
+  --sq-inset: hsl(31, 18%, 83%);
+  --sq-card: hsl(31, 16%, 91%);
+  --sq-card-active: hsl(28, 45%, 83%);
+  --sq-line: rgba(0, 0, 0, .2);
+  --sq-line-strong: rgba(0, 0, 0, .28);
+  --sq-line-soft: rgba(0, 0, 0, .12);
+  --sq-hover-border: rgba(0, 0, 0, .55);
+  --sq-text-strong: rgba(0, 0, 0, .85);
+  --sq-text-mid: rgba(0, 0, 0, .62);
+  --sq-text-dim: rgba(0, 0, 0, .5);
+  --sq-text-faint: rgba(0, 0, 0, .45);
+  --sq-img-bg: rgba(0, 0, 0, .05);
+  --sq-header-tint: rgba(0, 0, 0, .025);
+  --sq-arc: rgba(0, 0, 0, .22);
+  --sq-orbit-inner: rgba(0, 0, 0, .09);
+  --sq-grid-line: rgba(0, 0, 0, .035);
+  --sq-dial-grad: radial-gradient(circle at 100% 50%, #f2ddc6 0, #f0e9e0 44%, #f3efe9 80%);
+}
+
+.orange-page h1 { font-family: var(--font-montserrat), sans-serif; }
+
+.orange-dial { touch-action: none; user-select: none; cursor: grab; }
+.orange-dial-spin { position: absolute; inset: 0; transform-origin: var(--orbit-origin) 50%; }
+.orange-dial:active { cursor: grabbing; }
+.orange-dial:focus-visible { outline: 2px solid #ff8a23; outline-offset: -2px; }
+
+.orange-orbit {
+  position: absolute;
+  left: var(--orbit-origin);
+  top: 50%;
+  width: calc(var(--orbit-radius) * 2);
+  height: calc(var(--orbit-step) * 4.2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.orange-orbit-arc { position: absolute; inset: 0 auto 0 0; width: 50%; height: 100%; overflow: visible; fill: none; stroke: var(--sq-arc); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.orange-orbit-arc path { vector-effect: non-scaling-stroke; }
+.orange-orbit-line-inner { position: absolute; inset: 17%; border: 1px dashed var(--sq-orbit-inner); border-radius: 50%; }
+.orange-orbit-center { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; background: #ff8a23; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 25px #ff8a23; }
+.orange-selection-line { position: absolute; left: calc(var(--orbit-origin) - var(--orbit-radius) * .986); top: 50%; width: calc(var(--orbit-radius) * .986); border-top: 1px dotted rgba(255,138,35,.55); pointer-events: none; }
+.orange-card { will-change: transform, opacity; }
+.orange-card:focus-visible, .orange-page button:focus-visible, .orange-page a:focus-visible { outline: 2px solid #ff8a23; outline-offset: 4px; }
+
+.orange-content {
+  --tui-accent: #ff8a23;
+  --tui-accent-muted: #a9744b;
+  --tui-green: #9db78c;
+}
+
+@media (max-width: 1023px) {
+  .orange-page { --dial-height: clamp(360px, calc(100dvh - 12rem), 500px); --orbit-radius: clamp(200px, 34vw, 290px); --orbit-origin: calc(100% - 1px); --card-width: 145px; }
+}
+
+@media (max-width: 520px) {
+  .orange-page { --orbit-radius: 215px; --orbit-origin: calc(100% - 1px); --card-width: 140px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orange-card { transition: none; }
+}

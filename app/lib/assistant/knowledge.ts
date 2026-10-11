@@ -412,8 +412,8 @@ export const KNOWLEDGE: KnowledgeBase = {
 
   links: [
     { label: "Home", url: `${SITE_URL}/` },
-    { label: "Projects", url: `${SITE_URL}/projects` },
-    { label: "Slices UI", url: `${SITE_URL}/slices` },
+    { label: "Projects", url: `${SITE_URL}/side-quests#projects` },
+    { label: "Slices UI", url: "https://slices-ui.vercel.app/slices" },
     { label: "Side Quests", url: `${SITE_URL}/side-quests` },
     { label: "Build Logs", url: `${SITE_URL}/build-logs` },
     { label: "Terminal", url: `${SITE_URL}/terminal` },
@@ -454,13 +454,13 @@ export const KNOWLEDGE: KnowledgeBase = {
         "Introduction, featured work, engineering background, tech stack, and education.",
     },
     {
-      path: "/projects",
+      path: "/side-quests#projects",
       title: "Projects",
       blurb:
         "Project gallery containing descriptions and available source and live-demo links.",
     },
     {
-      path: "/slices",
+       path: "https://slices-ui.vercel.app/slices",
       title: "Slices UI",
       blurb:
         "Reusable React UI components, custom hooks, and interface patterns.",
