@@ -83,6 +83,35 @@
   --tui-green: #9db78c;
 }
 
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.orange-dial-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--beam-angle), transparent 0deg 280deg, #ff8a23 330deg, #ffd0a0 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: orange-beam-spin 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes orange-beam-spin {
+  to { --beam-angle: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orange-dial-toggle::after { animation: none; }
+}
+
 @media (max-width: 1023px) {
   .orange-page { --dial-height: clamp(360px, 45dvh, 440px); --orbit-step: calc(var(--dial-height) / 5.4); --orbit-radius: clamp(165px, 31vw, 230px); --orbit-origin: calc(50% + var(--orbit-radius)); --card-width: 130px; }
 }

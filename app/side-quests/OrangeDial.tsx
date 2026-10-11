@@ -195,6 +195,12 @@ export default function OrangeDial() {
     };
   }, [dialOpen]);
 
+  useEffect(() => {
+    if (window.matchMedia("(min-width: 1024px)").matches) return;
+    const id = requestAnimationFrame(() => setDialOpen(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   const onPointerDown = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     suppressClickRef.current = false;
@@ -244,7 +250,7 @@ export default function OrangeDial() {
           aria-controls="side-quests-dial"
           aria-expanded={dialOpen}
           onClick={() => setDialOpen((open) => !open)}
-          className="fixed right-0 top-1/2 z-[60] flex h-14 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-l-md border border-r-0 border-[var(--sq-line-strong)] bg-[var(--bg-color)] font-mono text-[10px] text-[var(--sq-text-dim)] shadow-lg lg:hidden"
+          className="orange-dial-toggle fixed right-0 top-1/2 z-[60] flex h-14 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-l-md border border-r-0 border-[var(--sq-line-strong)] bg-[var(--bg-color)] font-mono text-[10px] text-[var(--sq-text-dim)] shadow-lg lg:hidden"
         >
           <ArrowLeft size={18} className={`text-[#ff8a23] transition-transform ${dialOpen ? "rotate-180" : ""}`} />
           <span>{active.number}</span>
@@ -269,7 +275,7 @@ export default function OrangeDial() {
               suppressClickRef.current = false;
             }
           }}
-          className={`orange-dial h-[var(--dial-height)] overflow-hidden lg:relative lg:block lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)] ${dialOpen ? "fixed inset-x-3 top-1/2 z-50 -translate-y-1/2 rounded-md border border-[var(--sq-line-strong)] bg-transparent backdrop-blur-2xl shadow-2xl lg:inset-auto lg:top-auto lg:translate-y-0 lg:rounded-none lg:border-0 lg:border-r lg:bg-transparent lg:shadow-none" : "hidden"}`}
+          className={`orange-dial h-[var(--dial-height)] overflow-hidden lg:relative lg:block lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)] ${dialOpen ? "fixed inset-x-3 top-1/2 z-50 -translate-y-1/2 lg:inset-auto lg:top-auto lg:translate-y-0" : "hidden"}`}
         >
           <motion.div
             className="orange-dial-spin"
