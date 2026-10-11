@@ -83,7 +83,7 @@ export const PROJECTS = [
     projectLive: "https://srivastava-ayush.vercel.app/slices",
     projectId: 1,
     category: ["frontend"],
-    techStack: ["React", "TypeScript", "Tailwind CSS", "Motion"],
+    techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Motion"],
   },
   {
     projectName: "Boxlit",
@@ -122,7 +122,7 @@ export const PROJECTS = [
     projectLive: "https://can-you-remember.vercel.app",
     projectId: 4,
     category: ["other"],
-    techStack: ["React", "JavaScript", "CSS", "Motion"],
+    techStack: ["Next.js", "TypeScript", "Motion", "Bun.js", "Postgresql"],
   },
   {
     projectName: "Bunk-Tendance",
