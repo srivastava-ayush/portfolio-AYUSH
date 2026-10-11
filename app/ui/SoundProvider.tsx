@@ -1,43 +1,16 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { playClickSound, unlockSound } from './sound';
 
 export function SoundProvider() {
-  const audioPool = useRef<HTMLAudioElement[]>([]);
-  const poolIndex = useRef(0);
-  const unlocked = useRef(false);
-
   useEffect(() => {
-    audioPool.current = Array.from({ length: 6 }, () => {
-      const a = new Audio('/audio/click_sound.mp3');
-      a.volume = 0.02;
-      return a;
-    });
-  }, []);
-
-  useEffect(() => {
-    const unlock = async () => {
-      if (unlocked.current) return;
-      for (const audio of audioPool.current) {
-        try { await audio.play(); audio.pause(); audio.currentTime = 0; } catch {}
-      }
-      unlocked.current = true;
-      document.removeEventListener('click', unlock);
-    };
+    const unlock = () => unlockSound();
     document.addEventListener('click', unlock);
     return () => document.removeEventListener('click', unlock);
   }, []);
 
   useEffect(() => {
-    const playClickSound = () => {
-      const pool = audioPool.current;
-      if (!pool.length) return;
-      const audio = pool[poolIndex.current % pool.length];
-      poolIndex.current++;
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
-    };
-
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target) return;

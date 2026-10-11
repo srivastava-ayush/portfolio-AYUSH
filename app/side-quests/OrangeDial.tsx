@@ -8,6 +8,7 @@ import { ArrowDown, ArrowLeft, ArrowUp } from "lucide-react";
 import { PROJECTS, SIDE_QUESTS } from "../constants";
 import Navbar from "../ui/Navbar";
 import ProjectsGallery from "./ProjectsGallery";
+import { playClickSound, unlockSound } from "../ui/sound";
 import "./orange.css";
 
 type QuestImage = { src: string; desc?: string };
@@ -124,6 +125,7 @@ export default function OrangeDial() {
     if (!dial) return;
     const onWheel = (event: WheelEvent) => {
       event.preventDefault();
+      unlockSound();
       const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
       if (Math.sign(delta) !== Math.sign(wheelAmount.current)) wheelAmount.current = 0;
       wheelAmount.current += delta;
@@ -131,6 +133,7 @@ export default function OrangeDial() {
       if (Math.abs(wheelAmount.current) >= 1 && now - lastWheelStep.current > 40) {
         const direction = Math.sign(wheelAmount.current);
         setTarget((current) => current - direction);
+        playClickSound();
         wheelAmount.current = 0;
         lastWheelStep.current = now;
       }
@@ -147,10 +150,14 @@ export default function OrangeDial() {
       if (element.closest("button") && !element.closest(".orange-dial")) return;
       if (event.key === "j" || event.key === "ArrowDown" || event.key === "ArrowRight") {
         event.preventDefault();
+        unlockSound();
         setTarget((current) => current - 1);
+        playClickSound();
       } else if (event.key === "k" || event.key === "ArrowUp" || event.key === "ArrowLeft") {
         event.preventDefault();
+        unlockSound();
         setTarget((current) => current + 1);
+        playClickSound();
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -203,6 +210,7 @@ export default function OrangeDial() {
 
   const onPointerDown = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
+    unlockSound();
     suppressClickRef.current = false;
     dragRef.current = { pointerId: event.pointerId, startY: event.clientY, lastY: event.clientY, lastStep: 0, moved: false };
   };
@@ -221,6 +229,7 @@ export default function OrangeDial() {
       const delta = step - drag.lastStep;
       drag.lastStep = step;
       setTarget((current) => current + delta);
+      playClickSound();
     }
   };
 
@@ -230,6 +239,7 @@ export default function OrangeDial() {
     if (drag.moved) {
       if (drag.lastStep === 0 && Math.abs(drag.startY - drag.lastY) >= 24) {
         setTarget((current) => current + Math.sign(drag.startY - drag.lastY));
+        playClickSound();
       }
       suppressClickRef.current = true;
       window.setTimeout(() => { suppressClickRef.current = false; }, 0);
