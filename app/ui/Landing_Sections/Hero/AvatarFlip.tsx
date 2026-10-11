@@ -55,7 +55,7 @@ export default function AvatarFlip() {
         >
           <Image
             unoptimized
-            src="/icons/real-orange.png"
+            src="/icons/orange.svg"
             alt="orange"
             width={96}
             height={96}

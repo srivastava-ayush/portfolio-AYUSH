@@ -334,7 +334,7 @@ export default function OrangeDial() {
           </motion.div>
           </div>
           <Image
-            src="/icons/real-orange.png"
+            src="/icons/orange.svg"
             alt=""
             width={56}
             height={56}
