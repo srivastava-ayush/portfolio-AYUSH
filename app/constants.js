@@ -10,6 +10,8 @@ import projectImg5 from "../public/projects/project-img5.webp";
 import projectImg6 from "../public/projects/project-img6.webp";
 import projectImg7 from "../public/projects/project-img7.webp";
 import projectImg8 from "../public/projects/project-img8.webp";
+import projectImg9 from "../public/projects/project-img9.webp";
+import projectImg10 from "../public/projects/project-img10.webp";
 import ExpressjsIcon from "../public/icons/express.svg";
 import NodejsIcon from "../public/icons/nodejs.svg";
 import MongoDBIcon from "../public/icons/mongodb.svg";
@@ -175,6 +177,30 @@ export const PROJECTS = [
     projectId: 8,
     category: ["landing-page"],
     techStack: ["React", "Node.js", "Socket.io", "Tailwind CSS"],
+  },
+  {
+    projectName: "Nvidiea Sush!",
+    projectDescriptionShort:
+      "gpu-powerctl (Nvidiea Sush!) - manual NVIDIA discrete-GPU power control for Linux laptops. status, off, and on commands. Your battery will thank you.",
+    projectDescriptionLong:
+      "gpu-powerctl (Nvidiea Sush!) is a manual NVIDIA discrete-GPU power control tool for Linux laptops, providing status, off, and on commands. The first release is conservative: it supports one detected NVIDIA PCI display controller and refuses to guess if it finds more than one. It unbinds the NVIDIA GPU from its driver and switches each function's power/control to auto so runtime PM can reach suspended — a sequence that finally stopped it from draining battery with the dGPU idling on.",
+    projectImg: projectImg9,
+    projectId: 9,
+    category: ["other"],
+    techStack: ["Bash", "Linux", "NVIDIA"],
+  },
+  {
+    projectName: "Menu Deck",
+    projectDescriptionShort:
+      "A menu worth opening. Build a beautiful digital menu that feels like your restaurant, then share it with one link or a QR code.",
+    projectDescriptionLong:
+      "Menu Deck helps restaurants create a digital menu that reflects their brand. Make changes in seconds and share the updated menu with customers through a link or QR code, ready for any phone.",
+    projectImg: projectImg10,
+    projectCode: "https://github.com/srivastava-ayush/menu-deck",
+    projectId: 10,
+    projectLive: "https://menu-deck.vercel.app/",
+    category: ["full-stack", "frontend", "backend", "landing-page"],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
   },
 ];
 

@@ -7,7 +7,7 @@ import { PROJECTS } from "../../constants";
 import { Heading, Text } from "./primitives";
 
 const DISPLAY_PROJECTS = PROJECTS.filter((p) =>
-  ["Slices-UI", "Boxlit", "Can You Remember?", "Kodak"].includes(p.projectName),
+  ["Slices-UI", "Boxlit", "Can You Remember?", "Nvidiea Sush!", "Menu Deck"].includes(p.projectName),
 );
 
 const SCROLL_SECTIONS = DISPLAY_PROJECTS.length;
