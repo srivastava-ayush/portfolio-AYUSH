@@ -19,7 +19,7 @@ export default function ProfileHeader({ onPlay }: { onPlay?: () => void }) {
           onClick={onPlay}
           title="Play Orange Rolling"
           aria-label="Play Orange Rolling"
-          className="relative block cursor-pointer bg-transparent border-0 p-0"
+          className="relative block cursor-pointer bg-transparent border-0 p-0 mt-4 sm:mt-0"
         >
           <AvatarFlip />
         </button>
