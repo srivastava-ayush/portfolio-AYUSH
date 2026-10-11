@@ -11,9 +11,15 @@ const DISPLAY_PROJECTS = PROJECTS.filter((p) =>
 );
 
 const SCROLL_SECTIONS = DISPLAY_PROJECTS.length;
+const mobileSlideVariants = {
+  enter: (direction: number) => ({ opacity: 0, x: direction * 50 }),
+  center: { opacity: 1, x: 0 },
+  exit: (direction: number) => ({ opacity: 0, x: direction * -50 }),
+};
 
 function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(1);
   const [ctaHovered, setCtaHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,15 +78,15 @@ function Projects() {
 
   const project = DISPLAY_PROJECTS[activeIndex];
 
-  const handlePrev = useCallback(
-    () => setActiveIndex((prev) => Math.max(0, prev - 1)),
-    [],
-  );
-  const handleNext = useCallback(
-    () =>
-      setActiveIndex((prev) => Math.min(DISPLAY_PROJECTS.length - 1, prev + 1)),
-    [],
-  );
+  const goToProject = useCallback((index: number) => {
+    const nextIndex = Math.max(0, Math.min(DISPLAY_PROJECTS.length - 1, index));
+    if (nextIndex === activeIndex) return;
+    setSlideDirection(nextIndex > activeIndex ? 1 : -1);
+    setActiveIndex(nextIndex);
+  }, [activeIndex]);
+
+  const handlePrev = () => goToProject(activeIndex - 1);
+  const handleNext = () => goToProject(activeIndex + 1);
 
   return (
     <>
@@ -331,14 +337,23 @@ function Projects() {
               </button>
 
               <div className="w-full overflow-hidden ">
-                <AnimatePresence mode="wait" initial={false}>
+                <AnimatePresence mode="wait" initial={false} custom={slideDirection}>
                   <motion.div
                     key={activeIndex}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
+                    custom={slideDirection}
+                    variants={mobileSlideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
                     transition={{ duration: 0.25 }}
-                    className="flex flex-col items-center"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={(_, { offset, velocity }) => {
+                      if (offset.x < -50 || velocity.x < -500) handleNext();
+                      else if (offset.x > 50 || velocity.x > 500) handlePrev();
+                    }}
+                    className="flex flex-col items-center touch-pan-y"
                   >
                     <div className="aspect-video  w-full overflow-hidden rounded-md bg-(--border-color)/10">
                       <img
@@ -418,7 +433,7 @@ function Projects() {
               {DISPLAY_PROJECTS.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveIndex(i)}
+                   onClick={() => goToProject(i)}
                   className={`w-2 h-2 rounded-full transition-all ${i === activeIndex ? "bg-[var(--accent-color)] scale-125" : "bg-(--text-color)/20"}`}
                 />
               ))}
