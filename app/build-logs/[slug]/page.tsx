@@ -1,25 +1,45 @@
-"use client";
-import { useParams } from "next/navigation";
-import { motion } from "motion/react";
-import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
-import Navbar from "../../ui/Navbar";
-import { ArrowLeft, ArrowUpRight, Calendar, Tag } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BUILD_LOGS } from "../../constants";
+import { ArrowLeft, ArrowUpRight, Calendar, Tag } from "lucide-react";
+import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
+import Navbar from "../../ui/Navbar";
+import Reveal from "../../ui/Reveal";
+import Markdown from "../../ui/Markdown";
+import { getLog, getAllLogs, getLogSlugs } from "../../lib/logs";
 
-export default function BuildLogPage() {
-  const { slug } = useParams();
-  const id = Number(slug);
-  const log = BUILD_LOGS.find((l) => l.id === id);
-  const sorted = [...BUILD_LOGS].sort((a, b) => b.id - a.id);
-  const currIdx = sorted.findIndex((l) => l.id === id);
-  const prevLog = currIdx < sorted.length - 1 ? sorted[currIdx + 1] : null;
-  const nextLog = currIdx > 0 ? sorted[currIdx - 1] : null;
+export function generateStaticParams() {
+  return getLogSlugs().map((slug) => ({ slug }));
+}
+
+export const dynamicParams = false;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const log = getLog(slug);
+  if (!log) return { title: "Log not found" };
+  return {
+    title: `${log.title} | Build Logs`,
+    description: log.desc,
+    openGraph: { title: log.title, description: log.desc },
+  };
+}
+
+export default async function BuildLogPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const log = getLog(slug);
 
   if (!log) {
     return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col items-center">
+      <Reveal className="min-h-screen flex flex-col items-center">
         <PageWithBorderStrips>
           <div className="w-full mt-[3rem] border border-[var(--border-color)] flex flex-col items-center">
             <Navbar />
@@ -30,16 +50,25 @@ export default function BuildLogPage() {
               </Link>
             </div>
             <div className="flex-1 flex items-center justify-center py-20 font-mono text-sm text-[var(--secondary-text)]">
-              log #{slug} not found
+              log /{slug} not found
             </div>
           </div>
         </PageWithBorderStrips>
-      </motion.div>
+      </Reveal>
     );
   }
 
+  const sorted = getAllLogs();
+  const currIdx = sorted.findIndex((l) => l.slug === slug);
+  const prevLog = currIdx < sorted.length - 1 ? sorted[currIdx + 1] : null;
+  const nextLog = currIdx > 0 ? sorted[currIdx - 1] : null;
+
+  const words = log.title.split(" ");
+  const first = words.slice(0, -1).join(" ");
+  const last = words[words.length - 1];
+
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="min-h-screen flex flex-col items-center">
+    <Reveal className="min-h-screen flex flex-col items-center">
       <PageWithBorderStrips>
         <div className="w-full border border-[var(--border-color)] flex flex-col items-center">
           <Navbar />
@@ -54,13 +83,13 @@ export default function BuildLogPage() {
               back
             </Link>
             <div className="w-px h-7 bg-[var(--border-color)]" />
-            <span className="px-3 h-7 flex items-center text-[var(--secondary-text)]/60">
-              build-logs
+            <span className="px-3 h-7 flex items-center text-[var(--secondary-text)]/60 truncate">
+              build-logs/{log.slug}
             </span>
             <div className="ml-auto flex items-center">
               {prevLog && (
                 <Link
-                  href={`/build-logs/${prevLog.id}`}
+                  href={`/build-logs/${prevLog.slug}`}
                   className="flex items-center gap-1 px-3 h-7 text-[var(--secondary-text)]/60 hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors border-l border-[var(--border-color)]"
                 >
                   <ArrowLeft size={12} />
@@ -69,7 +98,7 @@ export default function BuildLogPage() {
               )}
               {nextLog && (
                 <Link
-                  href={`/build-logs/${nextLog.id}`}
+                  href={`/build-logs/${nextLog.slug}`}
                   className="flex items-center gap-1 px-3 h-7 text-[var(--secondary-text)]/60 hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors border-l border-[var(--border-color)]"
                 >
                   next
@@ -82,7 +111,7 @@ export default function BuildLogPage() {
           {/* Content */}
           <main className="w-full max-w-2xl mx-auto px-6 py-12 md:py-16">
             {/* Meta row */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex flex-wrap items-center gap-3 mb-6">
               <Image
                 unoptimized
                 src="/avatars/avatar.webp"
@@ -102,24 +131,17 @@ export default function BuildLogPage() {
               <span className="text-[var(--secondary-text)]/20">/</span>
               <Tag size={12} className="text-[var(--accent-color)]/50" />
               <span className="text-xs font-mono text-[var(--accent-color)]/60">
-                log #{log.id}
+                {log.slug}
               </span>
             </div>
 
             {/* Title */}
-            {(() => {
-              const words = log.title.split(" ");
-              const first = words.slice(0, -1).join(" ");
-              const last = words[words.length - 1];
-              return (
-                <h1 className="text-2xl md:text-4xl font-bold flex gap-3 items-baseline leading-tight tracking-tight">
-                  {words.length > 1 && <span className="text-[var(--text-color)]">{first} </span>}
-                  <span className={words.length > 1 ? "text-[var(--secondary-text)]" : "text-[var(--text-color)]"}>
-                    {last}
-                  </span>
-                </h1>
-              );
-            })()}
+            <h1 className="text-2xl md:text-4xl font-bold flex gap-3 items-baseline leading-tight tracking-tight">
+              {words.length > 1 && <span className="text-[var(--text-color)]">{first} </span>}
+              <span className={words.length > 1 ? "text-[var(--secondary-text)]" : "text-[var(--text-color)]"}>
+                {last}
+              </span>
+            </h1>
 
             {/* Tags */}
             {log.tags.length > 0 && (
@@ -138,21 +160,10 @@ export default function BuildLogPage() {
             {/* Divider */}
             <hr className="border-[var(--border-color)]/30 my-8" />
 
-            {/* Body - sections */}
-            <div className="space-y-10">
-              {(log.sections || []).map((section, si) => (
-                <section key={si}>
-                  <h2 className="text-base md:text-lg font-semibold text-[var(--text-color)] mb-3">
-                    {section.heading}
-                  </h2>
-                  <div className="space-y-4 text-sm md:text-base text-[var(--text-color)]/80 leading-[1.75]">
-                    {section.paras.map((para, pi) => (
-                      <p key={pi}>{para}</p>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
+            {/* Body - markdown */}
+            <article>
+              <Markdown content={log.content} />
+            </article>
 
             {/* Links */}
             {log.links.length > 0 && (
@@ -161,9 +172,9 @@ export default function BuildLogPage() {
                   References
                 </h3>
                 <div className="flex flex-col gap-3">
-                  {log.links.map((link, i) => (
+                  {log.links.map((link) => (
                     <a
-                      key={i}
+                      key={link}
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -183,6 +194,6 @@ export default function BuildLogPage() {
           </main>
         </div>
       </PageWithBorderStrips>
-    </motion.div>
+    </Reveal>
   );
 }

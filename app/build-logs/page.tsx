@@ -1,17 +1,17 @@
-"use client";
 import Link from "next/link";
-import { motion } from "motion/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, FileText, ArrowUpRight } from "lucide-react";
 import Navbar from "../ui/Navbar";
 import PageWithBorderStrips from "../ui/PageWithBorderStrips";
-import {BUILD_LOGS} from "../constants";
+import Reveal from "../ui/Reveal";
+import { getLogMeta } from "../lib/logs";
 
-function Page() {
+export default function Page() {
+  const logs = getLogMeta();
+
   return (
-    <motion.div   initial={{ opacity:.3,  }}
-          animate={{ opacity: 1, }} transition={{ duration: 1 }} className="min-h-screen flex flex-col items-center">
+    <Reveal className="min-h-screen flex flex-col items-center">
       <PageWithBorderStrips>
-        <motion.div className="w-full border border-[var(--border-color)] flex flex-col items-center">
+        <div className="w-full border border-[var(--border-color)] flex flex-col items-center">
           <Navbar />
           <main className="w-full flex flex-col pb-16">
             <div className="pt-[var(--section-gap)]" />
@@ -36,29 +36,63 @@ function Page() {
 
               <hr className="border-[var(--border-color)]/40" />
 
-              <div className="text-left text-sm text-[var(--secondary-text)] px-6  font-mono leading-relaxed flex flex-col gap-4">
-               
+              <div className="text-left text-sm text-[var(--secondary-text)] px-6 font-mono leading-relaxed flex flex-col gap-4">
                 <p>Every project has a story. This is where I log the build process - things that worked, things that didn&apos;t, and the detours that taught me the most.</p>
               </div>
 
-
-              <div className="flex flex-col gap-8 px-6">
-                nothing yet, still procrastinating or trying to articulate...
-              {/*{BUILD_LOGS.sort((a, b) => b.id - a.id).map((log) => (
-                <Link key={log.id} href={`/build-logs/${log.id}`}>
-                  <div className="flex justify-between items-center border-y px-6 py-2 border-[var(--border-color)]" key={log.id}>
-                    <div className="flex justify-center items-center gap-2 "><h2 className="text-[var(--text-color)] font-semibold">{log.title}</h2><p className="text-[var(--secondary-text)] text-xs tracking-tighter">--  {log.desc}</p></div>
-                  <p className="text-[var(--secondary-text)] text-xs tracking-tighter"> {log.date}</p>
-                 </div>
-                  </Link>
-              ))}*/}
+              <div className="flex flex-col px-6">
+                {logs.length === 0 ? (
+                  <p className="text-sm text-[var(--secondary-text)] font-mono">
+                    nothing yet, still procrastinating or trying to articulate...
+                  </p>
+                ) : (
+                  logs.map((log, index) => (
+                    <Link
+                      key={log.slug}
+                      href={`/build-logs/${log.slug}`}
+                      className="group flex flex-col gap-2 border-t border-[var(--border-color)] py-5 last:border-b hover:bg-[var(--hover-color)] transition-colors"
+                      style={{ borderTopWidth: index === 0 ? 0 : undefined }}
+                    >
+                      <div className="flex items-start gap-4">
+                        <span className="mt-0.5 text-[var(--secondary-text)]/50 group-hover:text-[var(--accent-color)] transition-colors">
+                          <FileText size={18} />
+                        </span>
+                        <div className="flex flex-col gap-1 min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                            <h2 className="text-base font-semibold text-[var(--text-color)] group-hover:text-[var(--accent-color)] transition-colors">
+                              {log.title}
+                            </h2>
+                            <span className="text-xs font-mono text-[var(--secondary-text)]/70 truncate">
+                              {log.desc}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 mt-1">
+                            <span className="text-[11px] font-mono text-[var(--secondary-text)]/50">
+                              {log.date}
+                            </span>
+                            {log.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-[10px] font-mono px-1.5 py-0.5 border border-[var(--border-color)]/50 text-[var(--secondary-text)]/60"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <ArrowUpRight
+                          size={16}
+                          className="mt-1 shrink-0 text-[var(--secondary-text)]/40 group-hover:text-[var(--accent-color)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                        />
+                      </div>
+                    </Link>
+                  ))
+                )}
               </div>
             </div>
           </main>
-        </motion.div>
+        </div>
       </PageWithBorderStrips>
-    </motion.div>
+    </Reveal>
   );
 }
-
-export default Page;

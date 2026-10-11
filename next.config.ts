@@ -38,6 +38,9 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['motion', 'lucide-react', '@phosphor-icons/react'],
   },
+  outputFileTracingIncludes: {
+    '/api/ask': ['./logs/**/*'],
+  },
   turbopack: {},
 };
 

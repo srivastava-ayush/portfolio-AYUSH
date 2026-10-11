@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { BUILD_LOGS } from "./constants";
+import { getLogSlugs } from "./lib/logs";
 
 const baseUrl = "https://srivastava-ayush.vercel.app";
 
-const buildLogIds = BUILD_LOGS.map((l) => l.id);
+const buildLogSlugs = getLogSlugs();
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -39,8 +39,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const buildLogRoutes: MetadataRoute.Sitemap = buildLogIds.map((id) => ({
-    url: `${baseUrl}/build-logs/${id}`,
+  const buildLogRoutes: MetadataRoute.Sitemap = buildLogSlugs.map((slug) => ({
+    url: `${baseUrl}/build-logs/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.5,

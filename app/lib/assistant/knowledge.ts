@@ -14,8 +14,8 @@ import {
   PROJECTS,
   TECH_STACK,
   SIDE_QUESTS,
-  BUILD_LOGS,
 } from "../../constants";
+import { getLogMeta } from "../logs";
 
 export const SITE_URL = "https://srivastava-ayush.vercel.app";
 
@@ -500,7 +500,7 @@ export const KNOWLEDGE: KnowledgeBase = {
   })),
 
   writing: (
-    BUILD_LOGS as RawBuildLog[]
+    getLogMeta() as RawBuildLog[]
   ).map((log) => ({
     title: log.title ?? "Untitled build log",
     summary: log.desc ?? "",

@@ -20,6 +20,7 @@ Both `pnpm-lock.yaml` and `package-lock.json` exist — use `pnpm`.
 - Smooth scroll via **Lenis**
 - `@/*` path alias → project root (e.g. `@/app/ui/cn`)
 - Icons: `lucide-react`, `@phosphor-icons/react`
+- Markdown logs: `react-markdown` + `remark-gfm` + `rehype-highlight`, frontmatter via `gray-matter`
 
 ## Architecture
 
@@ -29,16 +30,28 @@ app/
   layout.tsx         # Root layout — fonts, SEO, ThemeInitializer, SoundProvider, ClarityProvider
   globals.css        # Tailwind v4 import + CSS custom properties for theming
   constants.js       # All static data: PROJECTS, SIDE_QUESTS, TECH_STACK
+  lib/logs.ts        # Server-only reader for logs/*.md (fs + gray-matter)
   sitemap.ts         # Dynamic sitemap
   robots.ts          # Robots config
   ui/                # Reusable components, Landing_Sections/, utils/
+  ui/Markdown.tsx    # react-markdown renderer (server component) + ui/markdown.css
+  ui/Reveal.tsx      # Client fade-in wrapper for server pages
   ui/utils/cn.js     # cn() = clsx + tailwind-merge
   ui/utils/useCursor.ts  # RAF-throttled custom cursor hook
   side-quests/       # Interactive dial for Projects, Philosophy, Linux, Music, Anime
   terminal/          # Terminal-style page
-  build-logs/
+  build-logs/        # Listing + [slug] pages, rendered from logs/*.md
   orange_rolling/    # Fun page
+logs/                # Build-log posts as .md (frontmatter: title, desc, date, tags, links)
 ```
+
+## Build logs
+
+- Posts live in `logs/*.md` (root) and are the source of truth for `/build-logs`.
+- Frontmatter fields: `title`, `desc`, `date` (ISO), `tags[]`, `links[]` — body is Markdown.
+- `app/lib/logs.ts` reads them (`node:fs`, server-only); `[slug]` pages are statically generated via `generateStaticParams`.
+- Adding a post = drop a new `.md` file in `logs/`; no code changes needed.
+- `outputFileTracingIncludes` in `next.config.ts` bundles `logs/**` into the `/api/ask` function (assistant reads log metadata).
 
 ## Theming
 
