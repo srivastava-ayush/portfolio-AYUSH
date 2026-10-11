@@ -7,7 +7,6 @@ import {
   ArrowUp,
   Robot,
   Sparkle,
-  X,
 } from "@phosphor-icons/react";
 import { cn } from "../utils/cn";
 import { ERROR_MESSAGES } from "../../lib/assistant/types";
@@ -199,11 +198,9 @@ async function readStream(
 
 export default function ChatPanel({
   active,
-  onClose,
 }: {
   /** True while this panel is the visible mode; drives focus. */
   active: boolean;
-  onClose: () => void;
 }) {
   const reduceMotion = useReducedMotion();
   const [messages, setMessages] = useState<UiMessage[]>(() => [
@@ -348,16 +345,6 @@ export default function ChatPanel({
     [buildPayload, runCompletion, status],
   );
 
-  const clearConversation = useCallback(() => {
-    abortRef.current?.abort();
-    setMessages([
-      { id: "welcome", role: "assistant", content: WELCOME_TEXT, isWelcome: true },
-    ]);
-    setStatus("idle");
-    setInput("");
-    inputRef.current?.focus();
-  }, []);
-
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter" && !e.shiftKey) {
@@ -378,48 +365,6 @@ export default function ChatPanel({
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[var(--bg-color)]">
-      {/* Header */}
-      <header className="relative flex items-center gap-3 px-4 h-[48px] border-b border-[var(--border-color)] bg-[var(--glass-bg-color)] shrink-0 overflow-hidden">
-        {/* radial orange glow */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_160%_at_100%_0%,rgba(254,136,8,0.14),transparent_55%)]"
-          aria-hidden="true"
-        />
-        <span className="relative flex items-center justify-center size-8 overflow-hidden drop-shadow-[0_2px_6px_rgba(254,136,8,0.45)]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/icons/orange.svg" alt="" width={32} height={32} className="block h-full w-full object-contain" />
-        </span>
-        <div className="relative min-w-0">
-          <h2 className="text-sm font-mono font-bold tracking-wide leading-tight text-[var(--text-color)]">
-            Ask{" "}
-            <span className="bg-gradient-to-r from-[#FFB347] via-[#FE8808] to-[#F97316] bg-clip-text text-transparent">
-              Orange
-            </span>
-          </h2>
-      
-        </div>
-        <div className="relative ml-auto flex items-center gap-1">
-          <button
-            type="button"
-            onClick={clearConversation}
-            title="Restart conversation"
-            aria-label="Restart conversation"
-            className="flex items-center justify-center size-8 rounded-lg border border-[var(--border-color)] bg-[var(--bg-color)]/40 text-[var(--secondary-text)] transition-colors hover:text-[var(--text-color)] hover:border-[var(--secondary-text)]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--secondary-text)]/70"
-          >
-            <ArrowsClockwise size={15} />
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            title="Back to terminal"
-            aria-label="Switch back to terminal mode"
-            className="flex items-center justify-center size-8 rounded-lg border border-[var(--border-color)] bg-[var(--bg-color)]/40 text-[var(--secondary-text)] transition-colors hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--secondary-text)]/70"
-          >
-            <X size={15} />
-          </button>
-        </div>
-      </header>
-
       {/* Messages */}
       <div
         role="log"
@@ -455,7 +400,7 @@ export default function ChatPanel({
                   <div className="mb-1.5 flex flex-wrap items-center gap-2">
                     <span className="flex items-center gap-1 text-xs font-bold tracking-wide text-[var(--text-color)]">
                       <span className="size-1.5 rounded-full bg-gradient-to-br from-[#FFB347] via-[#FE8808] to-[#F97316]" aria-hidden="true" />
-                      Orange
+                      Ask Orange
                     </span>
                   </div>
                 )}

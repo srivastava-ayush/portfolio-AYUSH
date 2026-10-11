@@ -329,7 +329,7 @@ export default function TerminalWindow({
                 AI
               </button>
             </div>
-            <button onClick={onClose} className="hover:text-[var(--text-color)] transition-colors px-1" title="Close">
+            <button onClick={onClose} className="px-1.5 rounded-sm bg-red-500 text-white hover:bg-red-600 transition-colors" title="Close">
               ✕
             </button>
           </div>
@@ -337,7 +337,7 @@ export default function TerminalWindow({
 
         {/* Output area — Ask Orange chat stays mounted (hidden) so history survives mode swaps */}
         <div className={cn("flex min-h-0 flex-1 flex-col", mode !== "ai" && "hidden")}>
-          <ChatPanel active={mode === "ai"} onClose={() => setMode("terminal")} />
+          <ChatPanel active={mode === "ai"} />
         </div>
 
         {mode === "terminal" && (
