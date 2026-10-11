@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import Lenis from "lenis";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp } from "lucide-react";
 import { PROJECTS, SIDE_QUESTS } from "../constants";
 import Navbar from "../ui/Navbar";
 import ProjectsGallery from "./ProjectsGallery";
@@ -46,12 +46,14 @@ function offsetFrom(index: number, position: number) {
 export default function OrangeDial() {
   const [target, setTarget] = useState(0);
   const [position, setPosition] = useState(0);
+  const [dialOpen, setDialOpen] = useState(false);
   const positionRef = useRef(0);
   const velocityRef = useRef(0);
   const shouldReduceMotion = useReducedMotion();
   const selected = wrapped(Math.round(position));
   const selectOption = (index: number) => {
     setTarget((current) => current + Math.round(offsetFrom(index, current)));
+    setDialOpen(false);
     const hash = index === projectsIndex ? "#projects" : "";
     if (window.location.hash !== hash) {
       window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
@@ -155,6 +157,44 @@ export default function OrangeDial() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  useEffect(() => {
+    if (!dialOpen) return;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDialOpen(false);
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [dialOpen]);
+
+  useEffect(() => {
+    if (dialOpen) return;
+    let start: { x: number; y: number } | null = null;
+    const onTouchStart = (event: TouchEvent) => {
+      start = null;
+      if (window.matchMedia("(min-width: 1024px)").matches || event.touches.length !== 1) return;
+      if (event.target instanceof Element && event.target.closest(".overflow-x-auto")) return;
+      const touch = event.touches[0];
+      if (touch.clientX >= window.innerWidth - 64) start = { x: touch.clientX, y: touch.clientY };
+    };
+    const onTouchEnd = (event: TouchEvent) => {
+      if (!start || event.changedTouches.length !== 1) return;
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - start.x;
+      const dy = touch.clientY - start.y;
+      if (dx < -60 && Math.abs(dx) > Math.abs(dy) * 1.5) setDialOpen(true);
+      start = null;
+    };
+    const onTouchCancel = () => { start = null; };
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("touchcancel", onTouchCancel);
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchCancel);
+    };
+  }, [dialOpen]);
+
   const onPointerDown = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     suppressClickRef.current = false;
@@ -197,8 +237,23 @@ export default function OrangeDial() {
       <div className="w-full max-w-[57.6rem]">
       <Navbar onSectionNavigate={() => selectOption(0)} />
 
-      <div className="orange-split grid grid-cols-1 pt-16 md:pt-0 lg:grid-cols-[30%_70%]">
+      <div className="orange-split flex flex-col pt-16 md:pt-0 lg:grid lg:grid-cols-[30%_70%]">
+        <button
+          type="button"
+          aria-label={dialOpen ? "Close dial" : "Open dial"}
+          aria-controls="side-quests-dial"
+          aria-expanded={dialOpen}
+          onClick={() => setDialOpen((open) => !open)}
+          className="fixed right-0 top-1/2 z-[60] flex h-14 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-l-md border border-r-0 border-[var(--sq-line-strong)] bg-[var(--bg-color)] font-mono text-[10px] text-[var(--sq-text-dim)] shadow-lg lg:hidden"
+        >
+          <ArrowLeft size={18} className={`text-[#ff8a23] transition-transform ${dialOpen ? "rotate-180" : ""}`} />
+          <span>{active.number}</span>
+        </button>
+        {dialOpen && (
+          <button type="button" aria-label="Close dial" onClick={() => setDialOpen(false)} className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden" />
+        )}
         <section
+          id="side-quests-dial"
           aria-label="Rotating option selector"
           aria-roledescription="carousel"
           ref={dialRef}
@@ -214,7 +269,7 @@ export default function OrangeDial() {
               suppressClickRef.current = false;
             }
           }}
-          className="orange-dial relative h-[var(--dial-height)] overflow-hidden border-b border-dotted border-[var(--sq-line-strong)] lg:border-b-0 lg:border-r"
+          className={`orange-dial h-[var(--dial-height)] overflow-hidden lg:relative lg:block lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)] ${dialOpen ? "fixed inset-x-3 top-1/2 z-50 -translate-y-1/2 rounded-md border border-[var(--sq-line-strong)] bg-transparent backdrop-blur-2xl shadow-2xl lg:inset-auto lg:top-auto lg:translate-y-0 lg:rounded-none lg:border-0 lg:border-r lg:bg-transparent lg:shadow-none" : "hidden"}`}
         >
           <motion.div
             className="orange-dial-spin"
@@ -273,8 +328,8 @@ export default function OrangeDial() {
           </motion.div>
         </section>
 
-        <section ref={contentRef} data-lenis-prevent aria-live="polite" className="orange-content relative h-[var(--dial-height)] overflow-y-auto overscroll-contain font-mono">
-          <div className="sticky top-0 z-20 border-b border-[var(--sq-line)] bg-[var(--sq-surface-header)] px-4 backdrop-blur-md md:px-6">
+        <section ref={contentRef} data-lenis-prevent aria-live="polite" className="orange-content relative min-w-0 font-mono lg:h-[var(--dial-height)] lg:overflow-y-auto lg:overscroll-contain">
+          <div className="sticky top-16 z-20 border-b border-[var(--sq-line)] bg-[var(--sq-surface-header)] px-4 backdrop-blur-md md:top-7 md:px-6 lg:top-0">
             <div className="flex h-9 items-center justify-between gap-3 text-[11px] text-[var(--sq-text-mid)]">
               <span className="truncate"><span className="text-[var(--tui-green)]">$</span> cat {active.category.toLowerCase().replaceAll(" ", "-")}.log</span>
               <span className="shrink-0 text-[var(--sq-text-faint)]">{active.number}/{String(total).padStart(2, "0")}</span>
@@ -326,7 +381,8 @@ export default function OrangeDial() {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="flex flex-col rounded-full border border-[var(--sq-line-strong)] p-1"><ArrowUp size={11} /><ArrowDown size={11} /></span>
-            <span>Scroll / drag / swipe</span>
+            <span className="lg:hidden">Open dial to swipe</span>
+            <span className="hidden lg:inline">Scroll / drag / swipe</span>
             <span className="text-[#ff8a23]">{active.number} — {String(total).padStart(2, "0")}</span>
           </div>
           <div className="flex flex-col gap-1.5 pl-6 text-[var(--sq-text-dim)]">

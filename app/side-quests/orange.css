@@ -84,11 +84,11 @@
 }
 
 @media (max-width: 1023px) {
-  .orange-page { --dial-height: clamp(360px, calc(100dvh - 12rem), 500px); --orbit-radius: clamp(200px, 34vw, 290px); --orbit-origin: calc(100% - 1px); --card-width: 145px; }
+  .orange-page { --dial-height: clamp(360px, 45dvh, 440px); --orbit-step: calc(var(--dial-height) / 5.4); --orbit-radius: clamp(165px, 31vw, 230px); --orbit-origin: calc(50% + var(--orbit-radius)); --card-width: 130px; }
 }
 
 @media (max-width: 520px) {
-  .orange-page { --orbit-radius: 215px; --orbit-origin: calc(100% - 1px); --card-width: 140px; }
+  .orange-page { --dial-height: clamp(280px, 36dvh, 320px); --orbit-step: calc(var(--dial-height) / 4.7); --orbit-radius: clamp(125px, 35vw, 170px); --card-width: 108px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
