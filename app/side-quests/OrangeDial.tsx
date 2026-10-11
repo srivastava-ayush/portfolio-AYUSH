@@ -275,8 +275,9 @@ export default function OrangeDial() {
               suppressClickRef.current = false;
             }
           }}
-          className={`orange-dial h-[var(--dial-height)] overflow-hidden lg:relative lg:block lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)] ${dialOpen ? "fixed inset-x-3 top-1/2 z-50 -translate-y-1/2 lg:inset-auto lg:top-auto lg:translate-y-0" : "hidden"}`}
+          className={`orange-dial h-[var(--dial-height)] lg:relative lg:block lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)] ${dialOpen ? "fixed inset-x-3 top-1/2 z-50 -translate-y-1/2 lg:inset-auto lg:top-auto lg:translate-y-0" : "hidden"}`}
         >
+          <div className="orange-dial-clip">
           <motion.div
             className="orange-dial-spin"
             initial={{ rotate: 0 }}
@@ -288,7 +289,6 @@ export default function OrangeDial() {
               <path d="M 100 0 C 44.77 0 0 22.39 0 50 C 0 77.61 44.77 100 100 100" />
             </svg>
             <div className="orange-orbit-line orange-orbit-line-inner" />
-            <div className="orange-orbit-center" />
           </div>
           <div className="orange-selection-line" aria-hidden="true" />
           {options.flatMap((option, index) => {
@@ -332,6 +332,15 @@ export default function OrangeDial() {
             });
           })}
           </motion.div>
+          </div>
+          <Image
+            src="/icons/real-orange.png"
+            alt=""
+            width={56}
+            height={56}
+            aria-hidden="true"
+            className="orange-orbit-center"
+          />
         </section>
 
         <section ref={contentRef} data-lenis-prevent aria-live="polite" className="orange-content relative min-w-0 font-mono lg:h-[var(--dial-height)] lg:overflow-y-auto lg:overscroll-contain">

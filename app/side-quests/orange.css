@@ -55,6 +55,7 @@
 .orange-page h1 { font-family: var(--font-montserrat), sans-serif; }
 
 .orange-dial { touch-action: none; user-select: none; cursor: grab; }
+.orange-dial-clip { position: absolute; inset: 0; overflow: hidden; }
 .orange-dial-spin { position: absolute; inset: 0; transform-origin: var(--orbit-origin) 50%; }
 .orange-dial:active { cursor: grabbing; }
 .orange-dial:focus-visible { outline: 2px solid #ff8a23; outline-offset: -2px; }
@@ -72,7 +73,7 @@
 .orange-orbit-arc { position: absolute; inset: 0 auto 0 0; width: 50%; height: 100%; overflow: visible; fill: none; stroke: var(--sq-arc); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .orange-orbit-arc path { vector-effect: non-scaling-stroke; }
 .orange-orbit-line-inner { position: absolute; inset: 17%; border: 1px dashed var(--sq-orbit-inner); border-radius: 50%; }
-.orange-orbit-center { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; background: #ff8a23; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 25px #ff8a23; }
+.orange-orbit-center { position: absolute; left: var(--orbit-origin); top: 50%; width: 56px; height: 56px; object-fit: contain; transform: translate(-50%, -50%); filter: drop-shadow(0 0 22px rgba(255,138,35,.55)); pointer-events: none; z-index: 20; }
 .orange-selection-line { position: absolute; left: calc(var(--orbit-origin) - var(--orbit-radius) * .986); top: 50%; width: calc(var(--orbit-radius) * .986); border-top: 1px dotted rgba(255,138,35,.55); pointer-events: none; }
 .orange-card { will-change: transform, opacity; }
 .orange-card:focus-visible, .orange-page button:focus-visible, .orange-page a:focus-visible { outline: 2px solid #ff8a23; outline-offset: 4px; }
