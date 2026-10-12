@@ -3,6 +3,7 @@ import { ArrowLeft, FileText, ArrowUpRight } from "lucide-react";
 import Navbar from "../ui/Navbar";
 import PageWithBorderStrips from "../ui/PageWithBorderStrips";
 import Reveal from "../ui/Reveal";
+import BuildLogsScroll from "../ui/BuildLogsScroll";
 import { getLogMeta } from "../lib/logs";
 
 export default function Page() {
@@ -13,7 +14,7 @@ export default function Page() {
       <PageWithBorderStrips>
         <div className="w-full border border-[var(--border-color)] flex flex-col items-center">
           <Navbar />
-          <main className="w-full flex flex-col pb-16">
+          <BuildLogsScroll>
             <div className="pt-[var(--section-gap)]" />
 
             <div className="border-t border-b border-[var(--border-color)]">
@@ -23,7 +24,7 @@ export default function Page() {
               </Link>
             </div>
 
-            <div className="flex flex-col gap-8 pt-8">
+            <div className="flex flex-col gap-8 pt-8 pb-16">
               <div className="flex flex-col items-center text-center px-6">
                 <h1 className="text-[1.8rem] md:text-[2.8rem] font-bold flex gap-3 items-baseline">
                   <span className="text-[var(--text-color)]">Build</span>
@@ -40,7 +41,7 @@ export default function Page() {
                 <p>Every project has a story. This is where I log the build process - things that worked, things that didn&apos;t, and the detours that taught me the most.</p>
               </div>
 
-              <div className="flex flex-col px-6">
+              <div className="flex flex-col px-6 lg:pr-14">
                 {logs.length === 0 ? (
                   <p className="text-sm text-[var(--secondary-text)] font-mono">
                     nothing yet, still procrastinating or trying to articulate...
@@ -90,7 +91,7 @@ export default function Page() {
                 )}
               </div>
             </div>
-          </main>
+          </BuildLogsScroll>
         </div>
       </PageWithBorderStrips>
     </Reveal>

@@ -5,9 +5,10 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { PROJECTS } from "../../constants";
 import { Heading, Text } from "./primitives";
+import ScrollKnob from "../ScrollKnob";
 
 const DISPLAY_PROJECTS = PROJECTS.filter((p) =>
-  ["Slices-UI", "Boxlit", "Can You Remember?", "Nvidiea Sush!", "Menu Deck"].includes(p.projectName),
+  ["Slices-UI", "Boxlit", "Can You Remember?", "Nvidia Shush!", "Menu Deck"].includes(p.projectName),
 );
 
 const SCROLL_SECTIONS = DISPLAY_PROJECTS.length;
@@ -146,49 +147,7 @@ function Projects() {
                   </motion.div>
                 ))}
 
-                {/* 2D Scroll Knob */}
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-36 pointer-events-none">
-                  <div className="w-full h-full rounded-lg border border-[var(--border-color)]/60 bg-(--bg-color)/10 backdrop-blur-sm overflow-hidden relative shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.2)]">
-                    {/* Horizontal ridges/stripes */}
-                    <div className="absolute inset-0 flex flex-col justify-between py-1.5 px-1">
-                      {Array.from({ length: 12 }).map((_, i) => {
-                        const isActive =
-                          Math.abs(
-                            (activeIndex / (SCROLL_SECTIONS - 1)) * 11 - i,
-                          ) < 0.6;
-                        return (
-                          <motion.div
-                            key={i}
-                            className="w-full rounded-full"
-                            animate={{
-                              height: isActive ? "1.5px" : "1px",
-                              backgroundColor: isActive
-                                ? "var(--accent-color)"
-                                : "var(--text-color)",
-                              opacity: isActive ? 0.7 : 0.12,
-                            }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        );
-                      })}
-                    </div>
-
-                    {/* Glass reflection */}
-                    <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/[0.04] to-transparent rounded-t-lg pointer-events-none" />
-
-                    {/* Position indicator */}
-                    <motion.div
-                      className="absolute left-0 right-0 h-3 bg-[var(--accent-color)]/10 border-y border-[var(--accent-color)]/20"
-                      animate={{
-                        top: `${(activeIndex / (SCROLL_SECTIONS - 1)) * (100 - 7.5)}%`,
-                      }}
-                      transition={{
-                        duration: 0.4,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                      }}
-                    />
-                  </div>
-                </div>
+                <ScrollKnob progress={activeIndex / (SCROLL_SECTIONS - 1)} />
               </div>
 
               <div className="w-1/2 flex items-center justify-center px-8 relative border-l border-[var(--border-color)]">

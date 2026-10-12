@@ -179,11 +179,11 @@ export const PROJECTS = [
     techStack: ["React", "Node.js", "Socket.io", "Tailwind CSS"],
   },
   {
-    projectName: "Nvidiea Sush!",
+    projectName: "Nvidia Shush!",
     projectDescriptionShort:
-      "gpu-powerctl (Nvidiea Sush!) - manual NVIDIA discrete-GPU power control for Linux laptops. status, off, and on commands. Your battery will thank you.",
+      "gpu-powerctl (Nvidia Shush!) - manual NVIDIA discrete-GPU power control for Linux laptops. status, off, and on commands. Your battery will thank you.",
     projectDescriptionLong:
-      "gpu-powerctl (Nvidiea Sush!) is a manual NVIDIA discrete-GPU power control tool for Linux laptops, providing status, off, and on commands. The first release is conservative: it supports one detected NVIDIA PCI display controller and refuses to guess if it finds more than one. It unbinds the NVIDIA GPU from its driver and switches each function's power/control to auto so runtime PM can reach suspended — a sequence that finally stopped it from draining battery with the dGPU idling on.",
+      "gpu-powerctl (Nvidia Shush!) is a manual NVIDIA discrete-GPU power control tool for Linux laptops, providing status, off, and on commands. The first release is conservative: it supports one detected NVIDIA PCI display controller and refuses to guess if it finds more than one. It unbinds the NVIDIA GPU from its driver and switches each function's power/control to auto so runtime PM can reach suspended — a sequence that finally stopped it from draining battery with the dGPU idling on.",
     projectImg: projectImg9,
     projectId: 9,
     projectCode: "https://github.com/srivastava-ayush/gpu-powerctl",

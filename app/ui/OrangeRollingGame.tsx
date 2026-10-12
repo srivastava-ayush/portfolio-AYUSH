@@ -12,8 +12,10 @@ interface Ripple {
 
 export default function OrangeRollingGame({
   onClose,
+  embedded = false,
 }: {
   onClose?: () => void;
+  embedded?: boolean;
 }) {
   //sfx
 
@@ -91,22 +93,32 @@ export default function OrangeRollingGame({
   };
 
   // Game constants
-  const GAME_WIDTH =
-    typeof window !== "undefined" && window.innerWidth < 700 ? 450 : 800;
-  const ORG_WIDTH = 50;
-  const OBSTACLE_WIDTH = 25;
-  const JUMP_HEIGHT = 100;
+  const [gameWidth, setGameWidth] = useState(0);
+  const gameAreaRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const area = gameAreaRef.current;
+    if (!area) return;
+    const observer = new ResizeObserver(() => setGameWidth(area.clientWidth));
+    observer.observe(area);
+    if (embedded) area.focus({ preventScroll: true });
+    return () => observer.disconnect();
+  }, [embedded]);
+
+  const GAME_WIDTH = gameWidth;
+  const ORG_WIDTH = embedded ? 32 : 50;
+  const OBSTACLE_WIDTH = embedded ? 20 : 25;
+  const initialObstacleX = Math.max(0, GAME_WIDTH - OBSTACLE_WIDTH - 8);
+  const JUMP_HEIGHT = embedded ? 48 : 100;
   const JUMP_DURATION = 500;
-  const INITIAL_SPEED = 8;
-  const MAX_SPEED = 5;
-  const SPEED_INCREMENT = 0.5;
-  const DINO_START_X =
-    typeof window !== "undefined" && window.innerWidth < 700 ? 50 : 300;
+  const INITIAL_SPEED = embedded ? 6.75 : 15;
+  const MAX_SPEED = 18;
+  const SPEED_INCREMENT = 0.75;
+  const DINO_START_X = embedded ? Math.min(90, Math.max(24, gameWidth * 0.18)) : Math.min(300, Math.max(50, gameWidth * 0.25));
 
   // Game state
   const [isJumping, setIsJumping] = useState(false);
   const [dinoY, setDinoY] = useState(0);
-  const [obstacleX, setObstacleX] = useState(GAME_WIDTH);
+  const [obstacleX, setObstacleX] = useState<number | null>(null);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [score, setScore] = useState(0);
@@ -124,8 +136,8 @@ export default function OrangeRollingGame({
   // Calculate game speed based on obstacles passed
   const calculateSpeed = useCallback((obstacles: number) => {
     const newSpeed = INITIAL_SPEED + obstacles * SPEED_INCREMENT;
-    return Math.max(MAX_SPEED, newSpeed);
-  }, []);
+    return Math.min(MAX_SPEED, newSpeed);
+  }, [INITIAL_SPEED]);
 
   // Jump handler
   const handleJump = useCallback(
@@ -138,8 +150,8 @@ export default function OrangeRollingGame({
       if (e && "clientX" in e) {
         const newRipple: Ripple = {
           id: Date.now(),
-          x: e.clientX,
-          y: e.clientY,
+          x: e.clientX - (gameAreaRef.current?.getBoundingClientRect().left ?? 0),
+          y: e.clientY - (gameAreaRef.current?.getBoundingClientRect().top ?? 0),
         };
         setRipples((prev) => [...prev, newRipple]);
         setTimeout(() => {
@@ -159,7 +171,7 @@ export default function OrangeRollingGame({
         setIsJumping(false);
       }, JUMP_DURATION);
     },
-    [isGameOver, isJumping, isPaused],
+    [isGameOver, isJumping, isPaused, JUMP_HEIGHT],
   );
 
   // Toggle pause
@@ -173,18 +185,19 @@ export default function OrangeRollingGame({
     (e?: React.MouseEvent) => {
       if (e) e.stopPropagation();
       playRoundOverSound();
+      if (jumpTimeoutRef.current) clearTimeout(jumpTimeoutRef.current);
       setIsGameOver(false);
       setIsPaused(false);
       setIsJumping(false);
       setDinoY(0);
-      setObstacleX(GAME_WIDTH);
+      setObstacleX(initialObstacleX);
       setScore(0);
       setObstaclesPassed(0);
       gameSpeedRef.current = INITIAL_SPEED;
       obstaclePassedRef.current = false;
       lastTimeRef.current = 0;
     },
-    [GAME_WIDTH],
+    [initialObstacleX, INITIAL_SPEED],
   );
 
   // Collision detection
@@ -201,10 +214,11 @@ export default function OrangeRollingGame({
     }
 
     return false;
-  }, []);
+  }, [DINO_START_X, ORG_WIDTH, OBSTACLE_WIDTH]);
 
   // Main game loop
   useEffect(() => {
+    if (!GAME_WIDTH) return;
     if (isGameOver || isPaused) {
       if (gameLoopRef.current) {
         cancelAnimationFrame(gameLoopRef.current);
@@ -224,7 +238,7 @@ export default function OrangeRollingGame({
         lastTimeRef.current = currentTime;
 
         setObstacleX((prevX) => {
-          const newX = prevX - gameSpeedRef.current;
+          const newX = (prevX ?? initialObstacleX) - gameSpeedRef.current;
 
           if (newX < -OBSTACLE_WIDTH) {
             obstaclePassedRef.current = false;
@@ -239,7 +253,7 @@ export default function OrangeRollingGame({
 
             setScore((prev) => prev + 10);
 
-            return GAME_WIDTH + Math.random() * 200;
+            return GAME_WIDTH + Math.random() * Math.min(200, GAME_WIDTH * 0.25);
           }
 
           if (!obstaclePassedRef.current && newX < DINO_START_X) {
@@ -282,14 +296,24 @@ export default function OrangeRollingGame({
     calculateSpeed,
     GAME_WIDTH,
     DINO_START_X,
+    OBSTACLE_WIDTH,
+    initialObstacleX,
   ]);
 
-  // Keyboard controls
+  // Keep keyboard controls active even if focus moves to the page while playing.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || target.matches("input, textarea, select"))) return;
       if (e.code === "Space" || e.key === " ") {
         e.preventDefault();
         handleJump(e);
+      } else if (e.key === "Escape" && onClose) {
+        e.preventDefault();
+        onClose();
+      } else if ((e.key === "c" || e.key === "C") && onClose) {
+        e.preventDefault();
+        onClose();
       } else if (e.key === "p" || e.key === "P" || e.key === "Escape") {
         e.preventDefault();
         togglePause();
@@ -299,9 +323,9 @@ export default function OrangeRollingGame({
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleJump, togglePause, isGameOver, restartGame]);
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [handleJump, togglePause, isGameOver, restartGame, onClose]);
 
   useEffect(() => {
     return () => {
@@ -316,28 +340,27 @@ export default function OrangeRollingGame({
 
   return (
     <div
-      onClick={handleJump}
-      className="w-full h-full p-3 gap-5 md:p-0 flex select-none flex-col justify-center items-center relative cursor-crosshair text-[var(--text-color)] overflow-hidden bg-[var(--bg-color)]"
+      className={`w-full h-full flex select-none flex-col items-center relative text-[var(--text-color)] overflow-hidden bg-[var(--bg-color)] ${embedded ? "p-2 gap-2" : "p-3 gap-5 md:p-0 justify-center"}`}
     >
       {/* Background effects */}
-      <motion.span
+      {!embedded && <motion.span
         initial={{ opacity: 0, top: "-100px" }}
         animate={{ opacity: 1, top: 0 }}
         transition={{ duration: 1 }}
         className="fixed pointer-events-none border border-[#ffffff9a] top-0 left-0 w-[60%] h-[6rem] bg-[#ffffff] blur-[200px]"
-      />
-      <motion.span
+      />}
+      {!embedded && <motion.span
         initial={{ opacity: 0, top: "-100px" }}
         animate={{ opacity: 1, top: 0 }}
         transition={{ duration: 1 }}
         className="fixed pointer-events-none border border-[#fff] top-0 right-0 w-[40%] h-[6rem] bg-[#ffad55] blur-[130px]"
-      />
+      />}
 
       {/* Ripples */}
       {ripples.map((ripple) => (
         <span
           key={ripple.id}
-          className="absolute w-10 h-10 rounded-full animate-ripple bg-[var(--accent-color)] opacity-40"
+          className="absolute w-10 h-10 rounded-full animate-ripple bg-[var(--accent-color)] opacity-40 pointer-events-none"
           style={{
             left: `${ripple.x - 25}px`,
             top: `${ripple.y - 25}px`,
@@ -346,20 +369,21 @@ export default function OrangeRollingGame({
       ))}
 
       {/* Header */}
-      <div className="flex w-[70%] flex-wrap m-5 gap-5 justify-between items-center">
-        <div className="flex gap-6">
-          <Link
+      <div className={`flex justify-between items-center gap-2 w-full ${embedded ? "text-[10px] sm:text-xs" : "w-[70%] flex-wrap m-5 gap-5"}`}>
+        <div className="flex items-center gap-2 shrink-0">
+          {!embedded && <Link
             className="text-[var(--text-color)] text-[2rem] logoNav"
             href="/orange_rolling"
           >
             आ<span className="text-[var(--accent-color)]">1.</span>
-          </Link>
+          </Link>}
           {onClose ? (
             <button
               onClick={onClose}
-              className="text-[var(--text-color)] text-lg md:text-[1.4rem] w-full md:w-fit border-2 border-[var(--border-color)] p-2 transition-all duration-300 rounded-sm hover:text-[var(--bg-color)] hover:font-semibold hover:bg-[var(--accent-color)]"
+              type="button"
+              className={embedded ? "px-2 py-1 border border-[var(--border-color)] hover:bg-[var(--accent-color)]" : "text-[var(--text-color)] text-lg md:text-[1.4rem] w-full md:w-fit border-2 border-[var(--border-color)] p-2 transition-all duration-300 rounded-sm hover:text-[var(--bg-color)] hover:font-semibold hover:bg-[var(--accent-color)]"}
             >
-              CLOSE ✕
+              {embedded ? "✕ Close (C)" : "CLOSE ✕"}
             </button>
           ) : (
             <Link className="w-full md:w-fit" href="/">
@@ -370,12 +394,12 @@ export default function OrangeRollingGame({
           )}
         </div>
 
-        <div className="flex flex-wrap gap-5 text-center items-center">
+        <div className={`flex flex-wrap gap-2 text-center items-center justify-end ${embedded ? "text-[10px] sm:text-xs" : "gap-5"}`}>
           {obstaclesPassed > 0 && (
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="px-3 py-1 bg-[var(--accent-color)] text-[var(--bg-color)] rounded-full text-sm font-bold"
+              className={`px-2 py-1 bg-[var(--accent-color)] text-[var(--bg-color)] rounded-full font-bold ${embedded ? "text-[10px]" : "text-sm"}`}
             >
               CLEARED {obstaclesPassed}
             </motion.div>
@@ -392,23 +416,23 @@ export default function OrangeRollingGame({
       </div>
 
       {/* Game Controls */}
-      <div className="flex gap-4 mb-4">
+      <div className={`flex gap-2 ${embedded ? "text-xs" : "gap-4 mb-4"}`}>
         <button
           onClick={togglePause}
-          className="px-4 py-2 border-2 border-[var(--border-color)] rounded-sm hover:bg-[var(--border-color)] transition-all"
+          className={`${embedded ? "px-2 py-1 border" : "px-4 py-2 border-2"} border-[var(--border-color)] rounded-sm hover:bg-[var(--border-color)] transition-all`}
         >
           {isPaused ? "Resume" : "Pause"}
         </button>
         <button
           onClick={restartGame}
-          className="px-4 py-2 border-2 border-[var(--border-color)] rounded-sm hover:bg-[var(--border-color)] transition-all"
+          className={`${embedded ? "px-2 py-1 border" : "px-4 py-2 border-2"} border-[var(--border-color)] rounded-sm hover:bg-[var(--border-color)] transition-all`}
         >
           Restart
         </button>
       </div>
 
       {/* Game Area */}
-      <div className="w-full h-[40%] md:w-[70%] transition-all duration-200 ease-in-out md:h-[30%] relative overflow-hidden p-1 border border-[var(--border-color)] game">
+      <div ref={gameAreaRef} tabIndex={0} role="button" aria-label="Orange Rolling game, click or press Space to jump" onClick={(e) => { e.currentTarget.focus(); handleJump(e); }} className={`relative overflow-hidden border border-[var(--border-color)] game cursor-crosshair touch-manipulation ${embedded ? "w-full flex-1 min-h-0" : "w-full h-[40%] md:w-[70%] md:h-[30%]"}`}>
         {/* Ground */}
         <div className="absolute bottom-0 left-0 w-full h-2 bg-[var(--border-color)]" />
 
@@ -434,7 +458,7 @@ export default function OrangeRollingGame({
           }}
           style={{
             width: `${ORG_WIDTH}px`,
-            height: "40px",
+            height: embedded ? "32px" : "40px",
             position: "absolute",
             bottom: "0",
             left: `${DINO_START_X}px`,
@@ -450,17 +474,17 @@ export default function OrangeRollingGame({
           style={{
             rotate: "180deg",
             width: `${OBSTACLE_WIDTH}px`,
-            height: "40px",
+            height: embedded ? "32px" : "40px",
             position: "absolute",
             bottom: "0",
-            left: `${obstacleX}px`,
+            left: `${obstacleX ?? initialObstacleX}px`,
           }}
         />
 
         {/* Pause Overlay */}
         {isPaused && !isGameOver && (
           <div className="absolute inset-0 bg-[#00000080] backdrop-blur-[2px] flex items-center justify-center">
-            <div className="text-2xl text-white font-bold">PAUSED</div>
+            <div className={`${embedded ? "text-lg" : "text-2xl"} text-white font-bold`}>PAUSED</div>
           </div>
         )}
       </div>
@@ -470,15 +494,15 @@ export default function OrangeRollingGame({
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="flex flex-col justify-center md:w-fit w-full relative md:absolute bg-[#ffffff0e] backdrop-blur-[40px] items-center gap-3 p-6 border-2 border-[var(--border-color)]"
+          className={`flex flex-col justify-center bg-[var(--bg-color)]/95 backdrop-blur-sm items-center border border-[var(--border-color)] z-10 ${embedded ? "absolute inset-x-2 top-16 bottom-5 gap-1 p-2 text-center" : "relative md:absolute gap-3 p-6"}`}
         >
-          <h2 className="text-3xl text-[var(--text-color)] font-bold mb-2">
+          <h2 className={`${embedded ? "text-base" : "text-3xl mb-2"} text-[var(--text-color)] font-bold`}>
             Game Over!
           </h2>
-          <p className="text-xl text-[var(--secondary-text)]">
+          <p className={`${embedded ? "text-xs" : "text-xl"} text-[var(--secondary-text)]`}>
             Orange couldn&apos;t make it :&apos;(
           </p>
-          <div className="flex gap-6 mt-2">
+          <div className={`flex gap-4 ${embedded ? "text-xs" : "mt-2"}`}>
             <p className="text-[var(--secondary-text)]">
               Score:{" "}
               <span className="text-[var(--text-color)]">{displayScore}</span>
@@ -491,27 +515,27 @@ export default function OrangeRollingGame({
             <motion.p
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="text-[#ffbf47] font-bold text-lg"
+              className={`text-[#ffbf47] font-bold ${embedded ? "text-xs" : "text-lg"}`}
             >
               New High Score! 🎉
             </motion.p>
           )}
           <button
-            className="px-6 py-2 mt-2 rounded-sm border-2 font-semibold text-[var(--bg-color)] bg-[var(--accent-color)] hover:text-[var(--text-color)] hover:bg-[var(--border-color)] transition-all"
+            className={`${embedded ? "px-3 py-1 text-xs" : "px-6 py-2 mt-2"} rounded-sm border font-semibold text-[var(--bg-color)] bg-[var(--accent-color)] hover:text-[var(--text-color)] hover:bg-[var(--border-color)] transition-all`}
             onClick={restartGame}
           >
             Play Again
           </button>
-          <p className="text-sm text-[var(--secondary-text)] mt-2">
-            Press R or click to restart
+          <p className={`${embedded ? "text-[10px]" : "text-sm mt-2"} text-[var(--secondary-text)]`}>
+            Press R to restart{embedded ? " • C to close" : ""}
           </p>
         </motion.div>
       )}
 
       {/* Instructions */}
       {!isGameOver && !isPaused && (
-        <div className="mt-6 text-center text-[var(--secondary-text)] text-sm">
-          <p>Click or press SPACE to jump • P to pause • R to restart</p>
+        <div className={`${embedded ? "text-[10px] sm:text-xs" : "mt-6 text-sm"} text-center text-[var(--secondary-text)]`}>
+          <p>Click or press SPACE to jump • P to pause • R to restart{embedded ? " • C to close" : ""}</p>
         </div>
       )}
     </div>

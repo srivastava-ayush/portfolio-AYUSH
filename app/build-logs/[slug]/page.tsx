@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight, Calendar, Tag } from "lucide-react";
 import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 import Navbar from "../../ui/Navbar";
 import Reveal from "../../ui/Reveal";
+import BuildLogsScroll from "../../ui/BuildLogsScroll";
 import Markdown from "../../ui/Markdown";
 import { getLog, getAllLogs, getLogSlugs } from "../../lib/logs";
 
@@ -109,7 +110,7 @@ export default async function BuildLogPage({
           </div>
 
           {/* Content */}
-          <main className="w-full max-w-2xl mx-auto px-6 py-12 md:py-16">
+          <BuildLogsScroll contentClassName="max-w-2xl mx-auto px-6 py-12 md:py-16">
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <Image
@@ -191,7 +192,7 @@ export default async function BuildLogPage({
                 </div>
               </div>
             )}
-          </main>
+          </BuildLogsScroll>
         </div>
       </PageWithBorderStrips>
     </Reveal>

@@ -42,7 +42,7 @@ function Navbar({ onSectionNavigate }: {
   }, [menuOpen]);
 
   const toggleTheme = (e?: React.MouseEvent<HTMLElement>) => {
-    const next = theme === "dark" ? "light" : "dark";
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     const apply = () => {
       document.documentElement.dataset.theme = next;
       localStorage.setItem("theme", next);
@@ -56,7 +56,7 @@ function Navbar({ onSectionNavigate }: {
       Math.max(y, window.innerHeight - y),
     );
 
-    if (document.startViewTransition) {
+    if (document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const transition = document.startViewTransition(apply);
       transition.ready.then(() => {
         try {
@@ -68,28 +68,15 @@ function Navbar({ onSectionNavigate }: {
               ],
             },
             {
-              duration: 900,
+              duration: 550,
               easing: "cubic-bezier(0.65, 0, 0.35, 1)",
               pseudoElement: "::view-transition-new(root)",
-            },
-          );
-          document.documentElement.animate(
-            {
-              clipPath: [
-                `circle(${endRadius}px at ${x}px ${y}px)`,
-                `circle(0px at ${x}px ${y}px)`,
-              ],
-            },
-            {
-              duration: 3000,
-              easing: "cubic-bezier(0.65, 0, 0.35, 1)",
-              pseudoElement: "::view-transition-old(root)",
             },
           );
         } catch {
           /* fallback to default crossfade */
         }
-      });
+      }).catch(() => {});
     } else {
       apply();
     }
