@@ -46,7 +46,7 @@ export default async function BuildLogPage({
       <Reveal className="min-h-screen flex flex-col items-center">
         <CustomCursor />
         <PageWithBorderStrips>
-          <div className="w-full mt-[3rem] border border-[var(--border-color)] flex flex-col items-center">
+          <div className="w-full mt-20 md:mt-[3rem] border border-[var(--border-color)] flex flex-col items-center">
             <Navbar />
             <div className="w-full border-t border-b border-[var(--border-color)]">
               <Link href="/build-logs" className="flex items-center gap-1.5 px-3 h-7 text-xs font-mono text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors w-fit">
@@ -80,7 +80,7 @@ export default async function BuildLogPage({
           <Navbar />
 
           {/* Top bar */}
-          <div className="w-full flex mt-[3rem] items-center border-y border-[var(--border-color)] text-xs font-mono">
+          <div className="w-full flex mt-20 md:mt-[3rem] items-center border-y border-[var(--border-color)] text-xs font-mono">
             <Link
               href="/build-logs"
               className="flex items-center gap-1.5 px-3 h-7 shrink-0 text-[var(--secondary-text)] hover:text-[var(--text-color)] hover:bg-[var(--hover-color)] transition-colors"

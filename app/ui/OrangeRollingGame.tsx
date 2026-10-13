@@ -13,9 +13,11 @@ interface Ripple {
 export default function OrangeRollingGame({
   onClose,
   embedded = false,
+  jumpRef,
 }: {
   onClose?: () => void;
   embedded?: boolean;
+  jumpRef?: React.RefObject<(() => void) | null>;
 }) {
   //sfx
 
@@ -173,6 +175,12 @@ export default function OrangeRollingGame({
     },
     [isGameOver, isJumping, isPaused, JUMP_HEIGHT],
   );
+
+  useEffect(() => {
+    if (!jumpRef) return;
+    jumpRef.current = () => handleJump();
+    return () => { jumpRef.current = null; };
+  }, [handleJump, jumpRef]);
 
   // Toggle pause
   const togglePause = useCallback((e?: React.MouseEvent) => {
@@ -341,6 +349,10 @@ export default function OrangeRollingGame({
   return (
     <div
       className={`w-full h-full flex select-none flex-col items-center relative text-[var(--text-color)] overflow-hidden bg-[var(--bg-color)] ${embedded ? "p-2 gap-2" : "p-3 gap-5 md:p-0 justify-center"}`}
+      onClick={(e) => {
+        if (embedded && window.matchMedia("(max-width: 639px)").matches &&
+          !(e.target as HTMLElement).closest("button, a, .game")) handleJump();
+      }}
     >
       {/* Background effects */}
       {!embedded && <motion.span
@@ -381,9 +393,10 @@ export default function OrangeRollingGame({
             <button
               onClick={onClose}
               type="button"
-              className={embedded ? "px-2 py-1 border border-[var(--border-color)] hover:bg-[var(--accent-color)]" : "text-[var(--text-color)] text-lg md:text-[1.4rem] w-full md:w-fit border-2 border-[var(--border-color)] p-2 transition-all duration-300 rounded-sm hover:text-[var(--bg-color)] hover:font-semibold hover:bg-[var(--accent-color)]"}
+              aria-label={embedded ? "Close game" : undefined}
+              className={embedded ? "flex size-9 items-center justify-center bg-transparent text-lg leading-none sm:block sm:size-auto sm:px-2 sm:py-1 sm:border sm:border-[var(--border-color)] sm:text-inherit sm:leading-normal sm:hover:bg-[var(--accent-color)]" : "text-[var(--text-color)] text-lg md:text-[1.4rem] w-full md:w-fit border-2 border-[var(--border-color)] p-2 transition-all duration-300 rounded-sm hover:text-[var(--bg-color)] hover:font-semibold hover:bg-[var(--accent-color)]"}
             >
-              {embedded ? "✕ Close (C)" : "CLOSE ✕"}
+              {embedded ? <><span aria-hidden="true" className="sm:hidden">✕</span><span className="hidden sm:inline">✕ Close (C)</span></> : "CLOSE ✕"}
             </button>
           ) : (
             <Link className="w-full md:w-fit" href="/">
@@ -520,12 +533,23 @@ export default function OrangeRollingGame({
               New High Score! 🎉
             </motion.p>
           )}
-          <button
-            className={`${embedded ? "px-3 py-1 text-xs" : "px-6 py-2 mt-2"} rounded-sm border font-semibold text-[var(--bg-color)] bg-[var(--accent-color)] hover:text-[var(--text-color)] hover:bg-[var(--border-color)] transition-all`}
-            onClick={restartGame}
-          >
-            Play Again
-          </button>
+          <div className={`flex items-center gap-2 ${embedded ? "" : "mt-2"}`}>
+            <button
+              className={`${embedded ? "px-3 py-1 text-xs" : "px-6 py-2"} rounded-sm border font-semibold text-[var(--bg-color)] bg-[var(--accent-color)] hover:text-[var(--text-color)] hover:bg-[var(--border-color)] transition-all`}
+              onClick={restartGame}
+            >
+              Play Again
+            </button>
+            {embedded && onClose && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="sm:hidden px-3 py-1 text-xs rounded-sm border border-red-500 bg-red-600 text-white font-semibold"
+              >
+                ✕ Close
+              </button>
+            )}
+          </div>
           <p className={`${embedded ? "text-[10px]" : "text-sm mt-2"} text-[var(--secondary-text)]`}>
             Press R to restart{embedded ? " • C to close" : ""}
           </p>

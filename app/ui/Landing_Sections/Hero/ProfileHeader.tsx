@@ -17,6 +17,8 @@ const taglines = [
 
 export default function ProfileHeader({ gameOpen, onPlay, onCloseGame }: { gameOpen: boolean; onPlay: () => void; onCloseGame: () => void }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const gameRef = useRef<HTMLDivElement>(null);
+  const jumpRef = useRef<(() => void) | null>(null);
   const [gameBounds, setGameBounds] = useState<DOMRect | null>(null);
 
   useEffect(() => {
@@ -27,10 +29,13 @@ export default function ProfileHeader({ gameOpen, onPlay, onCloseGame }: { gameO
     let frame = 0;
     const updateBounds = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => setGameBounds(section.getBoundingClientRect()));
+      frame = requestAnimationFrame(() => setGameBounds(
+        (window.matchMedia("(max-width: 639px)").matches ? gameRef.current : section)?.getBoundingClientRect() ?? null,
+      ));
     };
     const observer = new ResizeObserver(updateBounds);
     observer.observe(section);
+    if (gameRef.current) observer.observe(gameRef.current);
     window.addEventListener("scroll", updateBounds, { passive: true });
     window.addEventListener("resize", updateBounds);
     updateBounds();
@@ -50,15 +55,19 @@ export default function ProfileHeader({ gameOpen, onPlay, onCloseGame }: { gameO
   const bottom = Math.max(top, Math.min(viewportHeight, gameBounds?.bottom ?? 0));
   const left = Math.min(viewportWidth, Math.max(0, gameBounds?.left ?? 0));
   const right = Math.max(left, Math.min(viewportWidth, gameBounds?.right ?? 0));
+  const handleBackdropClick = () => {
+    if (window.matchMedia("(max-width: 639px)").matches) jumpRef.current?.();
+    else onCloseGame();
+  };
 
   return (
-    <section ref={sectionRef} className={gameOpen ? "relative h-64 sm:h-56" : "relative"}>
+    <section ref={sectionRef} className={gameOpen ? "relative h-72 pt-6 sm:h-56 sm:pt-0" : "relative"}>
       {gameOpen && gameBounds && createPortal(
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="fixed inset-0 z-[9998] pointer-events-none" aria-hidden="true">
-          <div className="absolute inset-x-0 top-0 bg-black/70 pointer-events-auto" style={{ height: top }} onClick={onCloseGame} />
-          <div className="absolute inset-x-0 bottom-0 bg-black/70 pointer-events-auto" style={{ top: bottom }} onClick={onCloseGame} />
-          <div className="absolute left-0 bg-black/70 pointer-events-auto" style={{ top, height: bottom - top, width: left }} onClick={onCloseGame} />
-          <div className="absolute right-0 bg-black/70 pointer-events-auto" style={{ top, height: bottom - top, left: right }} onClick={onCloseGame} />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="fixed inset-0 z-[100000] sm:z-[9998] pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-x-0 top-0 bg-black/70 pointer-events-auto max-sm:touch-none" style={{ height: top }} onClick={handleBackdropClick} />
+          <div className="absolute inset-x-0 bottom-0 bg-black/70 pointer-events-auto max-sm:touch-none" style={{ top: bottom }} onClick={handleBackdropClick} />
+          <div className="absolute left-0 bg-black/70 pointer-events-auto max-sm:touch-none" style={{ top, height: bottom - top, width: left }} onClick={handleBackdropClick} />
+          <div className="absolute right-0 bg-black/70 pointer-events-auto max-sm:touch-none" style={{ top, height: bottom - top, left: right }} onClick={handleBackdropClick} />
         </motion.div>,
         document.body,
       )}
@@ -70,10 +79,16 @@ export default function ProfileHeader({ gameOpen, onPlay, onCloseGame }: { gameO
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
+            onAnimationComplete={() => {
+              if (window.matchMedia("(max-width: 639px)").matches && gameRef.current) {
+                setGameBounds(gameRef.current.getBoundingClientRect());
+              }
+            }}
             className="h-full"
+            ref={gameRef}
             data-lenis-prevent
           >
-            <OrangeRollingGame embedded onClose={onCloseGame} />
+            <OrangeRollingGame embedded onClose={onCloseGame} jumpRef={jumpRef} />
           </motion.div>
         ) : (
           <motion.div

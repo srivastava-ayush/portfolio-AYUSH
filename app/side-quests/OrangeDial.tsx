@@ -49,6 +49,8 @@ export default function OrangeDial() {
   const [target, setTarget] = useState(0);
   const [position, setPosition] = useState(0);
   const [dialOpen, setDialOpen] = useState(false);
+  const [dialDrag, setDialDrag] = useState(0);
+  const [draggingDial, setDraggingDial] = useState(false);
   const positionRef = useRef(0);
   const velocityRef = useRef(0);
   const shouldReduceMotion = useReducedMotion();
@@ -65,7 +67,7 @@ export default function OrangeDial() {
   const contentRef = useRef<HTMLElement>(null);
   const wheelAmount = useRef(0);
   const lastWheelStep = useRef(0);
-  const dragRef = useRef<{ pointerId: number; startY: number; lastY: number; lastStep: number; moved: boolean } | null>(null);
+  const dragRef = useRef<{ pointerId: number; startX: number; startY: number; lastY: number; lastStep: number; moved: boolean } | null>(null);
   const suppressClickRef = useRef(false);
   const active = options[selected];
 
@@ -175,50 +177,58 @@ export default function OrangeDial() {
   }, [dialOpen]);
 
   useEffect(() => {
-    if (dialOpen) return;
-    let start: { x: number; y: number } | null = null;
+    let start: { x: number; y: number; horizontal: boolean } | null = null;
     const onTouchStart = (event: TouchEvent) => {
       start = null;
       if (window.matchMedia("(min-width: 1024px)").matches || event.touches.length !== 1) return;
       if (event.target instanceof Element && event.target.closest(".overflow-x-auto")) return;
       const touch = event.touches[0];
-      if (touch.clientX >= window.innerWidth - 64) start = { x: touch.clientX, y: touch.clientY };
+      start = { x: touch.clientX, y: touch.clientY, horizontal: false };
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      if (!start || event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      const dx = touch.clientX - start.x;
+      const dy = touch.clientY - start.y;
+      if (!start.horizontal && (Math.abs(dx) < 8 || Math.abs(dx) <= Math.abs(dy) * 1.5 || (dialOpen ? dx <= 0 : dx >= 0))) return;
+      start.horizontal = true;
+      event.preventDefault();
+      setDraggingDial(true);
+      setDialDrag(dialOpen ? Math.min(window.innerWidth, Math.max(0, dx)) : Math.max(-window.innerWidth, Math.min(0, dx)));
     };
     const onTouchEnd = (event: TouchEvent) => {
       if (!start || event.changedTouches.length !== 1) return;
       const touch = event.changedTouches[0];
       const dx = touch.clientX - start.x;
-      const dy = touch.clientY - start.y;
-      if (dx < -60 && Math.abs(dx) > Math.abs(dy) * 1.5) setDialOpen(true);
+      if (start.horizontal && (dialOpen ? dx > 60 : dx < -60)) setDialOpen(!dialOpen);
+      setDraggingDial(false);
+      setDialDrag(0);
       start = null;
     };
-    const onTouchCancel = () => { start = null; };
+    const onTouchCancel = () => { start = null; setDraggingDial(false); setDialDrag(0); };
     window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
     window.addEventListener("touchcancel", onTouchCancel);
     return () => {
       window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("touchcancel", onTouchCancel);
     };
   }, [dialOpen]);
 
-  useEffect(() => {
-    if (window.matchMedia("(min-width: 1024px)").matches) return;
-    const id = requestAnimationFrame(() => setDialOpen(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
   const onPointerDown = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     unlockSound();
     suppressClickRef.current = false;
-    dragRef.current = { pointerId: event.pointerId, startY: event.clientY, lastY: event.clientY, lastStep: 0, moved: false };
+    dragRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, lastY: event.clientY, lastStep: 0, moved: false };
   };
 
   const onPointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
+    if (event.pointerType === "touch" && Math.abs(event.clientX - drag.startX) > Math.abs(event.clientY - drag.startY) * 1.5) return;
     drag.lastY = event.clientY;
     if (!drag.moved && Math.abs(drag.startY - event.clientY) > 8) {
       drag.moved = true;
@@ -237,6 +247,12 @@ export default function OrangeDial() {
   const onPointerUp = (event: ReactPointerEvent<HTMLElement>) => {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
+    if (event.pointerType === "touch" && Math.abs(event.clientX - drag.startX) > Math.abs(event.clientY - drag.startY) * 1.5) {
+      suppressClickRef.current = true;
+      window.setTimeout(() => { suppressClickRef.current = false; }, 0);
+      dragRef.current = null;
+      return;
+    }
     if (drag.moved) {
       if (drag.lastStep === 0 && Math.abs(drag.startY - drag.lastY) >= 24) {
         setTarget((current) => current + Math.sign(drag.startY - drag.lastY));
@@ -262,7 +278,7 @@ export default function OrangeDial() {
           aria-controls="side-quests-dial"
           aria-expanded={dialOpen}
           onClick={() => setDialOpen((open) => !open)}
-          className="orange-dial-toggle fixed right-0 top-1/2 z-[60] flex h-14 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-l-md border border-r-0 border-[var(--sq-line-strong)] bg-[var(--bg-color)] font-mono text-[10px] text-[var(--sq-text-dim)] shadow-lg lg:hidden"
+          className="orange-dial-toggle fixed -right-7 top-1/2 z-[60] flex h-14 w-14 -translate-y-1/2 flex-col items-start justify-center gap-1 rounded-l-md border border-r-0 border-[var(--sq-line-strong)] bg-[var(--bg-color)] pl-1 font-mono text-[10px] text-[var(--sq-text-dim)] shadow-lg lg:hidden"
         >
           <ArrowLeft size={18} className={`text-[#ff8a23] transition-transform ${dialOpen ? "rotate-180" : ""}`} />
           <span>{active.number}</span>
@@ -287,7 +303,10 @@ export default function OrangeDial() {
               suppressClickRef.current = false;
             }
           }}
-          className={`orange-dial h-[var(--dial-height)] lg:relative lg:block lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)] ${dialOpen ? "fixed inset-x-3 top-1/2 z-50 -translate-y-1/2 lg:inset-auto lg:top-auto lg:translate-y-0" : "hidden"}`}
+          data-open={dialOpen}
+          data-dragging={draggingDial}
+          style={{ "--dial-drag": `${dialDrag}px` } as React.CSSProperties}
+          className="orange-dial fixed inset-x-0 top-1/2 z-50 h-[var(--dial-height)] -translate-y-1/2 lg:relative lg:inset-auto lg:top-auto lg:translate-y-0 lg:border-r lg:border-dotted lg:border-[var(--sq-line-strong)]"
         >
           <div className="orange-dial-clip">
           <motion.div
@@ -408,7 +427,7 @@ export default function OrangeDial() {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="flex flex-col rounded-full border border-[var(--sq-line-strong)] p-1"><ArrowUp size={11} /><ArrowDown size={11} /></span>
-            <span className="lg:hidden">Open dial to swipe</span>
+            <span className="lg:hidden">Swipe left to open · right to close</span>
             <span className="hidden lg:inline">Scroll / drag / swipe</span>
             <span className="text-[#ff8a23]">{active.number} — {String(total).padStart(2, "0")}</span>
           </div>
