@@ -4,10 +4,13 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Calendar, Tag } from "lucide-react";
 import PageWithBorderStrips from "../../ui/PageWithBorderStrips";
 import Navbar from "../../ui/Navbar";
+import CustomCursor from "../../ui/CustomCursor";
 import Reveal from "../../ui/Reveal";
 import BuildLogsScroll from "../../ui/BuildLogsScroll";
+import BuildLogsFooter from "../../ui/BuildLogsFooter";
+import BuildLogsSearch from "../../ui/BuildLogsSearch";
 import Markdown from "../../ui/Markdown";
-import { getLog, getAllLogs, getLogSlugs } from "../../lib/logs";
+import { getLog, getAllLogs, getLogSlugs, getLastEdited } from "../../lib/logs";
 
 export function generateStaticParams() {
   return getLogSlugs().map((slug) => ({ slug }));
@@ -41,6 +44,7 @@ export default async function BuildLogPage({
   if (!log) {
     return (
       <Reveal className="min-h-screen flex flex-col items-center">
+        <CustomCursor />
         <PageWithBorderStrips>
           <div className="w-full mt-[3rem] border border-[var(--border-color)] flex flex-col items-center">
             <Navbar />
@@ -70,8 +74,9 @@ export default async function BuildLogPage({
 
   return (
     <Reveal className="min-h-screen flex flex-col items-center">
+      <CustomCursor />
       <PageWithBorderStrips>
-        <div className="w-full border border-[var(--border-color)] flex flex-col items-center">
+        <div className="w-full border-x border-t border-[var(--border-color)] flex flex-col items-center">
           <Navbar />
 
           {/* Top bar */}
@@ -88,6 +93,9 @@ export default async function BuildLogPage({
               build-logs/{log.slug}
             </span>
             <div className="ml-auto flex items-center">
+              <div className="hidden px-3 sm:block">
+                <BuildLogsSearch />
+              </div>
               {prevLog && (
                 <Link
                   href={`/build-logs/${prevLog.slug}`}
@@ -115,7 +123,7 @@ export default async function BuildLogPage({
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <Image
                 unoptimized
-                src="/avatars/avatar.webp"
+                src="/avatars/avatar.png"
                 alt=""
                 width={28}
                 height={28}
@@ -193,6 +201,8 @@ export default async function BuildLogPage({
               </div>
             )}
           </BuildLogsScroll>
+          <div className="w-full border-t border-dotted border-[var(--border-color)]" />
+          <BuildLogsFooter lastEdit={getLastEdited(slug)} />
         </div>
       </PageWithBorderStrips>
     </Reveal>

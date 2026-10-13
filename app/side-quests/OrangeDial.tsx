@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowLeft, ArrowUp } from "lucide-react";
 import { PROJECTS, SIDE_QUESTS } from "../constants";
 import Navbar from "../ui/Navbar";
+import CustomCursor from "../ui/CustomCursor";
 import ProjectsGallery from "./ProjectsGallery";
 import { playClickSound, unlockSound } from "../ui/sound";
 import "./orange.css";
@@ -250,6 +251,7 @@ export default function OrangeDial() {
 
   return (
     <main className="orange-page flex min-h-dvh flex-col items-center text-(--sq-fg)">
+      <CustomCursor />
       <div className="w-full max-w-[57.6rem]">
       <Navbar onSectionNavigate={() => selectOption(0)} />
 
@@ -363,7 +365,7 @@ export default function OrangeDial() {
           <div className="px-4 pb-8 pt-7 md:px-6">
             <AnimatePresence mode="wait">
               <motion.div key={active.number} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
-                <h1 className="text-[clamp(1.2rem,2.4vw,1.7rem)] font-semibold leading-tight tracking-[-0.04em] text-[var(--sq-fg)]"><span className="mr-2.5 text-[#ff8a23]">&gt;</span>{active.category}<span className="ml-1 inline-block h-[.7em] w-[.4em] bg-[#ff8a23] align-baseline animate-pulse" aria-hidden="true" /></h1>
+                <h1 className="text-[clamp(1.2rem,2.4vw,1.7rem)] font-semibold leading-tight tracking-[-0.04em] text-[var(--sq-fg)]"><span className="mr-2.5 text-[#ff8a23]">&gt;</span>{active.category}</h1>
                 {active.banner && active.kind !== "projects" && (
                   <figure className="mt-6 border border-[var(--sq-line-strong)] bg-[var(--sq-inset)]">
                     <figcaption className="border-b border-[var(--sq-line)] px-3 py-2 text-[10px] uppercase tracking-[0.12em] text-[var(--sq-text-faint)]">+ attachment / {active.category.toLowerCase().replaceAll(" ", "-")}.webp</figcaption>
@@ -427,7 +429,7 @@ export default function OrangeDial() {
         </div>
         <div className="flex flex-wrap gap-2" aria-label="Select option">
           {options.map((option, index) => (
-            <button key={option.number} type="button" onClick={() => selectOption(index)} aria-label={`Select ${option.category}`} aria-current={index === selected ? "true" : undefined} className={`border px-2.5 py-1.5 text-[10px] uppercase tracking-wide transition-colors ${index === selected ? "border-[#ff8a23] bg-[#ff8a23]/10 text-[#ff8a23]" : "border-[var(--sq-line)] text-[var(--sq-text-dim)] hover:border-[var(--sq-hover-border)] hover:text-[var(--sq-fg)]"}`}>[{option.number}] {option.category}</button>
+            <button key={option.number} type="button" onClick={() => selectOption(index)} aria-label={`Select ${option.category}`} aria-current={index === selected ? "true" : undefined} className={`border px-2.5 py-1.5 text-[10px] uppercase tracking-wide transition-colors ${index === selected ? "border-[var(--sq-hover-border)] bg-[var(--sq-option-active-bg)] text-[var(--sq-option-active-fg)]" : "border-[var(--sq-line)] text-[var(--sq-text-dim)] hover:border-[var(--sq-hover-border)] hover:text-[var(--sq-fg)]"}`}>[{option.number}] {option.category}</button>
           ))}
         </div>
       </div>

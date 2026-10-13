@@ -79,3 +79,20 @@ export function getLog(slug: string): LogEntry | null {
 export function getLogSlugs(): string[] {
   return logFiles().map((name) => name.replace(/\.mdx?$/, ""));
 }
+
+export function getLastEdited(slug?: string): string {
+  const files = logFiles().filter(
+    (name) => !slug || name.replace(/\.mdx?$/, "") === slug,
+  );
+  if (files.length === 0) return "";
+  const latest = Math.max(
+    ...files.map((name) => fs.statSync(path.join(LOGS_DIR, name)).mtimeMs),
+  );
+  return new Date(latest).toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}

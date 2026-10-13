@@ -18,6 +18,8 @@
   --sq-line-strong: rgba(255, 255, 255, .25);
   --sq-line-soft: rgba(255, 255, 255, .13);
   --sq-hover-border: rgba(255, 255, 255, .6);
+  --sq-option-active-bg: #000000;
+  --sq-option-active-fg: #a3a3a3;
   --sq-text-strong: rgba(255, 255, 255, .9);
   --sq-text-mid: rgba(255, 255, 255, .65);
   --sq-text-dim: rgba(255, 255, 255, .5);
@@ -40,6 +42,8 @@
   --sq-line-strong: rgba(0, 0, 0, .28);
   --sq-line-soft: rgba(0, 0, 0, .12);
   --sq-hover-border: rgba(0, 0, 0, .55);
+  --sq-option-active-bg: rgba(0, 0, 0, .16);
+  --sq-option-active-fg: rgba(0, 0, 0, .55);
   --sq-text-strong: rgba(0, 0, 0, .85);
   --sq-text-mid: rgba(0, 0, 0, .62);
   --sq-text-dim: rgba(0, 0, 0, .5);
