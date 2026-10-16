@@ -1,19 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import Lenis from "lenis";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { ArrowDown, ArrowLeft, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, ChevronDown } from "lucide-react";
 import { PROJECTS, SIDE_QUESTS } from "../constants";
 import Navbar from "../ui/Navbar";
 import CustomCursor from "../ui/CustomCursor";
 import ProjectsGallery from "./ProjectsGallery";
+import ImageLightbox, { type ExpandedImage } from "./ImageLightbox";
+import ConfigCodeBlock from "./ConfigCodeBlock";
+import QuestImageGallery from "./QuestImageGallery";
 import { playClickSound, unlockSound } from "../ui/sound";
 import "./orange.css";
 
 type QuestImage = { src: string; desc?: string };
-type QuestEntry = { title: string; para?: string; imgs?: QuestImage[] };
+type QuestEntry = {
+  title: string;
+  para?: string;
+  imgs?: QuestImage[];
+  imageFormat?: string;
+  items?: { label: string; detail: string }[];
+  codeBlocks?: { label: string; href: string }[];
+};
 type Quest = { category: string; banner?: string; entries: QuestEntry[]; number: string; kind?: "projects" };
 
 const options: Quest[] = [
@@ -51,11 +61,14 @@ export default function OrangeDial() {
   const [dialOpen, setDialOpen] = useState(false);
   const [dialDrag, setDialDrag] = useState(0);
   const [draggingDial, setDraggingDial] = useState(false);
+  const [expandedImage, setExpandedImage] = useState<ExpandedImage | null>(null);
+  const closeImage = useCallback(() => setExpandedImage(null), []);
   const positionRef = useRef(0);
   const velocityRef = useRef(0);
   const shouldReduceMotion = useReducedMotion();
   const selected = wrapped(Math.round(position));
   const selectOption = (index: number) => {
+    closeImage();
     setTarget((current) => current + Math.round(offsetFrom(index, current)));
     setDialOpen(false);
     const hash = index === projectsIndex ? "#projects" : "";
@@ -147,7 +160,7 @@ export default function OrangeDial() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.altKey || event.ctrlKey || event.metaKey || document.querySelector('[aria-modal="true"]')) return;
       const element = event.target as HTMLElement;
       if (element.closest(".orange-content, input, textarea, select, [contenteditable], a")) return;
       if (element.closest("button") && !element.closest(".orange-dial")) return;
@@ -168,19 +181,19 @@ export default function OrangeDial() {
   }, []);
 
   useEffect(() => {
-    if (!dialOpen) return;
+    if (!dialOpen || expandedImage) return;
     const onEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setDialOpen(false);
     };
     window.addEventListener("keydown", onEscape);
     return () => window.removeEventListener("keydown", onEscape);
-  }, [dialOpen]);
+  }, [dialOpen, expandedImage]);
 
   useEffect(() => {
     let start: { x: number; y: number; horizontal: boolean } | null = null;
     const onTouchStart = (event: TouchEvent) => {
       start = null;
-      if (window.matchMedia("(min-width: 1024px)").matches || event.touches.length !== 1) return;
+      if (expandedImage || window.matchMedia("(min-width: 1024px)").matches || event.touches.length !== 1) return;
       if (event.target instanceof Element && event.target.closest(".overflow-x-auto")) return;
       const touch = event.touches[0];
       start = { x: touch.clientX, y: touch.clientY, horizontal: false };
@@ -216,7 +229,7 @@ export default function OrangeDial() {
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("touchcancel", onTouchCancel);
     };
-  }, [dialOpen]);
+  }, [dialOpen, expandedImage]);
 
   const onPointerDown = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -328,10 +341,11 @@ export default function OrangeDial() {
             const offset = index + loop * total - position;
             if (Math.abs(offset) >= visibleReach) return null;
             const angle = offset * 0.32;
-            const edgeOpacity = offset >= 0
-              ? Math.min(1, Math.max(0, (visibleReach - offset) / 0.5))
-              : Math.min(1, Math.max(0, (offset + 2.5) / 0.5));
+            const verticalOffset = Math.sin(offset * 0.25) / Math.sin(0.25);
+            const edgeOpacity = Math.min(1, Math.max(0, (visibleReach - Math.abs(offset)) / 0.5));
             const isActive = index === selected && Math.abs(offset) < 0.5;
+            const depth = Math.max(0, 1 - Math.abs(offset) / visibleReach);
+            const scale = 0.86 + 0.06 * depth + 0.26 * Math.max(0, 1 - Math.abs(offset));
             const accessible = Math.abs(offset - offsetFrom(index, position)) < 0.001 && edgeOpacity > 0.1;
             return (
               <button
@@ -343,10 +357,11 @@ export default function OrangeDial() {
                 aria-hidden={!accessible}
                 tabIndex={accessible ? 0 : -1}
                 style={{
-                  zIndex: isActive ? 5 : 3 - Math.abs(offset),
+                  zIndex: Math.round(depth * 100),
                   pointerEvents: edgeOpacity > 0.15 ? "auto" : "none",
-                  opacity: (isActive ? 1 : 0.82) * edgeOpacity,
-                  transform: `translate(-50%, -50%) translate(calc(var(--orbit-radius) * ${(-Math.cos(angle)).toFixed(5)}), calc(var(--orbit-step) * ${(Math.sin(angle) * 2.1).toFixed(5)})) rotate(${(-angle * 0.55 * 180 / Math.PI).toFixed(3)}deg) scale(${(isActive ? 1 : 0.92).toFixed(3)})`,
+                  opacity: (0.65 + 0.35 * depth) * edgeOpacity,
+                  filter: `brightness(${(0.7 + 0.3 * depth).toFixed(3)})`,
+                  transform: `translate(-50%, -50%) translate(calc(var(--orbit-radius) * ${(-Math.cos(angle)).toFixed(5)}), calc(var(--orbit-step) * ${verticalOffset.toFixed(5)})) rotate(${(-angle * 0.55 * 180 / Math.PI).toFixed(3)}deg) scale(${scale.toFixed(3)})`,
                 }}
                 className={`orange-card absolute left-[var(--orbit-origin)] top-1/2 flex aspect-video w-[var(--card-width)] flex-col justify-between overflow-hidden border p-2.5 text-left shadow-2xl transition-colors ${isActive ? "border-[#ff8a23] bg-[var(--sq-card-active)]" : "border-[var(--sq-line-strong)] bg-[var(--sq-card)] hover:border-[var(--sq-hover-border)]"}`}
               >
@@ -388,33 +403,51 @@ export default function OrangeDial() {
                 {active.banner && active.kind !== "projects" && (
                   <figure className="mt-6 border border-[var(--sq-line-strong)] bg-[var(--sq-inset)]">
                     <figcaption className="border-b border-[var(--sq-line)] px-3 py-2 text-[10px] uppercase tracking-[0.12em] text-[var(--sq-text-faint)]">+ attachment / {active.category.toLowerCase().replaceAll(" ", "-")}.webp</figcaption>
-                    <div className="relative aspect-[16/5] w-full overflow-hidden">
-                      <Image unoptimized src={active.banner} alt={`${active.category} banner`} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
-                    </div>
+                     <button type="button" aria-label={`Expand ${active.category} banner`} onClick={() => setExpandedImage({ src: active.banner!, alt: `${active.category} banner`, caption: active.category })} className="relative block aspect-[16/5] w-full cursor-zoom-in overflow-hidden">
+                       <Image unoptimized src={active.banner} alt={`${active.category} banner`} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
+                     </button>
                   </figure>
                 )}
-                {active.kind === "projects" ? <ProjectsGallery /> : (
+                 {active.kind === "projects" ? <ProjectsGallery onImageClick={setExpandedImage} /> : (
                   <div className="mt-6 border-t border-[var(--sq-line-strong)]">
-                    {active.entries.map((entry, index) => !entry.para && !entry.imgs ? (
-                      <p key={entry.title} className="border-b border-[var(--sq-line)] py-4 text-xs leading-relaxed text-[var(--sq-text-dim)]"><span className="mr-2 text-[var(--tui-green)]">#</span>{entry.title}</p>
-                    ) : (
-                      <article key={entry.title} className="border-b border-[var(--sq-line)] py-5">
-                        <div className="flex gap-3 text-sm leading-snug"><span className="shrink-0 text-[var(--tui-accent-muted)]">[{String(index + 1).padStart(2, "0")}]</span><h2 className="font-semibold text-[var(--sq-text-strong)]">{entry.title}</h2></div>
-                        {entry.para && <p className="mt-3 pl-11 text-xs leading-[1.85] text-[var(--sq-text-mid)]">{entry.para}</p>}
-                        {entry.imgs && entry.imgs.length > 0 && (
-                          <div className="mt-4 grid grid-cols-2 gap-2 pl-0 sm:grid-cols-3 sm:pl-11">
-                            {entry.imgs.map((image) => (
-                              <figure key={image.src} className="min-w-0 border border-[var(--sq-line)] bg-[var(--sq-inset)]">
-                                <div className="relative aspect-video overflow-hidden">
-                                  <Image unoptimized src={image.src} alt={image.desc || entry.title} fill sizes="(min-width: 1024px) 200px, 45vw" className="object-cover" />
-                                </div>
-                                {image.desc && <figcaption className="border-t border-[var(--sq-line)] px-2 py-1.5 text-[10px] text-[var(--sq-text-faint)]">{image.desc}</figcaption>}
-                              </figure>
-                            ))}
+                    {active.entries.map((entry, index) => {
+                      if (!entry.para && !entry.imgs && !entry.items && !entry.codeBlocks) return (
+                        <p key={entry.title} className="border-b border-[var(--sq-line)] py-4 text-xs leading-relaxed text-[var(--sq-text-dim)]"><span className="mr-2 text-[var(--tui-green)]">#</span>{entry.title}</p>
+                      );
+                      const collapsible = active.category === "My Setup";
+                      const EntryContainer = collapsible ? "details" : "article";
+                      const heading = <><span className="shrink-0 text-[var(--tui-accent-muted)]">[{String(index + 1).padStart(2, "0")}]</span><h2 className="font-semibold text-[var(--sq-text-strong)]">{entry.title}</h2></>;
+                      return (
+                        <EntryContainer key={entry.title} open={collapsible && entry.title === "Hardware gear" ? true : undefined} className="group border-b border-[var(--sq-line)] py-5">
+                          {collapsible ? (
+                            <summary className="flex cursor-pointer list-none items-center gap-3 text-sm leading-snug focus-visible:outline-2 focus-visible:outline-[#ff8a23] [&::-webkit-details-marker]:hidden">
+                              {heading}<ChevronDown size={16} className="ml-auto shrink-0 text-[var(--tui-accent-muted)] transition-transform group-open:rotate-180" />
+                            </summary>
+                          ) : <div className="flex gap-3 text-sm leading-snug">{heading}</div>}
+                          <div>
+                         {entry.para && <p className="mt-3 pl-11 text-xs leading-[1.85] text-[var(--sq-text-mid)]">{entry.para}</p>}
+                         {entry.items && (
+                           <dl className="mt-4 pl-11">
+                             {entry.items.map((item) => (
+                               <div key={item.label} className="grid gap-1 border-t border-[var(--sq-line-soft)] py-2.5 text-xs sm:grid-cols-[120px_1fr] sm:gap-3">
+                                 <dt className="text-[var(--tui-accent-muted)]">{item.label}</dt>
+                                 <dd className="min-w-0 leading-relaxed text-[var(--sq-text-mid)]">{item.detail}</dd>
+                               </div>
+                             ))}
+                           </dl>
+                         )}
+                         {entry.codeBlocks && (
+                           <div className="mt-4 space-y-4 pl-0 sm:pl-11">
+                             {entry.codeBlocks.map((file) => <ConfigCodeBlock key={file.href} file={file} />)}
+                           </div>
+                         )}
+                         {entry.imgs && entry.imgs.length > 0 && (
+                           <QuestImageGallery title={entry.title} images={entry.imgs} poster={entry.imageFormat === "poster"} contain={entry.imageFormat === "contain"} collapsible={active.category === "Rewatches"} onImageClick={setExpandedImage} />
+                         )}
                           </div>
-                        )}
-                      </article>
-                    ))}
+                        </EntryContainer>
+                      );
+                    })}
                   </div>
                 )}
               </motion.div>
@@ -453,6 +486,9 @@ export default function OrangeDial() {
         </div>
       </div>
       </div>
+      <AnimatePresence>
+        {expandedImage && <ImageLightbox key={expandedImage.src} image={expandedImage} onClose={closeImage} />}
+      </AnimatePresence>
     </main>
   );
 }

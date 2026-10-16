@@ -238,16 +238,20 @@ export const SIDE_QUESTS = [
       "https://w0.peakpx.com/wallpaper/950/780/HD-wallpaper-linux-union-red-sycle-linux-ussr-hammer-soviet-union.jpg",
     entries: [
       {
-        title: "Distribution I am using",
-        para: "Arch Linux, yeah mainly because of memes. Took a weekend to install, years to appreciate.",
+        title: "love for Linux",
+        para: "I've been using Linux for about 8 years now (flex). Installed it for the first time in 6th grade it was Kali, of course, because I wanted to be like Mr. Robot, Peak script kiddie era. Then I moved to Garuda, hopped through pretty much all the popular distros including sid and gentoo, broke things, fixed things, and kept learning. Eventually I f'ed with Arch and stayed. Arch lets me make my computer feel like MINE, only con is that I probably spend way too long tweaking.",
       },
       {
-        title: "Window Manager",
-        para: "Hyprland The Tiling, animations are so goated, and a config file that keeps growing till the end of time",
+        title: "Current Linux setup",
+        para: "Arch with Hyprland and Kitty. I came for the tiling and smooth animations but stayed for the endless config rabbit hole. It's the setup I keep coming back to after all that distro hopping.",
+      },
+      {
+        title: "Waybar + Rofi rice",
+        para: "My earlier Hyprland setup: Waybar with rofi, It was exaclty how i wanted it to be. Here's how it looked.",
         imgs: [
           {
             src: "/side-quest/entries/distribution-entry-1.webp",
-            desc: "desktop",
+            desc: "desktop + Waybar",
           },
           {
             src: "/side-quest/entries/distribution-entry-2.webp",
@@ -255,7 +259,7 @@ export const SIDE_QUESTS = [
           },
           {
             src: "/side-quest/entries/distribution-entry-3.webp",
-            desc: "d runner (rofi)",
+            desc: "Rofi app launcher",
           },
           {
             src: "/side-quest/entries/distribution-entry-4.webp",
@@ -263,18 +267,12 @@ export const SIDE_QUESTS = [
           },
         ],
       },
-
       {
-        title: "Terminal",
-        para: "Kitty with powerlvl10k and starship prompt, look kinda trash but yeah works",
-      },
-
-      {
-        title: "[UPDATE] trying out caelstia shell dots",
-        para: " sick animations and pannels idk maybe too much aint that minimal but ill try using this as my daily driver for month.",
+        title: "Caelestia rice",
+        para: "After my Waybar + Rofi setup I tried the Caelestia shell dots (holy eye candy). The panels and animations were a lot more than my old minimal setup, but I gave it a proper run as my daily driver with some customization and tweaks ofc!",
         imgs: [{
           src: "/side-quest/entries/new_shell-1.png",
-          desc: "media pannel",
+          desc: "media panel",
         },
           {
             src: "/side-quest/entries/new_shell-2.png",
@@ -282,18 +280,28 @@ export const SIDE_QUESTS = [
           },
           {
             src: "/side-quest/entries/new_shell-3.png",
-            desc: "notification + power menu",
+            desc: "notifications + power menu",
           },
           {
             src: "/side-quest/entries/new_shell-4.png",
-            desc: "performance pannel",
+            desc: "performance panel",
           },
           {
             src: "/side-quest/entries/new_shell-5.png",
-            desc: "dashboard pannel",
+            desc: "dashboard panel",
           },
         ],
       }
+    ],
+  },
+  {
+    category: "Quickshell Rice",
+    entries: [
+      {
+        title: "The latest rice",
+        para: "Caelestia got me hooked on what a shell could look and feel like, but you know how it goes: after enough tweaking I wanted to make the whole thing feel more like mine. So the latest chapter is my Quickshell rice on Arch + Hyprland. I'm taking the bits I loved about Caelestia and experimenting with my own layout and interactions instead of calling the old setup done. The rice rabbit hole never ends, and honestly that's half the fun.",
+      },
+      {title: "ill add details later here!"}
     ],
   },
   {
@@ -312,11 +320,11 @@ export const SIDE_QUESTS = [
     ],
   },
   {
-    category: "anime",
-    banner:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVk2tnmQWZnbHtGOAvjp2c4Ngml7-XGTGICXpAsIibIA&s=10"
+    category: "Rewatches",
+    banner:"https://imgs.search.brave.com/nn7YlrhrEhqCqHxqf0TNCyNwgkc5DFTzD6135h8GNuk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/amFncmFuaW1hZ2Vz/LmNvbS9pbWFnZXMv/bmV3aW1nLzIzMDQy/MDI0LzIzXzA0XzIw/MjQtc2F0eWFqaXRf/cmF5X2RlYXRoX2Fu/bml2ZXJzYXJ5XzIz/NzAyNTMwX20ud2Vi/cA"
     ,entries: [
       {
-        title: "My favourites",
+        title: "Animes",
         para: "Attack On Titan (none of em can top this), Naruto, Vinland Saga, Hajime no Ippo ,Code Geass, Silent Voice.",
         imgs: [
           {
@@ -346,31 +354,91 @@ export const SIDE_QUESTS = [
         ],
       },
       {
-        title: "Recent",
-        para: "none, I'm too lazy now",
+        title: "Movies",
+        imageFormat: "poster",
+        imgs: [
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/3/33/Taxi_Driver_%281976_film_poster%29.jpg",
+            desc: "Taxi Driver (1976)",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/1/18/Rocky_poster.jpg",
+            desc: "Rocky (1976)",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg",
+            desc: "Fight Club (1999)",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/d/d4/Nightcrawlerfilm.jpg",
+            desc: "Nightcrawler (2014)",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+            desc: "The Godfather (1972)",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/0/01/Whiplash_poster.jpg",
+            desc: "Whiplash (2014)",
+          },
+        ],
+      },
+      {
+        title: "Series",
+        imageFormat: "contain",
+        imgs: [
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_title_card.jpg",
+            desc: "Game of Thrones",
+          },
+          {
+            src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Breaking_Bad_logo.svg/500px-Breaking_Bad_logo.svg.png",
+            desc: "Breaking Bad",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/en/f/ff/Lost_in_Space_2018_series_Logo.jpg",
+            desc: "Lost in Space (2018)",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Affiche_Mr_Robot.jpg",
+            desc: "Mr. Robot",
+          },
+          {
+            src: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Black_Mirror_%28British_TV_series%29_logo.svg",
+            desc: "Black Mirror",
+          },
+        ],
       },
     ],
   },
   {
     category: "My Setup",
+    banner:"https://imgs.search.brave.com/bMfSVpc2JbPwbtHjg3ryy3c2rfjUcX03oTa7eDFnxr8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hZ3J0/ZWNoLmNvbS5hdS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAxNi8w/Ni9zaG90MDAwMS04/MDB4NDIwLnBuZy53/ZWJw",
     entries: [
       {
-        title: "Hardware",
-        para: "ASUS TUF Gaming A15 FA506ICB — AMD Ryzen 7 4800H, NVIDIA GeForce RTX 3050 Laptop GPU (4 GB), 16 GB RAM, ~477 GB NVMe storage, ~90 Wh battery.",
+        title: "Hardware gear",
+        items: [
+          { label: "Laptop", detail: "ASUS TUF Gaming A15 FA506ICB — Ryzen 7 4800H, RTX 3050 Laptop GPU (4 GB), 16 GB RAM, 512 GB NVMe, 90 Wh battery" },
+          { label: "Keyboard", detail: "EvoFox Katana S Mini with lubed blue switches" },
+          { label: "Phone", detail: "iQOO Neo 10R" },
+          { label: "Headphones", detail: "Spigen SA HP10" },
+          { label: "IEMs", detail: "Kz EDX pro" },
+          { label: "TWS", detail: "OnePlus Nord Buds 3 Pro" },
+        ],
       },
       {
-        title: "Operating System & Desktop",
-        para: "Arch Linux, Hyprland on Wayland, Caelestia Shell, Quickshell.",
+        title: "Terminal",
+        para: "Arch + Hyprland, Kitty for the terminal, zsh for the shell and Starship for the prompt. These are the shareable parts of the configs I'm using on this machine; local PATH entries and a missing Kitty theme include are left out.",
+        codeBlocks: [
+          { label: "zsh config (.zshrc)", href: "/side-quest/configs/zshrc" },
+          { label: "Starship config (starship.toml)", href: "/side-quest/configs/starship.toml" },
+          { label: "Kitty config (kitty.conf)", href: "/side-quest/configs/kitty.conf" },
+        ],
       },
       {
-        title: "Shell",
-        para: "zsh, starship.",
-      },
-      {
-        title: "Keyboard",
-        para: "EvoFox Katana S Mini (blue lubed switches).",
+        title: "IDE config",
+        para: "Coming soon — I'll add my editor setup and config here later.",
       },
     ],
   },
 ];
-

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { Brain, Box, Code, Layout } from "lucide-react";
 import { PROJECTS } from "../constants";
+import type { ExpandedImage } from "./ImageLightbox";
 
 type Project = {
   projectId: number;
@@ -23,7 +24,7 @@ const filters = [
   { label: "Other", value: "other", icon: Box },
 ];
 
-function ProjectRecord({ project }: { project: Project }) {
+function ProjectRecord({ project, onImageClick }: { project: Project; onImageClick: (image: ExpandedImage) => void }) {
   return (
     <article className="border-x border-b border-[var(--sq-line)] bg-[var(--sq-surface)] first:border-t">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--sq-line-soft)] bg-[var(--sq-header-tint)] px-3 py-2 text-[10px] uppercase tracking-[0.1em]">
@@ -31,9 +32,9 @@ function ProjectRecord({ project }: { project: Project }) {
         <span className="text-[var(--tui-green)]">● available</span>
       </div>
       <div className="grid gap-4 p-3 sm:grid-cols-[minmax(0,240px)_minmax(0,1fr)]">
-        <div className="relative aspect-video overflow-hidden border border-[var(--sq-line)] bg-[var(--sq-img-bg)]">
+        <button type="button" aria-label={`Expand ${project.projectName} preview`} onClick={() => onImageClick({ src: project.projectImg.src, alt: `${project.projectName} preview`, caption: project.projectName })} className="relative aspect-video cursor-zoom-in overflow-hidden border border-[var(--sq-line)] bg-[var(--sq-img-bg)]">
           <Image src={project.projectImg} alt={`${project.projectName} preview`} fill sizes="(min-width: 640px) 240px, 100vw" className="object-cover" />
-        </div>
+        </button>
         <div className="min-w-0">
           <h2 className="text-sm font-semibold text-[var(--sq-text-strong)]">{project.projectName}</h2>
           <p className="mt-2 text-xs leading-relaxed text-[var(--sq-text-mid)]">{project.projectDescriptionShort}</p>
@@ -54,7 +55,7 @@ function ProjectRecord({ project }: { project: Project }) {
   );
 }
 
-export default function ProjectsGallery() {
+export default function ProjectsGallery({ onImageClick }: { onImageClick: (image: ExpandedImage) => void }) {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const filteredProjects = useMemo(() => {
     if (!activeFilters.length) return PROJECTS;
@@ -97,7 +98,7 @@ export default function ProjectsGallery() {
       <div className="mt-3 mb-2 flex justify-between text-[10px] text-[var(--sq-text-faint)]"><span>NAME / DESCRIPTION</span><span>{filteredProjects.length} result(s)</span></div>
       <div>
         {filteredProjects.map((project) => (
-          <ProjectRecord key={project.projectId} project={project} />
+          <ProjectRecord key={project.projectId} project={project} onImageClick={onImageClick} />
         ))}
       </div>
       {!filteredProjects.length && (

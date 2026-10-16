@@ -2,7 +2,7 @@
   --landing-frame: 57.6rem;
   --orbit-radius: 205px;
   --dial-height: clamp(620px, calc(100dvh - 4rem), 680px);
-  --orbit-step: calc(var(--dial-height) / 6);
+  --orbit-step: calc(var(--dial-height) / 10);
   --orbit-origin: calc(100% - 1px);
   --card-width: 120px;
   font-family: var(--font-montserrat), sans-serif;
@@ -69,7 +69,7 @@
   left: var(--orbit-origin);
   top: 50%;
   width: calc(var(--orbit-radius) * 2);
-  height: calc(var(--orbit-step) * 4.2);
+  height: calc(var(--orbit-step) * 6);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -118,7 +118,7 @@
 }
 
 @media (max-width: 1023px) {
-  .orange-page { --dial-height: clamp(360px, 45dvh, 440px); --orbit-step: calc(var(--dial-height) / 5.4); --orbit-radius: clamp(165px, 31vw, 230px); --orbit-origin: 100%; --card-width: 130px; }
+  .orange-page { --dial-height: clamp(500px, 75dvh, 620px); --orbit-radius: clamp(165px, 31vw, 230px); --orbit-origin: 100%; --card-width: 130px; }
   .orange-dial { translate: var(--dial-drag) 0; transition: translate .3s cubic-bezier(.2,.8,.2,1), visibility 0s; }
   .orange-dial[data-open="false"] { translate: calc(100% + var(--dial-drag)) 0; visibility: hidden; pointer-events: none; transition: translate .3s cubic-bezier(.2,.8,.2,1), visibility 0s .3s; }
   .orange-dial[data-open="false"][data-dragging="true"] { visibility: visible; }
@@ -126,7 +126,7 @@
 }
 
 @media (max-width: 520px) {
-  .orange-page { --dial-height: clamp(280px, 36dvh, 320px); --orbit-step: calc(var(--dial-height) / 4.7); --orbit-radius: clamp(125px, 35vw, 170px); --card-width: 108px; }
+  .orange-page { --dial-height: clamp(460px, 70dvh, 560px); --orbit-radius: clamp(125px, 35vw, 170px); --card-width: 108px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

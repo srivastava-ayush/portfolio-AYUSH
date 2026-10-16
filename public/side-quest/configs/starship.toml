@@ -1,0 +1,100 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = """
+[╭─](bold bright-black)$os$username$directory$git_branch$git_status$python$nodejs
+[╰─](bold bright-black)$character"""
+
+right_format = """$cmd_duration$memory_usage"""
+
+# Arch
+[os]
+disabled = true
+style = "bold cyan"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Arch = ""
+
+# User
+[username]
+show_always = true
+style_user = "bold white"
+style_root = "bold red"
+format = "[ ]($style)"
+
+# Directory
+[directory]
+style = "bold blue"
+format = "(bold blue)[  $path ](bold white)(bold blue)"
+truncation_length = 3
+truncate_to_repo = true
+home_symbol = "~"
+
+# Git
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "(bold purple)[ $symbol$branch ]($style)(bold purple)"
+
+[git_status]
+style = "bold red"
+format = "[ $all_status$ahead_behind ]($style)"
+
+# Python
+[python]
+symbol = " "
+style = "bold yellow"
+format = "[ $symbol$version( $virtualenv) ]($style)"
+
+# Node
+[nodejs]
+symbol = " "
+style = "bold green"
+format = "[ $symbol$version ]($style)"
+
+# Command duration
+[cmd_duration]
+min_time = 1000
+style = "bold yellow"
+format = "[󱎫 $duration]($style) "
+
+# Memory
+[memory_usage]
+disabled = false
+threshold = 70
+symbol = "󰍛 "
+style = "bold cyan"
+format = "[$symbol${ram_pct}]($style) "
+
+# Battery
+[battery]
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰁿 "
+
+[[battery.display]]
+threshold = 30
+style = "bold red"
+
+[[battery.display]]
+threshold = 60
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 100
+style = "bold green"
+
+# Time
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "bold white"
+format = "[󰥔 $time]($style)"
+
+# Prompt character
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold cyan)"
