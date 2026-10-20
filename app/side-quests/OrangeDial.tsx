@@ -162,7 +162,26 @@ export default function OrangeDial() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.altKey || event.ctrlKey || event.metaKey || document.querySelector('[aria-modal="true"]')) return;
       const element = event.target as HTMLElement;
-      if (element.closest(".orange-content, input, textarea, select, [contenteditable], a")) return;
+      if (element.closest("input, textarea, select, [contenteditable]")) return;
+      if (event.key === "h" || event.key === "l") {
+        event.preventDefault();
+        if (event.key === "h") {
+          if (window.matchMedia("(max-width: 1023px)").matches) setDialOpen(true);
+          requestAnimationFrame(() => dialRef.current?.focus());
+        } else {
+          setDialOpen(false);
+          contentRef.current?.focus();
+        }
+        return;
+      }
+      if (element === contentRef.current && (event.key === "j" || event.key === "k" || event.key.startsWith("Arrow"))) {
+        const direction = event.key === "j" || event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+        event.preventDefault();
+        const scroller = window.matchMedia("(min-width: 1024px)").matches ? contentRef.current : window;
+        scroller?.scrollBy({ top: direction * 120, behavior: "smooth" });
+        return;
+      }
+      if (element.closest(".orange-content, a")) return;
       if (element.closest("button") && !element.closest(".orange-dial")) return;
       if (event.key === "j" || event.key === "ArrowDown" || event.key === "ArrowRight") {
         event.preventDefault();
@@ -389,7 +408,7 @@ export default function OrangeDial() {
           />
         </section>
 
-        <section ref={contentRef} data-lenis-prevent aria-live="polite" className="orange-content relative min-w-0 font-mono lg:h-[var(--dial-height)] lg:overflow-y-auto lg:overscroll-contain">
+        <section ref={contentRef} tabIndex={-1} data-lenis-prevent aria-label="Side quest content" aria-live="polite" className="orange-content relative min-w-0 font-mono lg:h-[var(--dial-height)] lg:overflow-y-auto lg:overscroll-contain">
           <div className="sticky top-16 z-20 border-b border-[var(--sq-line)] bg-[var(--sq-surface-header)] px-4 backdrop-blur-md md:top-7 md:px-6 lg:top-0">
             <div className="flex h-9 items-center justify-between gap-3 text-[11px] text-[var(--sq-text-mid)]">
               <span className="truncate"><span className="text-[var(--tui-green)]">$</span> cat {active.category.toLowerCase().replaceAll(" ", "-")}.log</span>
@@ -456,15 +475,15 @@ export default function OrangeDial() {
         </section>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-dotted border-[var(--sq-line-strong)] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--sq-text-faint)] md:px-5">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <span className="flex flex-col rounded-full border border-[var(--sq-line-strong)] p-1"><ArrowUp size={11} /><ArrowDown size={11} /></span>
+      <footer className="grid min-w-0 gap-4 border-t border-dotted border-[var(--sq-line-strong)] px-4 py-4 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--sq-text-faint)] md:px-5 lg:grid-cols-[30%_minmax(0,1fr)] lg:gap-0">
+        <div className="flex min-w-0 flex-col gap-2 lg:pr-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="flex shrink-0 flex-col rounded-full border border-[var(--sq-line-strong)] p-1"><ArrowUp size={11} /><ArrowDown size={11} /></span>
             <span className="lg:hidden">Swipe left to open · right to close</span>
             <span className="hidden lg:inline">Scroll / drag / swipe</span>
             <span className="text-[#ff8a23]">{active.number} — {String(total).padStart(2, "0")}</span>
           </div>
-          <div className="flex flex-col gap-1.5 pl-6 text-[var(--sq-text-dim)]">
+          <div className="flex flex-col gap-1.5 pl-[30px] text-[var(--sq-text-dim)]">
             <div className="flex items-center gap-1.5">
               <kbd className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-[3px] border border-[var(--sq-line-strong)] bg-[var(--sq-header-tint)] px-1 text-[10px] leading-none text-[#9db78c]">J</kbd>
               <kbd className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-[3px] border border-[var(--sq-line-strong)] bg-[var(--sq-header-tint)] px-1 text-[10px] leading-none text-[#9db78c]">↓</kbd>
@@ -477,14 +496,20 @@ export default function OrangeDial() {
               <kbd className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-[3px] border border-[var(--sq-line-strong)] bg-[var(--sq-header-tint)] px-1 text-[10px] leading-none text-[#9db78c]">←</kbd>
               <span className="ml-1">rotate up</span>
             </div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <kbd className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-[3px] border border-[var(--sq-line-strong)] bg-[var(--sq-header-tint)] px-1 text-[10px] leading-none text-[#9db78c]">H</kbd>
+              <span>focus dial</span>
+              <kbd className="ml-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-[3px] border border-[var(--sq-line-strong)] bg-[var(--sq-header-tint)] px-1 text-[10px] leading-none text-[#9db78c]">L</kbd>
+              <span>focus content</span>
+            </div>
           </div>
         </div>
-        <div className="flex flex-wrap gap-2" aria-label="Select option">
+        <nav className="flex min-w-0 flex-wrap content-start gap-2 lg:pl-4" aria-label="Select option">
           {options.map((option, index) => (
             <button key={option.number} type="button" onClick={() => selectOption(index)} aria-label={`Select ${option.category}`} aria-current={index === selected ? "true" : undefined} className={`border px-2.5 py-1.5 text-[10px] uppercase tracking-wide transition-colors ${index === selected ? "border-[var(--sq-hover-border)] bg-[var(--sq-option-active-bg)] text-[var(--sq-option-active-fg)]" : "border-[var(--sq-line)] text-[var(--sq-text-dim)] hover:border-[var(--sq-hover-border)] hover:text-[var(--sq-fg)]"}`}>[{option.number}] {option.category}</button>
           ))}
-        </div>
-      </div>
+        </nav>
+      </footer>
       </div>
       <AnimatePresence>
         {expandedImage && <ImageLightbox key={expandedImage.src} image={expandedImage} onClose={closeImage} />}

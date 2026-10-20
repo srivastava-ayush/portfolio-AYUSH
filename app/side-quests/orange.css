@@ -62,7 +62,7 @@
 .orange-dial-clip { position: absolute; inset: 0; overflow: hidden; }
 .orange-dial-spin { position: absolute; inset: 0; transform-origin: var(--orbit-origin) 50%; }
 .orange-dial:active { cursor: grabbing; }
-.orange-dial:focus-visible { outline: 2px solid #ff8a23; outline-offset: -2px; }
+.orange-dial:focus-visible { outline: 2px solid var(--sq-line-strong); outline-offset: -2px; }
 
 .orange-orbit {
   position: absolute;
@@ -87,6 +87,7 @@
   --tui-accent-muted: #a9744b;
   --tui-green: #9db78c;
 }
+.orange-content:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--sq-line-strong); }
 
 @property --beam-angle {
   syntax: "<angle>";

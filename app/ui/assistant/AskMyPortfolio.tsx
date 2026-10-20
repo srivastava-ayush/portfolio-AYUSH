@@ -15,7 +15,7 @@ export default function AskMyPortfolio({ onClick }: { onClick?: () => void }) {
       <Sparkle
         size={13}
         weight="fill"
-        className="shrink-0 text-[var(--accent-color)]/80 transition-colors group-hover:text-[var(--accent-color)]"
+        className="shrink-0 text-[var(--text-color)]/80 transition-colors group-hover:text-[var(--accent-color)]"
       />
       <span className="hidden sm:inline whitespace-nowrap">Ask Orange</span>
     </button>
