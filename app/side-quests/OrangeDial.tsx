@@ -298,9 +298,9 @@ export default function OrangeDial() {
   };
 
   return (
-    <main className="orange-page flex min-h-dvh flex-col items-center text-(--sq-fg)">
+    <main className="orange-page flex min-h-dvh flex-col items-center overflow-x-hidden text-(--sq-fg)">
       <CustomCursor />
-      <div className="w-full max-w-[57.6rem]">
+      <div className="w-full max-w-[57.6rem] overflow-x-hidden">
       <Navbar onSectionNavigate={() => selectOption(0)} />
 
       <div className="orange-split flex flex-col pt-16 md:pt-0 lg:grid lg:grid-cols-[30%_70%]">
@@ -408,14 +408,14 @@ export default function OrangeDial() {
           />
         </section>
 
-        <section ref={contentRef} tabIndex={-1} data-lenis-prevent aria-label="Side quest content" aria-live="polite" className="orange-content relative min-w-0 font-mono lg:h-[var(--dial-height)] lg:overflow-y-auto lg:overscroll-contain">
-          <div className="sticky top-16 z-20 border-b border-[var(--sq-line)] bg-[var(--sq-surface-header)] px-4 backdrop-blur-md md:top-7 md:px-6 lg:top-0">
+        <section ref={contentRef} tabIndex={-1} data-lenis-prevent aria-label="Side quest content" aria-live="polite" className="orange-content relative w-full min-w-0 max-w-full overflow-x-hidden font-mono lg:h-[var(--dial-height)] lg:overflow-y-auto lg:overscroll-contain">
+          <div className="sticky top-16 z-20 border-b border-[var(--sq-line)] bg-[var(--sq-surface-header)] px-3 backdrop-blur-md sm:px-4 md:top-7 md:px-6 lg:top-0">
             <div className="flex h-9 items-center justify-between gap-3 text-[11px] text-[var(--sq-text-mid)]">
-              <span className="truncate"><span className="text-[var(--tui-green)]">$</span> cat {active.category.toLowerCase().replaceAll(" ", "-")}.log</span>
+              <span className="min-w-0 truncate"><span className="text-[var(--tui-green)]">$</span> cat {active.category.toLowerCase().replaceAll(" ", "-")}.log</span>
               <span className="shrink-0 text-[var(--sq-text-faint)]">{active.number}/{String(total).padStart(2, "0")}</span>
             </div>
           </div>
-          <div className="px-4 pb-8 pt-7 md:px-6">
+          <div className="px-3 pb-8 pt-7 sm:px-4 md:px-6">
             <AnimatePresence mode="wait">
               <motion.div key={active.number} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
                 <h1 className="text-[clamp(1.2rem,2.4vw,1.7rem)] font-semibold leading-tight tracking-[-0.04em] text-[var(--sq-fg)]"><span className="mr-2.5 text-[#ff8a23]">&gt;</span>{active.category}</h1>
@@ -475,7 +475,7 @@ export default function OrangeDial() {
         </section>
       </div>
 
-      <footer className="grid min-w-0 gap-4 border-t border-dotted border-[var(--sq-line-strong)] px-4 py-4 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--sq-text-faint)] md:px-5 lg:grid-cols-[30%_minmax(0,1fr)] lg:gap-0">
+      <footer className="grid w-full min-w-0 max-w-full gap-4 overflow-x-hidden border-t border-dotted border-[var(--sq-line-strong)] px-3 py-4 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--sq-text-faint)] sm:px-4 md:px-5 lg:grid-cols-[30%_minmax(0,1fr)] lg:gap-0">
         <div className="flex min-w-0 flex-col gap-2 lg:pr-4">
           <div className="flex flex-wrap items-center gap-2">
             <span className="flex shrink-0 flex-col rounded-full border border-[var(--sq-line-strong)] p-1"><ArrowUp size={11} /><ArrowDown size={11} /></span>
